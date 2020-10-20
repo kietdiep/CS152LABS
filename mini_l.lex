@@ -53,8 +53,8 @@ DIGIT    [0-9]
 ":"            {printf("COLON\n");           currPos += yyleng;}
 ","            {printf("COMMA\n");           currPos += yyleng;}
 "?"            {printf("QUESTION\n");        currPos += yyleng;}
-"["            {printf("L_BRACKET\n");       currPos += yyleng;}
-"]"            {printf("R_BRACKET\n");       currPos += yyleng;}
+"["            {printf("L_SQUARE_BRACKET\n"); currPos += yyleng;}
+"]"            {printf("R_SQUARE_BRACKET\n"); currPos += yyleng;}
 ":="           {printf("ASSIGN\n");          currPos += yyleng;}
 
 [a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {printf("IDENT %s\n", yytext); currPos += yyleng;}
