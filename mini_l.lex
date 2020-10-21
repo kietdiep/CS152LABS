@@ -52,7 +52,7 @@ DIGIT    [0-9]
 ";"            {printf("SEMICOLON\n");       currPos += yyleng;}
 ":"            {printf("COLON\n");           currPos += yyleng;}
 ","            {printf("COMMA\n");           currPos += yyleng;}
-"?"            {printf("QUESTION\n");        currPos += yyleng;}
+
 "["            {printf("L_SQUARE_BRACKET\n"); currPos += yyleng;}
 "]"            {printf("R_SQUARE_BRACKET\n"); currPos += yyleng;}
 ":="           {printf("ASSIGN\n");          currPos += yyleng;}
