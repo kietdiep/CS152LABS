@@ -372,24 +372,24 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[182] =
     {   0,
         0,    0,   60,   58,   56,   57,   58,   36,   43,   44,
-       34,   33,   47,   32,   58,   35,   52,   46,   45,   39,
-       58,   40,   51,   48,   49,   53,   51,   51,   51,   51,
-       51,   51,   51,   51,   51,   51,   51,   51,   51,   56,
-       55,   52,   52,   52,   53,   53,   50,   41,   38,   37,
-       42,   51,   51,   54,   51,   51,   51,   51,   51,   14,
-       51,   51,   51,   51,   51,    8,   51,   51,    7,   28,
-       51,   51,   51,   51,   51,   51,   55,   52,    0,    0,
-       52,   51,   27,   51,   51,   51,   51,   51,   51,   51,
-       51,   51,   51,   29,   51,   51,   51,   51,   51,   51,
+       34,   33,   47,   32,   58,   35,   51,   46,   45,   39,
+       58,   40,   52,   48,   49,   54,   52,   52,   52,   52,
+       52,   52,   52,   52,   52,   52,   52,   52,   52,   56,
+       55,   51,   51,   51,   54,   54,   50,   41,   38,   37,
+       42,   52,   52,   53,   52,   52,   52,   52,   52,   14,
+       52,   52,   52,   52,   52,    8,   52,   52,    7,   28,
+       52,   52,   52,   52,   52,   52,   55,   51,    0,    0,
+       51,   52,   27,   52,   52,   52,   52,   52,   52,   52,
+       52,   52,   52,   29,   52,   52,   52,   52,   52,   52,
 
-       51,   52,   51,   51,   51,   51,   11,   51,   51,   51,
-       51,   24,   51,   51,   51,   51,   25,   51,    9,   30,
-       51,   51,    6,   51,   22,   51,   51,   51,   10,   51,
-       51,   31,   51,   51,   51,   51,   13,   26,   51,   51,
-       51,   51,   12,   51,   51,   51,   51,   51,   51,   51,
-       19,   51,   51,   51,   51,   18,   51,   21,   51,   51,
-        5,    2,   51,   51,   51,   51,   23,   51,   51,    1,
-       17,   51,   20,   51,   16,    4,   51,   51,   15,    3,
+       52,   51,   52,   52,   52,   52,   11,   52,   52,   52,
+       52,   24,   52,   52,   52,   52,   25,   52,    9,   30,
+       52,   52,    6,   52,   22,   52,   52,   52,   10,   52,
+       52,   31,   52,   52,   52,   52,   13,   26,   52,   52,
+       52,   52,   12,   52,   52,   52,   52,   52,   52,   52,
+       19,   52,   52,   52,   52,   18,   52,   21,   52,   52,
+        5,    2,   52,   52,   52,   52,   23,   52,   52,    1,
+       17,   52,   20,   52,   16,    4,   52,   52,   15,    3,
         0
     } ;
 
@@ -1151,47 +1151,47 @@ YY_RULE_SETUP
 case 51:
 YY_RULE_SETUP
 #line 60 "mini_l.lex"
-{printf("IDENT %s\n", yytext); currPos += yyleng;}
+{printf("NUMBER %s\n", yytext); currPos += yyleng;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 62 "mini_l.lex"
-{printf("NUMBER %s\n", yytext); currPos += yyleng;}
+#line 61 "mini_l.lex"
+{printf("IDENT %s\n", yytext); currPos += yyleng;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 64 "mini_l.lex"
-{ printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
+#line 62 "mini_l.lex"
+{printf("Error at line %d, column %d: ", currLine, currPos); printf("identifier \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 66 "mini_l.lex"
-{printf("Error at line %d, column %d: ", currLine, currPos); printf("identifier \"%s\" cannot ", yytext); printf("end with an underscore\n");  exit(0);}
+#line 63 "mini_l.lex"
+{ printf("Error at line %d, column %d: ", currLine, currPos);  printf("identifier \"%s\" ", yytext);  printf(" must begin with a letter\n"); exit(0);}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 68 "mini_l.lex"
+#line 65 "mini_l.lex"
 {currLine++; currPos = 1;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 70 "mini_l.lex"
+#line 66 "mini_l.lex"
 {/* ignore spaces */ currPos += yyleng;}
 	YY_BREAK
 case 57:
 /* rule 57 can match eol */
 YY_RULE_SETUP
-#line 72 "mini_l.lex"
+#line 67 "mini_l.lex"
 {currLine++; currPos = 1;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 74 "mini_l.lex"
+#line 68 "mini_l.lex"
 {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 76 "mini_l.lex"
+#line 70 "mini_l.lex"
 ECHO;
 	YY_BREAK
 #line 1198 "lex.yy.c"
@@ -2188,26 +2188,21 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 76 "mini_l.lex"
+#line 70 "mini_l.lex"
 
 
 
-int main(int argc, char ** argv)
-{
-   if(argc >= 2)
-   {
+int main(int argc, char ** argv){
+   if(argc >= 2){
       yyin = fopen(argv[1], "r");
-      if(yyin == NULL)
-      {
+      if(yyin == NULL){
          yyin = stdin;
       }
    }
-   else
-   {
+   else{
       yyin = stdin;
    }
    
-   yylex();
-   
+   yylex();  
 }
 
