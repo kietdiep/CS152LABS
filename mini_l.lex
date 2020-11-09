@@ -2,7 +2,7 @@
    int currLine = 1, currPos = 1;
 %}
 
-//DIGIT    [0-9]
+DIGIT    [0-9]
 
 %%
 "function"     {printf("FUNCTION\n");        currPos += yyleng;}

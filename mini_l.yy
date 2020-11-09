@@ -47,8 +47,41 @@ yy::parser::symbol_type yylex();
 
 	/* specify tokens, type of non-terminals and terminals here */
 %token FUNCTION
-	/* end of token specifications */
+%token DECLARATION
+%token IDENTIFIER
+%token BEGINPARAMS
+%token ENDPARAMS
+%token BEGINLOCALS
+%token ENDLOCALS
+%token BEGINBODY
+%token STATEMENT
+%token ENDBODY
+%token INTEGER /*MY NOT NEED THIS ONE*/
+%token ARRAY
+%token OF
+%token VAR
+%token ASSIGN
+%token EXPRESSION
 
+
+%token IF
+%token BOOLEXP
+%token THEN
+%token ENDIF
+%token ELSE
+%token WHILE
+
+%token COMMA
+%token SEMICOLON
+%token COLON
+%token L_SQUARE_BRACKET
+%token R_SQUARE_BRACKET
+
+
+%token <int> NUMBER
+%token <string> IDENT
+	/* end of token specifications */
+	
 %%
 
 %start prog_start;
@@ -59,6 +92,13 @@ yy::parser::symbol_type yylex();
 	 */
 
 prog_start: 
+	|
+	PROGRAM {cout << "program starting here" << endl;}
+	;
+
+identifier: 
+	IDENT {cout << "ident -> IDENT " << $1 << endl;}
+	;
 
 
 %%
