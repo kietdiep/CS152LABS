@@ -185,6 +185,71 @@ write:
 	WRITE {cout << "WRITE " << endl;}
 	;
 
+or:
+	OR {cout << "OR ";}
+	;
+
+and:
+	AND {cout << "AND ";}
+	;
+
+not:
+        NOT {cout << "NOT ";} /*no not found*/
+        ;
+
+true:
+        TRUE {cout << "TRUE ";} /*no true found*/
+        ;
+
+false:
+        FALSE {cout << "FALSE " << endl;}
+        ;
+
+for:
+        FOR {cout << "FOR ";} /*no for found*/
+        ;
+
+do:
+        DO {cout << "DO ";}
+        ;
+
+if:
+        IF {cout << "OR ";}
+        ;
+
+then:
+        THEN {cout << "THEN ";}
+        ;
+
+endif:
+        ENDIF {cout << "ENDIF " << endl;}
+        ;
+
+else:
+        ELSE {cout << "ELSE ";}
+        ;
+
+while:
+        WHILE {cout << "WHILE ";}
+        ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
