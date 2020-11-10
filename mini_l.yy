@@ -139,6 +139,55 @@ array:
 
 of:
 	OF { cout << "OF ";}
+	;
+
+beginlocals:
+	BEGIN_LOCALS {cout << "BEGIN_LOCALS ";}
+	;
+
+endlocals:
+	END_LOCALS {cout << "END_LOCALS ";}
+	;
+
+beginbody:
+	BEGINBODY {cout << "BEGIN_BODY ";}
+	;
+
+endbody:
+	END_BODY {cout << "END_BODY " << endl;}
+	;
+
+return:
+	RETURN {cout << "RETURN " << endl;} /*couldnt find return anywhere in examples*/
+	;
+
+beginloop:
+	BEGINLOOP {cout << "BEGINLOOP ";}
+	;
+
+endloop:
+        END_LOOP {cout << "END_LOOP ";}
+        ;
+
+continue:
+        CONTINUE {cout << "CONTINUE " << endl;}
+        ;
+
+exit:
+        EXIT {cout << "EXIT " << endl;} /*couldnt find exit anywhere in examples*/
+        ;
+
+read:
+	READ {cout << "READ " << endl;}
+	;
+
+write:
+	WRITE {cout << "WRITE " << endl;}
+	;
+
+
+
+
 %%
 
 int main(int argc, char *argv[])
