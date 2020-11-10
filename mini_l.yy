@@ -47,35 +47,57 @@ yy::parser::symbol_type yylex();
 
 	/* specify tokens, type of non-terminals and terminals here */
 %token FUNCTION
-%token DECLARATION
+/*%token DECLARATION*/
 %token IDENTIFIER
 %token BEGINPARAMS
 %token ENDPARAMS
+%token INTEGER
+%token ARRAY
+%token OF
 %token BEGINLOCALS
 %token ENDLOCALS
 %token BEGINBODY
-%token STATEMENT
 %token ENDBODY
-%token INTEGER /*MY NOT NEED THIS ONE*/
-%token ARRAY
-%token OF
-%token VAR
-%token ASSIGN
-%token EXPRESSION
+%token RETURN
+%token BEGINLOOP
+%token ENDLOOP
+%token CONTINUE
+%token EXIT
+%token READ
+%token WRITE
 
-
+%token OR
+%token AND
+%token NOT
+%token TRUE
+%token FALSE
+%token FOR
+%token DO
 %token IF
-%token BOOLEXP
 %token THEN
 %token ENDIF
 %token ELSE
 %token WHILE
 
+%token MINUS
+%token ADD
+%token MULTIPLICATION
+%token DIVISION
+%token MOD
+%token EQUAL
+%token POINTED_BRACKETS
+%token LESS_THAN_BRACKET
+%token GREATER_THAN BRACKET
+%token LESS_THAN_OR_EQUAL
+%token GREATER_THAN_OR_EQUAL
+%token L_PARENTHASIS
+%token R_PARENTHASIS
 %token COMMA
 %token SEMICOLON
 %token COLON
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
+%token ASSIGN
 
 
 %token <int> NUMBER
