@@ -49,15 +49,15 @@ yy::parser::symbol_type yylex();
 %token FUNCTION
 /*%token DECLARATION*/
 %token IDENTIFIER
-%token BEGINPARAMS
-%token ENDPARAMS
+%token BEGIN_PARAMS
+%token END_PARAMS
 %token INTEGER
 %token ARRAY
 %token OF
-%token BEGINLOCALS
-%token ENDLOCALS
-%token BEGINBODY
-%token ENDBODY
+%token BEGIN_LOCALS
+%token END_LOCALS
+%token BEGIN_BODY
+%token END_BODY
 %token RETURN
 %token BEGINLOOP
 %token ENDLOOP
@@ -79,19 +79,19 @@ yy::parser::symbol_type yylex();
 %token ELSE
 %token WHILE
 
-%token MINUS
+%token SUB
 %token ADD
-%token MULTIPLICATION
-%token DIVISION
+%token MULT
+%token DIV
 %token MOD
-%token EQUAL
-%token POINTED_BRACKETS
-%token LESS_THAN_BRACKET
-%token GREATER_THAN BRACKET
-%token LESS_THAN_OR_EQUAL
-%token GREATER_THAN_OR_EQUAL
-%token L_PARENTHASIS
-%token R_PARENTHASIS
+%token EQ
+%token NEQ
+%token LT
+%token GT
+%token LTE
+%token GTE
+%token L_PAREN
+%token R_PAREN
 %token COMMA
 %token SEMICOLON
 %token COLON
@@ -114,16 +114,31 @@ yy::parser::symbol_type yylex();
 	 */
 
 prog_start: 
-	|
-	PROGRAM {cout << "program starting here" << endl;}
+	|FUNCTION {cout << "prog start -> functions" << endl;}
 	;
 
 identifier: 
 	IDENT {cout << "ident -> IDENT " << $1 << endl;}
 	;
 
+beginparams:
+	BEGIN_PARAMS {cout << "BEGIN_PARAMS ";}
+	;
 
+endparams:
+	END_PARAMS {cout << "END_PARAMS ";}
+	;
 
+integer:
+	INTEGER {cout << "INTEGER " << endl;}
+	;
+
+array:
+	ARRAY {cout << "ARRAY ";}
+	;
+
+of:
+	OF { cout << "OF ";}
 %%
 
 int main(int argc, char *argv[])
