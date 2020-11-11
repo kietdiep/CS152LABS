@@ -106,136 +106,31 @@ yy::parser::symbol_type yylex();
 	
 %%
 
-%start prog_start;
-
+%start program
 	/* define your grammars here use the same grammars 
 	 * you used in Phase 2 and modify their actions to generate codes
 	 * assume that your grammars start with prog_start
 	 */
 
-prog_start: 
-	|FUNCTION {cout << "prog start -> functions" << endl;}
+program: {cout << "program -> epsilon" << endl;} 
+	|program function {cout << "program -> functions" << endl;}
+	;
+
+function: FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGINBODY statement_loop ENDBODY {cout << "function -> FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGINBODY statement_loop ENDBODY" << endl;}
 	;
 
 identifier: 
 	IDENT {cout << "ident -> IDENT " << $1 << endl;}
 	;
 
-beginparams:
-	BEGIN_PARAMS {cout << "BEGIN_PARAMS ";}
+
+declaration_loop: {cout << "declaration_loop -> epsilon" << endl;}
+	|declaration_loop declaration SEMICOLON {cout << "declaration_loop -> declaration_loop declaration SEMICOLON" << endl;}
 	;
 
-endparams:
-	END_PARAMS {cout << "END_PARAMS ";}
+statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
+	|statement_loop statement SEMICOLON {cout << "statement_loop -> statement_loop statement SEMICOLON" << endl;}
 	;
-
-integer:
-	INTEGER {cout << "INTEGER " << endl;}
-	;
-
-array:
-	ARRAY {cout << "ARRAY ";}
-	;
-
-of:
-	OF { cout << "OF ";}
-	;
-
-beginlocals:
-	BEGIN_LOCALS {cout << "BEGIN_LOCALS ";}
-	;
-
-endlocals:
-	END_LOCALS {cout << "END_LOCALS ";}
-	;
-
-beginbody:
-	BEGINBODY {cout << "BEGIN_BODY ";}
-	;
-
-endbody:
-	END_BODY {cout << "END_BODY " << endl;}
-	;
-
-return:
-	RETURN {cout << "RETURN " << endl;} /*couldnt find return anywhere in examples*/
-	;
-
-beginloop:
-	BEGINLOOP {cout << "BEGINLOOP ";}
-	;
-
-endloop:
-        END_LOOP {cout << "END_LOOP ";}
-        ;
-
-continue:
-        CONTINUE {cout << "CONTINUE " << endl;}
-        ;
-
-exit:
-        EXIT {cout << "EXIT " << endl;} /*couldnt find exit anywhere in examples*/
-        ;
-
-read:
-	READ {cout << "READ " << endl;}
-	;
-
-write:
-	WRITE {cout << "WRITE " << endl;}
-	;
-
-or:
-	OR {cout << "OR ";}
-	;
-
-and:
-	AND {cout << "AND ";}
-	;
-
-not:
-        NOT {cout << "NOT ";} /*no not found*/
-        ;
-
-true:
-        TRUE {cout << "TRUE ";} /*no true found*/
-        ;
-
-false:
-        FALSE {cout << "FALSE " << endl;}
-        ;
-
-for:
-        FOR {cout << "FOR ";} /*no for found*/
-        ;
-
-do:
-        DO {cout << "DO ";}
-        ;
-
-if:
-        IF {cout << "OR ";}
-        ;
-
-then:
-        THEN {cout << "THEN ";}
-        ;
-
-endif:
-        ENDIF {cout << "ENDIF " << endl;}
-        ;
-
-else:
-        ELSE {cout << "ELSE ";}
-        ;
-
-while:
-        WHILE {cout << "WHILE ";}
-        ;
-
-
-
-
 
 
 
