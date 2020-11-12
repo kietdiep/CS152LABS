@@ -187,10 +187,37 @@ comp: EQ {cout << "comp -> EQ" << endl;}
 	|GTE {cout << "comp -> GTE" << endl;}
 	;
 
-expression:
+expression: mult_exp {cout << "expression -> mult_exp" << endl;}
+	|mult_exp add_mult_loop {cout << "expression -> mult_exp add_mult_loop" << endl;}
+	|mult_exp sub_mult_loop {cout << "expression -> mult_exp sub_mult_loop" << endl;}
+	;
+
+add_mult_loop:
+;
+
+sub_mult_loop:
+;
+
+mult_exp:
+;
+
+term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
+	|SUB var {cout << "term -> SUB var" << endl;}
+	|var {cout << "term -> var" << endl;}
+	|SUB number {cout << "term -> SUB number" << endl;}
+        |number {cout << "term -> number" << endl;}
+	|SUB L_PAREN expression R_PAREN {cout << "term -> SUB L_PAREN expression R_PAREN" << endl;}
+        |L_PAREN expression R_PAREN {cout << "term -> L_PAREN expression R_PAREN" << endl;}
 
 
+exp_loop: {cout << "exp_loop -> epsilon" << endl;}
+	|exp_loop expression COMMA {cout << "exp_loop -> exp_loop expression COMMA" << endl;}
+	;
 
+var: identifier {cout << "var -> identifier" << endl;}
+	|identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET {cout << "var -> identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET" << endl;}
+	|identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET {cout << "var -> identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET" << endl;}
+	
 
 
 
