@@ -192,13 +192,16 @@ expression: mult_exp {cout << "expression -> mult_exp" << endl;}
 	|mult_exp sub_mult_loop {cout << "expression -> mult_exp sub_mult_loop" << endl;}
 	;
 
-add_mult_loop:
+add_mult_loop:  ADD mult_exp {cout << "add_mult_loop -> ADD mult_exp" << endl;}
 ;
 
-sub_mult_loop:
+sub_mult_loop: SUB mult_exp {cout << "sub_mult_loop -> SUB mult_exp" << endl;}
 ;
 
-mult_exp:
+mult_exp: term {cout << "mult_exp -> term" << endl;}
+	| term MULT term {cout << "mult_exp -> term MULT term" << endl;}
+	| term DIV term {cout << "mult_exp -> term DIV term" << endl;}
+	| term MOD term {cout << "mult_exp -> term MOD term" << endl;}
 ;
 
 term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
