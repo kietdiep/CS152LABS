@@ -123,19 +123,46 @@ identifier:
 	IDENT {cout << "ident -> IDENT " << $1 << endl;}
 	;
 
+number:
+	NUMBER {cout << "number -> NUMBER " << $1 << endl;} /*make sure this is right*/
+	;
 
 declaration_loop: {cout << "declaration_loop -> epsilon" << endl;}
 	|declaration_loop declaration SEMICOLON {cout << "declaration_loop -> declaration_loop declaration SEMICOLON" << endl;}
 	;
 
 statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
-	|statement_loop statement SEMICOLON {cout << "statement_loop -> statement_loop statement SEMICOLON" << endl;}
+	|statement_loop statement SEMICOLON {cout << "statement_loop -> statement_loop statement SEMICOLON" << endl;}/*could be worng recursion*/
 	;
 
 
+declaration: identifier_loop COLON INTEGER {cout << "declaration -> identifier_loop COLON INTEGER" << endl;}
+	|identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
+	|identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" cout << endl;}
+	;
 
+identifier_loop: identifier {cout << "identifier_loop -> identifier" << endl;}
+	|identifier_loop identifier COMMA {cout << "identifier_loop -> identifier_loop identifier COMMA" << endl;}
+	;
 
+statement: var ASSIGN expression {cout << "statement  -> var ASSIGN expression" << endl;}
+	|IF bool_exp THEN statement_loop ENDIF {cout << "statement -> IF bool_exp THEN statement_loop ENDIF" << endl;}
+	|IF bool_exp THEN statement_loop ELSE statement_loop ENDIF {cout << "statement -> IF bool_exp THEN statement_loop ELSE statement_loop ENDIF" << endl;}
+	|WHILE bool_exp BEGINLOOP statement_loop ENDLOOP {cout << "statement -> WHILE bool_exp BEGINLOOP statement_loop ENDLOOP" << endl;}
+	|DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp {cout << "statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp" << endl;} 
+	|FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP {cout<< "statement -> FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP" << endl;}
+	|READ var_loop  {cout << "statement -> READ var_loop" << endl;}
+	|WRITE var_loop  {cout << "statement -> WRITE var_loop" << endl;} 
+	|CONTINUE {cout << "statement -> continue" << endl;}
+	|RETURN expression {cout << "statement -> RETURN expression" << endl;}
+	;
 
+var_loop: var {cout << "var_loop -> var" << endl;}
+	|var_loop var COMMA {cout << "var_loop -> var_loop var COMMA" << endl;} /*could be worng recursion*/
+	;
+
+bool_exp: relation_and_exp {cout << "bool_exp -> relation_and_exp" <<endl;}
+	|relation_and_exp OR bool_exp {cout << "bool_exp -> relation_and_exp OR bool_exp" <<endl;} /*having bool_exp at the end makes more sense to me but  could be wrong*/
 
 
 
