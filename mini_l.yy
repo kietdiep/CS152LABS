@@ -103,20 +103,18 @@ yy::parser::symbol_type yylex();
 %token <int> NUMBER
 %token <string> IDENT
 	/* end of token specifications */
-	
-%%
 
 %start program
 	/* define your grammars here use the same grammars 
 	 * you used in Phase 2 and modify their actions to generate codes
 	 * assume that your grammars start with prog_start
 	 */
-
+%%
 program: {cout << "program -> epsilon" << endl;} 
 	|program function {cout << "program -> functions" << endl;}
 	;
 
-function: FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGINBODY statement_loop ENDBODY {cout << "function -> FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGINBODY statement_loop ENDBODY" << endl;}
+function: FUNCTION identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY {cout << "function -> FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGIN_BODY statement_loop ENDBODY" << endl;}
 	;
 
 identifier: 
@@ -137,8 +135,8 @@ statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
 
 
 declaration: identifier_loop COLON INTEGER {cout << "declaration -> identifier_loop COLON INTEGER" << endl;}
-	|identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
-	|identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" cout << endl;}
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" cout << endl;}
 	;
 
 identifier_loop: identifier {cout << "identifier_loop -> identifier" << endl;}
@@ -218,8 +216,8 @@ exp_loop: {cout << "exp_loop -> epsilon" << endl;}
 	;
 
 var: identifier {cout << "var -> identifier" << endl;}
-	|identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET {cout << "var -> identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET" << endl;}
-	|identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET {cout << "var -> identifier L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET L_SQUARE_BRACKET EXPRESSION R_SQUARE BRACKET" << endl;}
+	|identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET {cout << "var -> identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl;}
+	|identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET L_SQUARE_BRACKET expression R_SQUARE_BRACKET {cout << "var -> identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl;}
 	
 
 
