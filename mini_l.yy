@@ -163,12 +163,31 @@ var_loop: var {cout << "var_loop -> var" << endl;}
 
 bool_exp: relation_and_exp {cout << "bool_exp -> relation_and_exp" <<endl;}
 	|relation_and_exp OR bool_exp {cout << "bool_exp -> relation_and_exp OR bool_exp" <<endl;} /*having bool_exp at the end makes more sense to me but  could be wrong*/
+	;
 
+relation_and_exp: relation_exp {cout << "bool_exp -> relation_exp" <<endl;}
+        |relation_exp OR relation_and_exp {cout << "bool_exp -> relation_exp OR relation_and_exp" <<endl;} /*having relation_and_exp at the end makes more sense to me but  could be wrong*/
+	;
 
+relation_exp: NOT expression comp expression {cout << "relation_exp -> NOT expression comp expression" << endl;}
+	|expression comp expression {cout << "relation_exp -> expression comp expression" << endl;}
+	|NOT TRUE {cout << "relation_exp -> NOT TRUE" << endl;}
+	|TRUE {cout << "relation_exp -> TRUE" << endl;}
+	|NOT FALSE {cout << "relation_exp -> NOT FALSE" << endl;}
+	|FALSE {cout << "relation_exp -> FALSE" << endl;}
+	|NOT L_PAREN bool_exp R_PAREN {cout << "relation_exp -> NOT L_PAREN bool_exp R_PAREN" << endl;}
+	|L_PAREN bool_exp R_PAREN {cout << "relation_exp -> L_PAREN bool_exp R_PAREN" << endl;}
+	;
+	
+comp: EQ {cout << "comp -> EQ" << endl;}
+	|NEQ {cout << "comp -> NEQ" << endl;}
+	|LT {cout << "comp -> LT" << endl;}
+	|GT {cout << "comp -> GT" << endl;}
+	|LTE {cout << "comp -> LTE" << endl;}
+	|GTE {cout << "comp -> GTE" << endl;}
+	;
 
-
-
-
+expression:
 
 
 
