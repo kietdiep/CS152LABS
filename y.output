@@ -74,9 +74,9 @@ Grammar
    46           | mult_exp add_mult_loop
    47           | mult_exp sub_mult_loop
 
-   48 add_mult_loop: ADD mult_exp
+   48 add_mult_loop: ADD expression
 
-   49 sub_mult_loop: SUB mult_exp
+   49 sub_mult_loop: SUB expression
 
    50 mult_exp: term
    51         | term MULT term
@@ -189,13 +189,13 @@ relation_exp (67)
 comp (68)
     on left: 39 40 41 42 43 44, on right: 31 32
 expression (69)
-    on left: 45 46 47, on right: 15 20 24 31 32 59 60 62 64 65
+    on left: 45 46 47, on right: 15 20 24 31 32 48 49 59 60 62 64 65
 add_mult_loop (70)
     on left: 48, on right: 46
 sub_mult_loop (71)
     on left: 49, on right: 47
 mult_exp (72)
-    on left: 50 51 52 53, on right: 45 46 47 48 49
+    on left: 50 51 52 53, on right: 45 46 47
 term (73)
     on left: 54 55 56 57 58 59 60, on right: 50 51 52 53
 exp_loop (74)
@@ -995,7 +995,7 @@ State 73
 
 State 74
 
-   49 sub_mult_loop: SUB . mult_exp
+   49 sub_mult_loop: SUB . expression
 
     SUB      shift, and go to state 40
     L_PAREN  shift, and go to state 41
@@ -1004,14 +1004,15 @@ State 74
 
     identifier  go to state 42
     number      go to state 43
-    mult_exp    go to state 109
+    expression  go to state 109
+    mult_exp    go to state 45
     term        go to state 46
     var         go to state 47
 
 
 State 75
 
-   48 add_mult_loop: ADD . mult_exp
+   48 add_mult_loop: ADD . expression
 
     SUB      shift, and go to state 40
     L_PAREN  shift, and go to state 41
@@ -1020,7 +1021,8 @@ State 75
 
     identifier  go to state 42
     number      go to state 43
-    mult_exp    go to state 110
+    expression  go to state 110
+    mult_exp    go to state 45
     term        go to state 46
     var         go to state 47
 
@@ -1412,14 +1414,14 @@ State 108
 
 State 109
 
-   49 sub_mult_loop: SUB mult_exp .
+   49 sub_mult_loop: SUB expression .
 
     $default  reduce using rule 49 (sub_mult_loop)
 
 
 State 110
 
-   48 add_mult_loop: ADD mult_exp .
+   48 add_mult_loop: ADD expression .
 
     $default  reduce using rule 48 (add_mult_loop)
 

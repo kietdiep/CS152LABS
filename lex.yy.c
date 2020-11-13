@@ -613,7 +613,7 @@ char *yytext;
    #include <stdio.h>
    #define YY_DECL yy::parser::symbol_type yylex()
    #include "y.tab.hh"
-
+   using namespace std;
    static yy::location loc;
 #line 12 "mini_l.lex"
    #define YY_USER_ACTION loc.columns(yyleng);
@@ -1174,7 +1174,7 @@ YY_RULE_SETUP
 case 57:
 YY_RULE_SETUP
 #line 83 "mini_l.lex"
-{std::cout << "Error at " << loc << " unrecognized symbol " << yytext;}
+{cout << "Error at " << loc << " unrecognized symbol " << yytext;}
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
 #line 85 "mini_l.lex"

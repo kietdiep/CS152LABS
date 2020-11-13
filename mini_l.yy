@@ -139,7 +139,7 @@ statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
 
 declaration: identifier_loop COLON INTEGER {cout << "declaration -> identifier_loop COLON INTEGER" << endl;}
 	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
-	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" cout << endl;}
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
 	;
 
 identifier_loop: identifier {cout << "identifier_loop -> identifier" << endl;}
@@ -193,16 +193,25 @@ expression: mult_exp {cout << "expression -> mult_exp" << endl;}
 	|mult_exp sub_mult_loop {cout << "expression -> mult_exp sub_mult_loop" << endl;}
 	;
 
-add_mult_loop:  ADD mult_exp {cout << "add_mult_loop -> ADD mult_exp" << endl;}
-;
+add_mult_loop:  ADD expression {cout << "add_mult_loop -> ADD mult_exp" << endl;}
+; /*This may work but we will have to consult with our TA*/
 
-sub_mult_loop: SUB mult_exp {cout << "sub_mult_loop -> SUB mult_exp" << endl;}
-;
+sub_mult_loop: SUB expression {cout << "sub_mult_loop -> SUB mult_exp" << endl;}
+; /*This may work but we will have to consult with our TA*/
 
 mult_exp: term {cout << "mult_exp -> term" << endl;}
-	| term MULT term {cout << "mult_exp -> term MULT term" << endl;}
-	| term DIV term {cout << "mult_exp -> term DIV term" << endl;}
-	| term MOD term {cout << "mult_exp -> term MOD term" << endl;}
+	| term mult_mult_loop {cout << "mult_exp -> term MULT term" << endl;}
+	| term div_mult_loop {cout << "mult_exp -> term DIV term" << endl;}
+	| term mod_mult_loop {cout << "mult_exp -> term MOD term" << endl;}
+;
+
+mult_mult_loop:
+;
+
+div_mult_loop:
+;
+
+mod_mult_loop:
 ;
 
 term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
