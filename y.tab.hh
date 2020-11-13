@@ -63,7 +63,7 @@
 # include <vector>
 # include "stack.hh"
 # include "location.hh"
-
+using namespace std;
 #ifndef YYASSERT
 # include <cassert>
 # define YYASSERT assert
@@ -333,29 +333,30 @@ namespace yy {
         IF = 283,
         THEN = 284,
         ENDIF = 285,
-        ELSE = 286,
-        WHILE = 287,
-        SUB = 288,
-        ADD = 289,
-        MULT = 290,
-        DIV = 291,
-        MOD = 292,
-        EQ = 293,
-        NEQ = 294,
-        LT = 295,
-        GT = 296,
-        LTE = 297,
-        GTE = 298,
-        L_PAREN = 299,
-        R_PAREN = 300,
-        COMMA = 301,
-        SEMICOLON = 302,
-        COLON = 303,
-        L_SQUARE_BRACKET = 304,
-        R_SQUARE_BRACKET = 305,
-        ASSIGN = 306,
-        NUMBER = 307,
-        IDENT = 308
+        ELSEIF = 286,
+        ELSE = 287,
+        WHILE = 288,
+        SUB = 289,
+        ADD = 290,
+        MULT = 291,
+        DIV = 292,
+        MOD = 293,
+        EQ = 294,
+        NEQ = 295,
+        LT = 296,
+        GT = 297,
+        LTE = 298,
+        GTE = 299,
+        L_PAREN = 300,
+        R_PAREN = 301,
+        COMMA = 302,
+        SEMICOLON = 303,
+        COLON = 304,
+        L_SQUARE_BRACKET = 305,
+        R_SQUARE_BRACKET = 306,
+        ASSIGN = 307,
+        NUMBER = 308,
+        IDENT = 309
       };
     };
 
@@ -582,6 +583,10 @@ namespace yy {
 
     static inline
     symbol_type
+    make_ELSEIF (const location_type& l);
+
+    static inline
+    symbol_type
     make_ELSE (const location_type& l);
 
     static inline
@@ -747,7 +752,7 @@ namespace yy {
   static const unsigned char yydefact_[];
 
   // YYPGOTO[NTERM-NUM].
-  static const short int yypgoto_[];
+  static const signed char yypgoto_[];
 
   // YYDEFGOTO[NTERM-NUM].
   static const signed char yydefgoto_[];
@@ -878,11 +883,11 @@ namespace yy {
     {
       yyeof_ = 0,
       yylast_ = 303,     ///< Last index in yytable_.
-      yynnts_ = 22,  ///< Number of nonterminal symbols.
+      yynnts_ = 25,  ///< Number of nonterminal symbols.
       yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 54  ///< Number of tokens.
+      yyntokens_ = 55  ///< Number of tokens.
     };
 
 
@@ -927,9 +932,9 @@ namespace yy {
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    52,    53
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54
     };
-    const unsigned int user_token_number_max_ = 308;
+    const unsigned int user_token_number_max_ = 309;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -962,11 +967,11 @@ namespace yy {
   {
       switch (other.type_get ())
     {
-      case 52: // NUMBER
+      case 53: // NUMBER
         value.copy< int > (other.value);
         break;
 
-      case 53: // IDENT
+      case 54: // IDENT
         value.copy< string > (other.value);
         break;
 
@@ -987,11 +992,11 @@ namespace yy {
     (void) v;
       switch (this->type_get ())
     {
-      case 52: // NUMBER
+      case 53: // NUMBER
         value.copy< int > (v);
         break;
 
-      case 53: // IDENT
+      case 54: // IDENT
         value.copy< string > (v);
         break;
 
@@ -1050,11 +1055,11 @@ namespace yy {
     // Type destructor.
     switch (yytype)
     {
-      case 52: // NUMBER
+      case 53: // NUMBER
         value.template destroy< int > ();
         break;
 
-      case 53: // IDENT
+      case 54: // IDENT
         value.template destroy< string > ();
         break;
 
@@ -1081,11 +1086,11 @@ namespace yy {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 52: // NUMBER
+      case 53: // NUMBER
         value.move< int > (s.value);
         break;
 
-      case 53: // IDENT
+      case 54: // IDENT
         value.move< string > (s.value);
         break;
 
@@ -1149,7 +1154,7 @@ namespace yy {
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
      295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308
+     305,   306,   307,   308,   309
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1329,6 +1334,12 @@ namespace yy {
   }
 
   parser::symbol_type
+  parser::make_ELSEIF (const location_type& l)
+  {
+    return symbol_type (token::ELSEIF, l);
+  }
+
+  parser::symbol_type
   parser::make_ELSE (const location_type& l)
   {
     return symbol_type (token::ELSE, l);
@@ -1469,7 +1480,7 @@ namespace yy {
 
 
 } // yy
-#line 1473 "y.tab.hh" // lalr1.cc:377
+#line 1484 "y.tab.hh" // lalr1.cc:377
 
 
 

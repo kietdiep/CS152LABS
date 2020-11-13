@@ -79,6 +79,7 @@ yy::parser::symbol_type yylex();
 %token IF
 %token THEN
 %token ENDIF
+%token ELSEIF
 %token ELSE
 %token WHILE
 

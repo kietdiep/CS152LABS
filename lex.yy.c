@@ -1143,7 +1143,7 @@ YY_RULE_SETUP
 case 51:
 YY_RULE_SETUP
 #line 76 "mini_l.lex"
-{return yy::parser::make_IDENT(loc, yytext);}
+{return yy::parser::make_IDENT(loc, atoi(yytext));}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
