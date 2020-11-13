@@ -45,14 +45,15 @@
 	/* you may need these header files 
 	 * add more header file if you need more
 	 */
-#include <list>
+#include <iostream>
+/*#include <list>*/
 #include <string>
 #include <functional>
 	/* define the sturctures using as types for non-terminals */
 
 	/* end the structures for non-terminal types */
 
-#line 56 "y.tab.hh" // lalr1.cc:377
+#line 57 "y.tab.hh" // lalr1.cc:377
 
 
 # include <cstdlib> // std::abort
@@ -129,7 +130,7 @@
 
 
 namespace yy {
-#line 133 "y.tab.hh" // lalr1.cc:377
+#line 134 "y.tab.hh" // lalr1.cc:377
 
 
 
@@ -1468,7 +1469,7 @@ namespace yy {
 
 
 } // yy
-#line 1472 "y.tab.hh" // lalr1.cc:377
+#line 1473 "y.tab.hh" // lalr1.cc:377
 
 
 

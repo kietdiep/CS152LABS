@@ -15,7 +15,8 @@
 	/* you may need these header files 
 	 * add more header file if you need more
 	 */
-#include <list>
+#include <iostream>
+/*#include <list>*/
 #include <string>
 #include <functional>
 	/* define the sturctures using as types for non-terminals */
@@ -26,7 +27,7 @@
 
 %code
 {
-#include "parser.tab.hh"
+#include "y.tab.hh"
 
 	/* you may need these header files 
 	 * add more header file if you need more
@@ -35,6 +36,8 @@
 #include <map>
 #include <regex>
 #include <set>
+
+using namespace std;
 yy::parser::symbol_type yylex();
 
 	/* define your symbol table, global variables,

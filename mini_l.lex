@@ -1,7 +1,7 @@
 %{
-   #include <iostream>
+   #include <stdio.h>
    #define YY_DECL yy::parser::symbol_type yylex()
-   #include "parser.tab.hh"
+   #include "y.tab.hh"
 
    static yy::location loc;
 %}
@@ -80,7 +80,7 @@ loc.step();
 "##".*         {}
 [ \t]+         {}
 "\n"           {}
-.              {cout << "Error at " << loc << " unrecognized symbol " << yytext;}
+.              {std::cout << "Error at " << loc << " unrecognized symbol " << yytext;}
 
 <<EOF>>        {return yy::parser::make_END(loc);}
 
