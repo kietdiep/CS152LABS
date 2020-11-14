@@ -2,7 +2,6 @@ Terminals unused in grammar
 
    IDENTIFIER
    EXIT
-   AND
    ELSEIF
    MULT
    DIV
@@ -18,8 +17,7 @@ Rules useless in parser due to conflicts
    56 mod_mult_loop: %empty
 
 
-State 46 conflicts: 15 reduce/reduce
-State 59 conflicts: 1 shift/reduce
+State 46 conflicts: 16 reduce/reduce
 
 
 Grammar
@@ -66,7 +64,7 @@ Grammar
    28         | relation_and_exp OR bool_exp
 
    29 relation_and_exp: relation_exp
-   30                 | relation_exp OR relation_and_exp
+   30                 | relation_exp AND relation_and_exp
 
    31 relation_exp: NOT expression comp expression
    32             | expression comp expression
@@ -141,8 +139,8 @@ CONTINUE (272) 23
 EXIT (273)
 READ (274) 21
 WRITE (275) 22
-OR (276) 28 30
-AND (277)
+OR (276) 28
+AND (277) 30
 NOT (278) 31 33 35 37
 TRUE (279) 33 34
 FALSE (280) 35 36
@@ -725,6 +723,10 @@ State 46
     OR                [reduce using rule 54 (mult_mult_loop)]
     OR                [reduce using rule 55 (div_mult_loop)]
     OR                [reduce using rule 56 (mod_mult_loop)]
+    AND               reduce using rule 50 (mult_exp)
+    AND               [reduce using rule 54 (mult_mult_loop)]
+    AND               [reduce using rule 55 (div_mult_loop)]
+    AND               [reduce using rule 56 (mod_mult_loop)]
     THEN              reduce using rule 50 (mult_exp)
     THEN              [reduce using rule 54 (mult_mult_loop)]
     THEN              [reduce using rule 55 (div_mult_loop)]
@@ -932,11 +934,10 @@ State 58
 State 59
 
    29 relation_and_exp: relation_exp .
-   30                 | relation_exp . OR relation_and_exp
+   30                 | relation_exp . AND relation_and_exp
 
-    OR  shift, and go to state 92
+    AND  shift, and go to state 92
 
-    OR        [reduce using rule 29 (relation_and_exp)]
     $default  reduce using rule 29 (relation_and_exp)
 
 
@@ -1307,7 +1308,7 @@ State 91
 
 State 92
 
-   30 relation_and_exp: relation_exp OR . relation_and_exp
+   30 relation_and_exp: relation_exp AND . relation_and_exp
 
     NOT      shift, and go to state 53
     TRUE     shift, and go to state 54
@@ -1573,7 +1574,7 @@ State 118
 
 State 119
 
-   30 relation_and_exp: relation_exp OR relation_and_exp .
+   30 relation_and_exp: relation_exp AND relation_and_exp .
 
     $default  reduce using rule 30 (relation_and_exp)
 

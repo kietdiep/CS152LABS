@@ -169,7 +169,7 @@ bool_exp: relation_and_exp {cout << "bool_exp -> relation_and_exp" <<endl;}
 	;
 
 relation_and_exp: relation_exp {cout << "bool_exp -> relation_exp" <<endl;}
-        |relation_exp OR relation_and_exp {cout << "bool_exp -> relation_exp OR relation_and_exp" <<endl;} /*having relation_and_exp at the end makes more sense to me but  could be wrong*/
+        |relation_exp AND relation_and_exp {cout << "bool_exp -> relation_exp AND relation_and_exp" <<endl;} /*having relation_and_exp at the end makes more sense to me but  could be wrong*/
 	;
 
 relation_exp: NOT expression comp expression {cout << "relation_exp -> NOT expression comp expression" << endl;}
@@ -191,15 +191,9 @@ comp: EQ {cout << "comp -> EQ" << endl;}
 	;
 
 expression: mult_exp {cout << "expression -> mult_exp" << endl;}
-	|mult_exp add_mult_loop {cout << "expression -> mult_exp add_mult_loop" << endl;}
-	|mult_exp sub_mult_loop {cout << "expression -> mult_exp sub_mult_loop" << endl;}
+	|expression ADD mult_exp {cout << "expression -> mult_exp add_mult_loop" << endl;}
+	|expression SUB mult_exp {cout << "expression -> mult_exp sub_mult_loop" << endl;}
 	;
-
-add_mult_loop:  ADD expression {cout << "add_mult_loop -> ADD mult_exp" << endl;}
-; /*This may work but we will have to consult with our TA*/
-
-sub_mult_loop: SUB expression {cout << "sub_mult_loop -> SUB mult_exp" << endl;}
-; /*This may work but we will have to consult with our TA*/
 
 mult_exp: term {cout << "mult_exp -> term" << endl;}
 	| term mult_mult_loop {cout << "mult_exp -> term MULT term" << endl;}
