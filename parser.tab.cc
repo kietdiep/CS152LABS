@@ -35,7 +35,7 @@
 #line 1 "mini_l.yy" // lalr1.cc:404
 
 
-#line 39 "y.tab.cc" // lalr1.cc:404
+#line 39 "parser.tab.cc" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -45,13 +45,13 @@
 #  endif
 # endif
 
-#include "y.tab.hh"
+#include "parser.tab.hh"
 
 // User implementation prologue.
 
-#line 53 "y.tab.cc" // lalr1.cc:412
+#line 53 "parser.tab.cc" // lalr1.cc:412
 // Unqualified %code blocks.
-#line 30 "mini_l.yy" // lalr1.cc:413
+#line 29 "mini_l.yy" // lalr1.cc:413
 
 #include "y.tab.hh"
 
@@ -63,7 +63,7 @@
 #include <regex>
 #include <set>
 
-
+using namespace std;
 yy::parser::symbol_type yylex();
 
 	/* define your symbol table, global variables,
@@ -71,7 +71,7 @@ yy::parser::symbol_type yylex();
 	
 	/* end of your code */
 
-#line 75 "y.tab.cc" // lalr1.cc:413
+#line 75 "parser.tab.cc" // lalr1.cc:413
 
 
 #ifndef YY_
@@ -157,7 +157,7 @@ yy::parser::symbol_type yylex();
 
 
 namespace yy {
-#line 161 "y.tab.cc" // lalr1.cc:479
+#line 161 "parser.tab.cc" // lalr1.cc:479
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -552,397 +552,397 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 118 "mini_l.yy" // lalr1.cc:859
+#line 117 "mini_l.yy" // lalr1.cc:859
     {cout << "program -> epsilon" << endl;}
-#line 558 "y.tab.cc" // lalr1.cc:859
+#line 558 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 3:
-#line 119 "mini_l.yy" // lalr1.cc:859
+#line 118 "mini_l.yy" // lalr1.cc:859
     {cout << "program -> functions" << endl;}
-#line 564 "y.tab.cc" // lalr1.cc:859
+#line 564 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 4:
-#line 122 "mini_l.yy" // lalr1.cc:859
+#line 121 "mini_l.yy" // lalr1.cc:859
     {cout << "function -> FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGIN_BODY statement_loop ENDBODY" << endl;}
-#line 570 "y.tab.cc" // lalr1.cc:859
+#line 570 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 5:
-#line 126 "mini_l.yy" // lalr1.cc:859
+#line 125 "mini_l.yy" // lalr1.cc:859
     {cout << "ident -> IDENT " << yystack_[0].value.as< string > () << endl;}
-#line 576 "y.tab.cc" // lalr1.cc:859
+#line 576 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 6:
-#line 130 "mini_l.yy" // lalr1.cc:859
+#line 129 "mini_l.yy" // lalr1.cc:859
     {cout << "number -> NUMBER " << yystack_[0].value.as< int > () << endl;}
-#line 582 "y.tab.cc" // lalr1.cc:859
+#line 582 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 7:
-#line 133 "mini_l.yy" // lalr1.cc:859
+#line 132 "mini_l.yy" // lalr1.cc:859
     {cout << "declaration_loop -> epsilon" << endl;}
-#line 588 "y.tab.cc" // lalr1.cc:859
+#line 588 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 8:
-#line 134 "mini_l.yy" // lalr1.cc:859
+#line 133 "mini_l.yy" // lalr1.cc:859
     {cout << "declaration_loop -> declaration_loop declaration SEMICOLON" << endl;}
-#line 594 "y.tab.cc" // lalr1.cc:859
+#line 594 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 9:
-#line 137 "mini_l.yy" // lalr1.cc:859
+#line 136 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> SEMICOLON";}
-#line 600 "y.tab.cc" // lalr1.cc:859
+#line 600 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 10:
-#line 138 "mini_l.yy" // lalr1.cc:859
+#line 137 "mini_l.yy" // lalr1.cc:859
     {cout << "statement_loop -> statement_loop statement SEMICOLON" << endl;}
-#line 606 "y.tab.cc" // lalr1.cc:859
+#line 606 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 11:
-#line 142 "mini_l.yy" // lalr1.cc:859
+#line 141 "mini_l.yy" // lalr1.cc:859
     {cout << "declaration -> identifier_loop COLON INTEGER" << endl;}
-#line 612 "y.tab.cc" // lalr1.cc:859
+#line 612 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 12:
-#line 143 "mini_l.yy" // lalr1.cc:859
+#line 142 "mini_l.yy" // lalr1.cc:859
     {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
-#line 618 "y.tab.cc" // lalr1.cc:859
+#line 618 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 13:
-#line 144 "mini_l.yy" // lalr1.cc:859
+#line 143 "mini_l.yy" // lalr1.cc:859
     {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
-#line 624 "y.tab.cc" // lalr1.cc:859
+#line 624 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 14:
-#line 147 "mini_l.yy" // lalr1.cc:859
+#line 146 "mini_l.yy" // lalr1.cc:859
     {cout << "identifier_loop -> identifier" << endl;}
-#line 630 "y.tab.cc" // lalr1.cc:859
+#line 630 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 15:
-#line 148 "mini_l.yy" // lalr1.cc:859
+#line 147 "mini_l.yy" // lalr1.cc:859
     {cout << "identifier_loop -> identifier_loop identifier COMMA" << endl;}
-#line 636 "y.tab.cc" // lalr1.cc:859
+#line 636 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 16:
-#line 151 "mini_l.yy" // lalr1.cc:859
+#line 150 "mini_l.yy" // lalr1.cc:859
     {cout << "statement  -> var ASSIGN expression" << endl;}
-#line 642 "y.tab.cc" // lalr1.cc:859
+#line 642 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 17:
-#line 152 "mini_l.yy" // lalr1.cc:859
+#line 151 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> IF bool_exp THEN statement_loop ENDIF" << endl;}
-#line 648 "y.tab.cc" // lalr1.cc:859
+#line 648 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 18:
-#line 153 "mini_l.yy" // lalr1.cc:859
+#line 152 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> IF bool_exp THEN statement_loop ELSE statement_loop ENDIF" << endl;}
-#line 654 "y.tab.cc" // lalr1.cc:859
+#line 654 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 19:
-#line 154 "mini_l.yy" // lalr1.cc:859
+#line 153 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> WHILE bool_exp BEGINLOOP statement_loop ENDLOOP" << endl;}
-#line 660 "y.tab.cc" // lalr1.cc:859
+#line 660 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 20:
-#line 155 "mini_l.yy" // lalr1.cc:859
+#line 154 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp" << endl;}
-#line 666 "y.tab.cc" // lalr1.cc:859
+#line 666 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 21:
-#line 156 "mini_l.yy" // lalr1.cc:859
+#line 155 "mini_l.yy" // lalr1.cc:859
     {cout<< "statement -> FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP" << endl;}
-#line 672 "y.tab.cc" // lalr1.cc:859
+#line 672 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 22:
-#line 157 "mini_l.yy" // lalr1.cc:859
+#line 156 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> READ var_loop" << endl;}
-#line 678 "y.tab.cc" // lalr1.cc:859
+#line 678 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 23:
-#line 158 "mini_l.yy" // lalr1.cc:859
+#line 157 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> WRITE var_loop" << endl;}
-#line 684 "y.tab.cc" // lalr1.cc:859
+#line 684 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 24:
-#line 159 "mini_l.yy" // lalr1.cc:859
+#line 158 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> continue" << endl;}
-#line 690 "y.tab.cc" // lalr1.cc:859
+#line 690 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 25:
-#line 160 "mini_l.yy" // lalr1.cc:859
+#line 159 "mini_l.yy" // lalr1.cc:859
     {cout << "statement -> RETURN expression" << endl;}
-#line 696 "y.tab.cc" // lalr1.cc:859
+#line 696 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 26:
-#line 163 "mini_l.yy" // lalr1.cc:859
+#line 162 "mini_l.yy" // lalr1.cc:859
     {cout << "var_loop -> var" << endl;}
-#line 702 "y.tab.cc" // lalr1.cc:859
+#line 702 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 27:
-#line 164 "mini_l.yy" // lalr1.cc:859
+#line 163 "mini_l.yy" // lalr1.cc:859
     {cout << "var_loop -> var_loop var COMMA" << endl;}
-#line 708 "y.tab.cc" // lalr1.cc:859
+#line 708 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 28:
-#line 167 "mini_l.yy" // lalr1.cc:859
+#line 166 "mini_l.yy" // lalr1.cc:859
     {cout << "bool_exp -> relation_and_exp" <<endl;}
-#line 714 "y.tab.cc" // lalr1.cc:859
+#line 714 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 29:
-#line 168 "mini_l.yy" // lalr1.cc:859
+#line 167 "mini_l.yy" // lalr1.cc:859
     {cout << "bool_exp -> relation_and_exp OR bool_exp" <<endl;}
-#line 720 "y.tab.cc" // lalr1.cc:859
+#line 720 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 30:
-#line 171 "mini_l.yy" // lalr1.cc:859
+#line 170 "mini_l.yy" // lalr1.cc:859
     {cout << "bool_exp -> relation_exp" <<endl;}
-#line 726 "y.tab.cc" // lalr1.cc:859
+#line 726 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 31:
-#line 172 "mini_l.yy" // lalr1.cc:859
+#line 171 "mini_l.yy" // lalr1.cc:859
     {cout << "bool_exp -> relation_exp OR relation_and_exp" <<endl;}
-#line 732 "y.tab.cc" // lalr1.cc:859
+#line 732 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 32:
-#line 175 "mini_l.yy" // lalr1.cc:859
+#line 174 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> NOT expression comp expression" << endl;}
-#line 738 "y.tab.cc" // lalr1.cc:859
+#line 738 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 33:
-#line 176 "mini_l.yy" // lalr1.cc:859
+#line 175 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> expression comp expression" << endl;}
-#line 744 "y.tab.cc" // lalr1.cc:859
+#line 744 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 34:
-#line 177 "mini_l.yy" // lalr1.cc:859
+#line 176 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> NOT TRUE" << endl;}
-#line 750 "y.tab.cc" // lalr1.cc:859
+#line 750 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 35:
-#line 178 "mini_l.yy" // lalr1.cc:859
+#line 177 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> TRUE" << endl;}
-#line 756 "y.tab.cc" // lalr1.cc:859
+#line 756 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 36:
-#line 179 "mini_l.yy" // lalr1.cc:859
+#line 178 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> NOT FALSE" << endl;}
-#line 762 "y.tab.cc" // lalr1.cc:859
+#line 762 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 37:
-#line 180 "mini_l.yy" // lalr1.cc:859
+#line 179 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> FALSE" << endl;}
-#line 768 "y.tab.cc" // lalr1.cc:859
+#line 768 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 38:
-#line 181 "mini_l.yy" // lalr1.cc:859
+#line 180 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> NOT L_PAREN bool_exp R_PAREN" << endl;}
-#line 774 "y.tab.cc" // lalr1.cc:859
+#line 774 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 39:
-#line 182 "mini_l.yy" // lalr1.cc:859
+#line 181 "mini_l.yy" // lalr1.cc:859
     {cout << "relation_exp -> L_PAREN bool_exp R_PAREN" << endl;}
-#line 780 "y.tab.cc" // lalr1.cc:859
+#line 780 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 40:
-#line 185 "mini_l.yy" // lalr1.cc:859
+#line 184 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> EQ" << endl;}
-#line 786 "y.tab.cc" // lalr1.cc:859
+#line 786 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 41:
-#line 186 "mini_l.yy" // lalr1.cc:859
+#line 185 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> NEQ" << endl;}
-#line 792 "y.tab.cc" // lalr1.cc:859
+#line 792 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 42:
-#line 187 "mini_l.yy" // lalr1.cc:859
+#line 186 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> LT" << endl;}
-#line 798 "y.tab.cc" // lalr1.cc:859
+#line 798 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 43:
-#line 188 "mini_l.yy" // lalr1.cc:859
+#line 187 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> GT" << endl;}
-#line 804 "y.tab.cc" // lalr1.cc:859
+#line 804 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 44:
-#line 189 "mini_l.yy" // lalr1.cc:859
+#line 188 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> LTE" << endl;}
-#line 810 "y.tab.cc" // lalr1.cc:859
+#line 810 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 45:
-#line 190 "mini_l.yy" // lalr1.cc:859
+#line 189 "mini_l.yy" // lalr1.cc:859
     {cout << "comp -> GTE" << endl;}
-#line 816 "y.tab.cc" // lalr1.cc:859
+#line 816 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 46:
-#line 193 "mini_l.yy" // lalr1.cc:859
+#line 192 "mini_l.yy" // lalr1.cc:859
     {cout << "expression -> mult_exp" << endl;}
-#line 822 "y.tab.cc" // lalr1.cc:859
+#line 822 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 47:
-#line 194 "mini_l.yy" // lalr1.cc:859
+#line 193 "mini_l.yy" // lalr1.cc:859
     {cout << "expression -> mult_exp add_mult_loop" << endl;}
-#line 828 "y.tab.cc" // lalr1.cc:859
+#line 828 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 48:
-#line 195 "mini_l.yy" // lalr1.cc:859
+#line 194 "mini_l.yy" // lalr1.cc:859
     {cout << "expression -> mult_exp sub_mult_loop" << endl;}
-#line 834 "y.tab.cc" // lalr1.cc:859
+#line 834 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 49:
-#line 198 "mini_l.yy" // lalr1.cc:859
+#line 197 "mini_l.yy" // lalr1.cc:859
     {cout << "add_mult_loop -> ADD mult_exp" << endl;}
-#line 840 "y.tab.cc" // lalr1.cc:859
+#line 840 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 50:
-#line 201 "mini_l.yy" // lalr1.cc:859
+#line 200 "mini_l.yy" // lalr1.cc:859
     {cout << "sub_mult_loop -> SUB mult_exp" << endl;}
-#line 846 "y.tab.cc" // lalr1.cc:859
+#line 846 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 51:
-#line 204 "mini_l.yy" // lalr1.cc:859
+#line 203 "mini_l.yy" // lalr1.cc:859
     {cout << "mult_exp -> term" << endl;}
-#line 852 "y.tab.cc" // lalr1.cc:859
+#line 852 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 52:
-#line 205 "mini_l.yy" // lalr1.cc:859
+#line 204 "mini_l.yy" // lalr1.cc:859
     {cout << "mult_exp -> term MULT term" << endl;}
-#line 858 "y.tab.cc" // lalr1.cc:859
+#line 858 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 53:
-#line 206 "mini_l.yy" // lalr1.cc:859
+#line 205 "mini_l.yy" // lalr1.cc:859
     {cout << "mult_exp -> term DIV term" << endl;}
-#line 864 "y.tab.cc" // lalr1.cc:859
+#line 864 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 54:
-#line 207 "mini_l.yy" // lalr1.cc:859
+#line 206 "mini_l.yy" // lalr1.cc:859
     {cout << "mult_exp -> term MOD term" << endl;}
-#line 870 "y.tab.cc" // lalr1.cc:859
+#line 870 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 58:
-#line 219 "mini_l.yy" // lalr1.cc:859
+#line 218 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
-#line 876 "y.tab.cc" // lalr1.cc:859
+#line 876 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 59:
-#line 220 "mini_l.yy" // lalr1.cc:859
+#line 219 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> SUB var" << endl;}
-#line 882 "y.tab.cc" // lalr1.cc:859
+#line 882 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 60:
-#line 221 "mini_l.yy" // lalr1.cc:859
+#line 220 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> var" << endl;}
-#line 888 "y.tab.cc" // lalr1.cc:859
+#line 888 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 61:
-#line 222 "mini_l.yy" // lalr1.cc:859
+#line 221 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> SUB number" << endl;}
-#line 894 "y.tab.cc" // lalr1.cc:859
+#line 894 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 62:
-#line 223 "mini_l.yy" // lalr1.cc:859
+#line 222 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> number" << endl;}
-#line 900 "y.tab.cc" // lalr1.cc:859
+#line 900 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 63:
-#line 224 "mini_l.yy" // lalr1.cc:859
+#line 223 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> SUB L_PAREN expression R_PAREN" << endl;}
-#line 906 "y.tab.cc" // lalr1.cc:859
+#line 906 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 64:
-#line 225 "mini_l.yy" // lalr1.cc:859
+#line 224 "mini_l.yy" // lalr1.cc:859
     {cout << "term -> L_PAREN expression R_PAREN" << endl;}
-#line 912 "y.tab.cc" // lalr1.cc:859
+#line 912 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 65:
-#line 228 "mini_l.yy" // lalr1.cc:859
+#line 227 "mini_l.yy" // lalr1.cc:859
     {cout << "exp_loop -> epsilon" << endl;}
-#line 918 "y.tab.cc" // lalr1.cc:859
+#line 918 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 66:
-#line 229 "mini_l.yy" // lalr1.cc:859
+#line 228 "mini_l.yy" // lalr1.cc:859
     {cout << "exp_loop -> exp_loop expression COMMA" << endl;}
-#line 924 "y.tab.cc" // lalr1.cc:859
+#line 924 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 67:
-#line 232 "mini_l.yy" // lalr1.cc:859
+#line 231 "mini_l.yy" // lalr1.cc:859
     {cout << "var -> identifier" << endl;}
-#line 930 "y.tab.cc" // lalr1.cc:859
+#line 930 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 68:
-#line 233 "mini_l.yy" // lalr1.cc:859
+#line 232 "mini_l.yy" // lalr1.cc:859
     {cout << "var -> identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl;}
-#line 936 "y.tab.cc" // lalr1.cc:859
+#line 936 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 69:
-#line 234 "mini_l.yy" // lalr1.cc:859
+#line 233 "mini_l.yy" // lalr1.cc:859
     {cout << "var -> identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET L_SQUARE_BRACKET expression R_SQUARE_BRACKET" << endl;}
-#line 942 "y.tab.cc" // lalr1.cc:859
+#line 942 "parser.tab.cc" // lalr1.cc:859
     break;
 
 
-#line 946 "y.tab.cc" // lalr1.cc:859
+#line 946 "parser.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -1402,13 +1402,13 @@ namespace yy {
   const unsigned char
   parser::yyrline_[] =
   {
-       0,   118,   118,   119,   122,   126,   130,   133,   134,   137,
-     138,   142,   143,   144,   147,   148,   151,   152,   153,   154,
-     155,   156,   157,   158,   159,   160,   163,   164,   167,   168,
-     171,   172,   175,   176,   177,   178,   179,   180,   181,   182,
-     185,   186,   187,   188,   189,   190,   193,   194,   195,   198,
-     201,   204,   205,   206,   207,   210,   213,   216,   219,   220,
-     221,   222,   223,   224,   225,   228,   229,   232,   233,   234
+       0,   117,   117,   118,   121,   125,   129,   132,   133,   136,
+     137,   141,   142,   143,   146,   147,   150,   151,   152,   153,
+     154,   155,   156,   157,   158,   159,   162,   163,   166,   167,
+     170,   171,   174,   175,   176,   177,   178,   179,   180,   181,
+     184,   185,   186,   187,   188,   189,   192,   193,   194,   197,
+     200,   203,   204,   205,   206,   209,   212,   215,   218,   219,
+     220,   221,   222,   223,   224,   227,   228,   231,   232,   233
   };
 
   // Print the state stack on the debug stream.
@@ -1443,8 +1443,8 @@ namespace yy {
 
 
 } // yy
-#line 1447 "y.tab.cc" // lalr1.cc:1167
-#line 239 "mini_l.yy" // lalr1.cc:1168
+#line 1447 "parser.tab.cc" // lalr1.cc:1167
+#line 238 "mini_l.yy" // lalr1.cc:1168
 
 
 int main(int argc, char *argv[])

@@ -31,14 +31,14 @@
 // version 2.2 of Bison.
 
 /**
- ** \file y.tab.hh
+ ** \file parser.tab.hh
  ** Define the yy::parser class.
  */
 
 // C++ LALR(1) parser skeleton written by Akim Demaille.
 
-#ifndef YY_YY_Y_TAB_HH_INCLUDED
-# define YY_YY_Y_TAB_HH_INCLUDED
+#ifndef YY_YY_PARSER_TAB_HH_INCLUDED
+# define YY_YY_PARSER_TAB_HH_INCLUDED
 // //                    "%code requires" blocks.
 #line 14 "mini_l.yy" // lalr1.cc:377
 
@@ -49,12 +49,11 @@
 /*#include <list>*/
 #include <string>
 #include <functional>
-using namespace std;
 	/* define the sturctures using as types for non-terminals */
 
 	/* end the structures for non-terminal types */
 
-#line 58 "y.tab.hh" // lalr1.cc:377
+#line 57 "parser.tab.hh" // lalr1.cc:377
 
 
 # include <cstdlib> // std::abort
@@ -131,7 +130,7 @@ using namespace std;
 
 
 namespace yy {
-#line 135 "y.tab.hh" // lalr1.cc:377
+#line 134 "parser.tab.hh" // lalr1.cc:377
 
 
 
@@ -1481,9 +1480,9 @@ namespace yy {
 
 
 } // yy
-#line 1485 "y.tab.hh" // lalr1.cc:377
+#line 1484 "parser.tab.hh" // lalr1.cc:377
 
 
 
 
-#endif // !YY_YY_Y_TAB_HH_INCLUDED
+#endif // !YY_YY_PARSER_TAB_HH_INCLUDED

@@ -19,6 +19,7 @@
 /*#include <list>*/
 #include <string>
 #include <functional>
+using namespace std;
 	/* define the sturctures using as types for non-terminals */
 
 	/* end the structures for non-terminal types */
@@ -37,7 +38,7 @@
 #include <regex>
 #include <set>
 
-using namespace std;
+
 yy::parser::symbol_type yylex();
 
 	/* define your symbol table, global variables,

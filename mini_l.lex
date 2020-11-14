@@ -72,8 +72,8 @@ loc.step();
 "]"            {return yy::parser::make_R_SQUARE_BRACKET(loc);}
 ":="           {return yy::parser::make_ASSIGN(loc);}
 
-[0-9]+ {return yy::parser::make_NUMBER(loc,atoi(yytext));}
-[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {return yy::parser::make_IDENT(loc, atoi(yytext));}
+[0-9]+ {return yy::parser::make_NUMBER(atoi(yytext), loc);}
+[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {return yy::parser::make_IDENT(yytext, loc);}
 [a-zA-Z]+[a-zA-Z0-9_]*[_] {cout <<"Error at " << loc << ": Identifier cannot start with an underscore";}
 [0-9_][A-Za-z0-9_]* {cout <<"Error at" << loc << ": identifier must begin with a letter" << yytext;}
 
