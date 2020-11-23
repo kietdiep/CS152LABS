@@ -109,6 +109,17 @@ yy::parser::symbol_type yylex();
 %token <string> IDENT
 	/* end of token specifications */
 
+%right ASSIGN
+%left OR
+%left AND
+%right NOT
+%left LT LTE GT GTE EQ NEQ
+%left ADD SUB
+%left MULT DIV MOD
+%right SUB
+%left ARRAY
+%right FUNCION
+
 %start program
 	/* define your grammars here use the same grammars 
 	 * you used in Phase 2 and modify their actions to generate codes
