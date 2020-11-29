@@ -126,15 +126,27 @@ yy::parser::symbol_type yylex();
 	 * assume that your grammars start with prog_start
 	 */
 %%
-program: {cout << "program -> epsilon" << endl;} 
-	|program function {cout << "program -> functions" << endl;}
+program: {$$ = "";} /*for epsilon*/ 
+	|program function {$$ = $1 + "\n" + $2;}
 	;
 
-function: FUNCTION identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY {cout << "function -> FUNCTION identifier SEMICOLON BEGINPARAMS declaration_loop ENDPARAMS BEGINLOCALS declaration_loop ENDLOCALS BEGIN_BODY statement_loop ENDBODY" << endl;}
+function: FUNCTION identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY 
+	{
+	$$ = "func " + $2 + "\n";
+	$$ += $5.code;
+	int i = 0;
+	for(list<string>::iterator it = $5.ids.begin(); it != $5.ids.end(); it++){
+		$$ += *it + " $" + to_string(i) + "\n";
+		i++;
+	}
+	$$ += $8.code;
+	$$ += $11;
+	$$ += "endfunc";
+	}
 	;
 
 identifier: 
-	IDENT {cout << "ident -> IDENT " << $1 << endl;}
+	IDENT {$$ = $1;}
 	;
 
 number:
