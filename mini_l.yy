@@ -171,8 +171,15 @@ declaration_loop:
 	}
 	;
 
-statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
-	|statement_loop statement SEMICOLON {cout << "statement_loop -> statement_loop statement SEMICOLON" << endl;}/*could be worng recursion*/
+statement_loop: statement SEMICOLON 
+	{
+	$$.push.back($1); /*do i ignore the SEMICOLON here? Kinda matching identifier loop*/
+	}
+	|statement_loop statement SEMICOLON 
+	{
+	$$ = $1;
+        $$.push_front($2);
+	}
 	;
 
 
@@ -183,8 +190,21 @@ declaration: identifier_loop COLON INTEGER
                 $$.ids.push_back(*it);
         }
         }
-	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
-	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
+	{
+	for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
+		$$.code += ".[] " + *it + ", " + to_string($5) + "\n";
+		$$.ids.push_back(*it);
+	}
+	}
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
+	{
+	for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
+                $$.code += ".[] " + *it + ", " + to_string($5) + "\n";/*ask about syntax for outputting to_string($8)*/
+                $$.ids.push_back(*it);
+        }
+
+	}
 	;
 
 identifier_loop: identifier 
