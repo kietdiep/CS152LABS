@@ -116,9 +116,11 @@ yy::parser::symbol_type yylex();
 %left LT LTE GT GTE EQ NEQ
 %left ADD SUB
 %left MULT DIV MOD
-%right SUB
-%left ARRAY
-%right FUNCION
+%right SUB /*could be UMINUS here*/
+%left L_SQUARE_BRACKET R_SQUARE_BRACKET
+%left L_PAREN R_PAREN
+
+/*missing some type stuff here, chekc if needed*/
 
 %start program
 	/* define your grammars here use the same grammars 
@@ -153,8 +155,20 @@ number:
 	NUMBER {cout << "number -> NUMBER " << $1 << endl;} /*make sure this is right*/
 	;
 
-declaration_loop: {cout << "declaration_loop -> epsilon" << endl;}
-	|declaration_loop declaration SEMICOLON {cout << "declaration_loop -> declaration_loop declaration SEMICOLON" << endl;}
+declaration_loop: 
+	/*for epsilon*/ 
+	{
+	$$.code = "";
+	$$.ids = list<string>();
+	}
+	|declaration_loop declaration SEMICOLON 
+	{
+	$$.code = $1.code + "\n" + $3.code;
+	$$.ids = $2.ids;
+	for(list<string>::iterator it = $2.ids.begin(); it != $2.ids.end(); i++) {
+		$$.ids.push_back(*it);
+	} 	
+	}
 	;
 
 statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
@@ -162,13 +176,26 @@ statement_loop: statement SEMICOLON {cout << "statement -> SEMICOLON";}
 	;
 
 
-declaration: identifier_loop COLON INTEGER {cout << "declaration -> identifier_loop COLON INTEGER" << endl;}
+declaration: identifier_loop COLON INTEGER
+        {
+        for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
+                $$.code += ". " + *it + "\n";
+                $$.ids.push_back(*it);
+        }
+        }
 	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
 	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER {cout << "declaration -> identifier loop COLON ARRAY L_SQAURE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER" << endl;}
 	;
 
-identifier_loop: identifier {cout << "identifier_loop -> identifier" << endl;}
-	|identifier_loop identifier COMMA {cout << "identifier_loop -> identifier_loop identifier COMMA" << endl;}
+identifier_loop: identifier 
+	{
+	$$.push_back($1);
+	}
+	|identifier_loop identifier COMMA 
+	{
+	$$ = $1;
+	$$.push_front($2);
+	}
 	;
 
 statement: var ASSIGN expression {cout << "statement  -> var ASSIGN expression" << endl;}
@@ -210,22 +237,6 @@ comp: EQ {cout << "comp -> EQ" << endl;}
 	|LT {cout << "comp -> LT" << endl;}
 	|GT {cout << "comp -> GT" << endl;}
 	|LTE {cout << "comp -> LTE" << endl;}
-	|GTE {cout << "comp -> GTE" << endl;}
-	;
-
-expression: mult_exp {cout << "expression -> mult_exp" << endl;}
-	|expression ADD mult_exp {cout << "expression -> expression ADD mult_exp" << endl;}
-	|expression SUB mult_exp {cout << "expression -> expression SUB mult_exp" << endl;}
-	;
-
-mult_exp: term {cout << "mult_exp -> term" << endl;}
-	| mult_exp MULT term {cout << "mult_exp -> mult_exp MULT term" << endl;}
-	| mult_exp DIV term {cout << "mult_exp -> mult_exp DIV term" << endl;}
-	| mult_exp MOD term {cout << "mult_exp -> mult_exp MOD term" << endl;}
-	;
-
-term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
-	|SUB var {cout << "term -> SUB var" << endl;}
 	|var {cout << "term -> var" << endl;}
 	|SUB number {cout << "term -> SUB number" << endl;}
         |number {cout << "term -> number" << endl;}
