@@ -116,7 +116,7 @@ yy::parser::symbol_type yylex();
 %left LT LTE GT GTE EQ NEQ
 %left ADD SUB
 %left MULT DIV MOD
-%right SUB /*could be UMINUS here*/
+%right UMINUS
 %left L_SQUARE_BRACKET R_SQUARE_BRACKET
 %left L_PAREN R_PAREN
 
@@ -257,6 +257,23 @@ comp: EQ {cout << "comp -> EQ" << endl;}
 	|LT {cout << "comp -> LT" << endl;}
 	|GT {cout << "comp -> GT" << endl;}
 	|LTE {cout << "comp -> LTE" << endl;}
+	|var {cout << "term -> var" << endl;}
+	|SUB number {cout << "term -> SUB number" << endl;}
+        |number {cout << "term -> number" << endl;}
+	|SUB L_PAREN expression R_PAREN {cout << "term -> SUB L_PAREN expression R_PAREN" << endl;}
+        |L_PAREN expression R_PAREN {cout << "term -> L_PAREN expression R_PAREN" << endl;}
+
+expression: mult_exp {cout << "expression -> mult_exp" << endl;}
+	|expression ADD mult_exp {cout << "expression -> expression ADD mult_exp" << endl;}
+	|expression SUB mult_exp {cout << "expression -> expression SUB mult_exp" << endl;}
+	;
+mult_exp: term {cout << "mult_exp -> term" << endl;}
+	| mult_exp MULT term {cout << "mult_exp -> mult_exp MULT term" << endl;}
+	| mult_exp DIV term {cout << "mult_exp -> mult_exp DIV term" << endl;}
+	| mult_exp MOD term {cout << "mult_exp -> mult_exp MOD term" << endl;}
+	;
+term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN exp_loop R_PAREN" << endl;}
+	|SUB var {cout << "term -> SUB var" << endl;}
 	|var {cout << "term -> var" << endl;}
 	|SUB number {cout << "term -> SUB number" << endl;}
         |number {cout << "term -> number" << endl;}
