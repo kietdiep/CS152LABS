@@ -120,7 +120,9 @@ yy::parser::symbol_type yylex();
 %left L_SQUARE_BRACKET R_SQUARE_BRACKET
 %left L_PAREN R_PAREN
 
-/*missing some type stuff here, chekc if needed*/
+%type <string> program function identifier statements
+%type <dec_type> declarations declaration
+%type <list<string>> identifier_loop
 
 %start program
 	/* define your grammars here use the same grammars 
@@ -173,7 +175,7 @@ declaration_loop:
 
 statement_loop: statement SEMICOLON 
 	{
-	$$.push.back($1); /*do i ignore the SEMICOLON here? Kinda matching identifier loop*/
+	$$.push.back($1); 
 	}
 	|statement_loop statement SEMICOLON 
 	{
@@ -200,10 +202,9 @@ declaration: identifier_loop COLON INTEGER
 	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
 	{
 	for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
-                $$.code += ".[] " + *it + ", " + to_string($5) + "\n";/*ask about syntax for outputting to_string($8)*/
+                $$.code += ".[] " + *it + ", " + to_string($5*$8) + "\n";
                 $$.ids.push_back(*it);
         }
-
 	}
 	;
 
@@ -230,8 +231,16 @@ statement: var ASSIGN expression {cout << "statement  -> var ASSIGN expression" 
 	|RETURN expression {cout << "statement -> RETURN expression" << endl;}
 	;
 
-var_loop: var {cout << "var_loop -> var" << endl;}
-	|var_loop var COMMA {cout << "var_loop -> var_loop var COMMA" << endl;} /*could be worng recursion*/
+var_loop: var 
+	{
+	$$.push_back($1);
+	}
+	
+	|var_loop var COMMA 
+	{
+	$$ = $1;
+        $$.push_front($2);
+	}
 	;
 
 bool_exp: relation_and_exp {cout << "bool_exp -> relation_and_exp" <<endl;}
@@ -281,8 +290,17 @@ term: identifier L_PAREN exp_loop R_PAREN {cout << "term -> identifier L_PAREN e
         |L_PAREN expression R_PAREN {cout << "term -> L_PAREN expression R_PAREN" << endl;}
 
 
-exp_loop: {cout << "exp_loop -> epsilon" << endl;}
-	|exp_loop expression COMMA {cout << "exp_loop -> exp_loop expression COMMA" << endl;}
+exp_loop: 
+	/*for epsilon*/ 
+        {
+        $$.code = "";
+        $$.ids = list<string>();
+        }
+	|exp_loop expression COMMA 
+	{
+        $$ = $1;
+        $$.push_front($2);
+        }
 	;
 
 var: identifier {cout << "var -> identifier" << endl;}
