@@ -120,7 +120,7 @@ yy::parser::symbol_type yylex();
 %left L_SQUARE_BRACKET R_SQUARE_BRACKET
 %left L_PAREN R_PAREN
 
-%type <string> program function identifier statements
+%type <string> program function identifier statement_loop statement
 %type <dec_type> declarations declaration
 %type <list<string>> identifier_loop
 
@@ -140,7 +140,7 @@ function: FUNCTION identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS
 	$$ += $5.code;
 	int i = 0;
 	for(list<string>::iterator it = $5.ids.begin(); it != $5.ids.end(); it++){
-		$$ += *it + " $" + to_string(i) + "\n";
+		$$ += "= " + *it + ", $" + to_string(i) + "\n";
 		i++;
 	}
 	$$ += $8.code;
@@ -154,7 +154,7 @@ identifier:
 	;
 
 number:
-	NUMBER {cout << "number -> NUMBER " << $1 << endl;} /*make sure this is right*/
+	NUMBER {cout << "number -> NUMBER " << $1 << endl;} /*make sure this is right and/or neccesary*/
 	;
 
 declaration_loop: 
@@ -166,7 +166,7 @@ declaration_loop:
 	|declaration_loop declaration SEMICOLON 
 	{
 	$$.code = $1.code + "\n" + $3.code;
-	$$.ids = $2.ids;
+	$$.ids = $1.ids;
 	for(list<string>::iterator it = $2.ids.begin(); it != $2.ids.end(); i++) {
 		$$.ids.push_back(*it);
 	} 	
@@ -175,12 +175,11 @@ declaration_loop:
 
 statement_loop: statement SEMICOLON 
 	{
-	$$.push.back($1); 
+	$$ = $1; 
 	}
 	|statement_loop statement SEMICOLON 
 	{
-	$$ = $1;
-        $$.push_front($2);
+	$$ = $1 + "\n" + $2;
 	}
 	;
 
@@ -219,15 +218,35 @@ identifier_loop: identifier
 	}
 	;
 
-statement: var ASSIGN expression {cout << "statement  -> var ASSIGN expression" << endl;}
-	|IF bool_exp THEN statement_loop ENDIF {cout << "statement -> IF bool_exp THEN statement_loop ENDIF" << endl;}
-	|IF bool_exp THEN statement_loop ELSE statement_loop ENDIF {cout << "statement -> IF bool_exp THEN statement_loop ELSE statement_loop ENDIF" << endl;}
+statement: var ASSIGN expression 
+	{
+	$$ = $1 /*ordered first var and then expression?*/
+	$$.push_back($3);
+	}
+	|IF bool_exp THEN statement_loop ENDIF 
+	{
+	$$.push_back($1);
+	$$ += $4;
+	}
+	|IF bool_exp THEN statement_loop ELSE statement_loop ENDIF 
+	{
+	/*$$.push_back($1);*/ /*want to specify which statement loop i go to*/
+	if($1 == true) {
+	$$ += $4;
+	}
+	else {
+	$$ += $6;
+	}
+	}
 	|WHILE bool_exp BEGINLOOP statement_loop ENDLOOP {cout << "statement -> WHILE bool_exp BEGINLOOP statement_loop ENDLOOP" << endl;}
 	|DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp {cout << "statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp" << endl;} 
 	|FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP {cout<< "statement -> FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP" << endl;}
 	|READ var_loop  {cout << "statement -> READ var_loop" << endl;}
 	|WRITE var_loop  {cout << "statement -> WRITE var_loop" << endl;} 
 	|CONTINUE {cout << "statement -> continue" << endl;}
+	{
+	$$ = $1;
+	}
 	|RETURN expression {cout << "statement -> RETURN expression" << endl;}
 	;
 
