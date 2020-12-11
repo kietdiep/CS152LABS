@@ -16,12 +16,15 @@
 	 * add more header file if you need more
 	 */
 #include <iostream>
-/*#include <list>*/
+#include <list>
 #include <string>
 #include <functional>
 using namespace std;
 	/* define the sturctures using as types for non-terminals */
-
+	struct dec_type{
+		string code;
+		list<string> ids;
+	};
 	/* end the structures for non-terminal types */
 }
 
@@ -29,7 +32,11 @@ using namespace std;
 %code
 {
 #include "y.tab.hh"
-
+struct tests
+{
+	string name;
+	yy::location loc;
+};
 	/* you may need these header files 
 	 * add more header file if you need more
 	 */
@@ -40,16 +47,20 @@ using namespace std;
 
 
 yy::parser::symbol_type yylex();
-
+void yyerror(const char *msg);
+	
 	/* define your symbol table, global variables,
 	 * list of keywords or any function you may need here */
 	
 	/* end of your code */
 }
-
+/* Used to give tokens a type */
+/* specify tokens, type of non-terminals and terminals here
+* end of token specifications
+* tokens, bison makes these constant variables
+*/
 %token END 0 "end of file";
 
-	/* specify tokens, type of non-terminals and terminals here */
 %token FUNCTION
 /*%token DECLARATION*/
 %token IDENTIFIER
@@ -165,7 +176,8 @@ declaration_loop:
 	}
 	|declaration_loop declaration SEMICOLON 
 	{
-	$$.code = $1.code + "\n" + $3.code;
+	/* Note: Since our code is different from TA's changed $3 to $2 because of the order of declaration_loop and declaration. Not sure if we should change or not */
+	$$.code = $1.code + "\n" + $2.code;
 	$$.ids = $1.ids;
 	for(list<string>::iterator it = $2.ids.begin(); it != $2.ids.end(); i++) {
 		$$.ids.push_back(*it);
@@ -204,6 +216,7 @@ declaration: identifier_loop COLON INTEGER
                 $$.code += ".[] " + *it + ", " + to_string($5*$8) + "\n";
                 $$.ids.push_back(*it);
         }
+	/*confused why u multiplied $5 and $8 */
 	}
 	;
 
@@ -213,8 +226,9 @@ identifier_loop: identifier
 	}
 	|identifier_loop identifier COMMA 
 	{
-	$$ = $1;
-	$$.push_front($2);
+	/* Note: Ta's code is identifier_loop COMMA identifier, but ours is id_loop id COMMA, so changed $$ = $2, $$.push_front($1) */
+	$$ = $2;
+	$$.push_front($1);
 	}
 	;
 
