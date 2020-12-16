@@ -19,12 +19,18 @@
 #include <list>
 #include <string>
 #include <functional>
+#include <sstream>
 using namespace std;
 	/* define the sturctures using as types for non-terminals */
-	struct dec_type{
+	struct nonTerm{
 		string code;
 		list<string> ids;
+		bool isArray;
+		string retName;
 	};
+
+	string generateReg();
+	string generateLabel();
 	/* end the structures for non-terminal types */
 }
 
@@ -53,6 +59,12 @@ void yyerror(const char *msg);
 	 * list of keywords or any function you may need here */
 	
 	/* end of your code */
+}
+
+%union {
+	int int_val;
+	char* str_val;
+	nonTerm* n_term;
 }
 /* Used to give tokens a type */
 /* specify tokens, type of non-terminals and terminals here
@@ -118,6 +130,7 @@ void yyerror(const char *msg);
 
 %token <int> NUMBER
 %token <string> IDENT
+
 	/* end of token specifications */
 
 %right ASSIGN
@@ -132,8 +145,8 @@ void yyerror(const char *msg);
 %left L_PAREN R_PAREN
 
 %type <string> program function identifier statement_loop statement
-%type <dec_type> declarations declaration
-%type <list<string>> identifier_loop
+%type <n_term> declaration_loop declaration exp_loop comp var_loop
+%type <list<string>> identifier_loop 
 
 %start program
 	/* define your grammars here use the same grammars 
@@ -216,7 +229,6 @@ declaration: identifier_loop COLON INTEGER
                 $$.code += ".[] " + *it + ", " + to_string($5*$8) + "\n";
                 $$.ids.push_back(*it);
         }
-	/*confused why u multiplied $5 and $8 */
 	}
 	;
 
@@ -234,13 +246,39 @@ identifier_loop: identifier
 
 statement: var ASSIGN expression 
 	{
-	$$ = $1 /*ordered first var and then expression?*/
+	/*$$ = $1 
 	$$.push_back($3);
 	}
 	|IF bool_exp THEN statement_loop ENDIF 
 	{
 	$$.push_back($1);
-	$$ += $4;
+	$$ += $4;*/
+	$$ = new nonTerm();
+      stringstream ss;
+      string assign;
+
+      if ($3->ret_name != "") {
+        // assign to expression result
+        ss << $3->code << endl;
+        assign = $3->ret_name;
+      }
+      else {
+        // expression is var or num
+        assign = $3->code;
+      }
+
+      if ($1->isArray) {
+        if ($1->code.length() > 0) {
+          ss << $1->code << endl;
+        }
+        ss << "[]= " << $1->var << ", " << $1->index << ", " << assign;
+      }
+      else {
+        ss << "= " << $1->code << ", " << assign;
+      }
+
+      $$->code = ss.str();
+      $$->ret_name = $1->code;
 	}
 	|IF bool_exp THEN statement_loop ELSE statement_loop ENDIF 
 	{
@@ -277,11 +315,11 @@ var_loop: var
 	;
 
 bool_exp: relation_and_exp {cout << "bool_exp -> relation_and_exp" <<endl;}
-	|relation_and_exp OR bool_exp {cout << "bool_exp -> relation_and_exp OR bool_exp" <<endl;} /*having bool_exp at the end makes more sense to me but  could be wrong*/
+	|relation_and_exp OR bool_exp {cout << "bool_exp -> relation_and_exp OR bool_exp" <<endl;} 
 	;
 
 relation_and_exp: relation_exp {cout << "bool_exp -> relation_exp" <<endl;}
-        |relation_exp AND relation_and_exp {cout << "bool_exp -> relation_exp AND relation_and_exp" <<endl;} /*having relation_and_exp at the end makes more sense to me but  could be wrong*/
+        |relation_exp AND relation_and_exp {cout << "bool_exp -> relation_exp AND relation_and_exp" <<endl;} 
 	;
 
 relation_exp: NOT expression comp expression {cout << "relation_exp -> NOT expression comp expression" << endl;}
@@ -294,16 +332,11 @@ relation_exp: NOT expression comp expression {cout << "relation_exp -> NOT expre
 	|L_PAREN bool_exp R_PAREN {cout << "relation_exp -> L_PAREN bool_exp R_PAREN" << endl;}
 	;
 	
-comp: EQ {cout << "comp -> EQ" << endl;}
-	|NEQ {cout << "comp -> NEQ" << endl;}
-	|LT {cout << "comp -> LT" << endl;}
-	|GT {cout << "comp -> GT" << endl;}
-	|LTE {cout << "comp -> LTE" << endl;}
-	|var {cout << "term -> var" << endl;}
-	|SUB number {cout << "term -> SUB number" << endl;}
-        |number {cout << "term -> number" << endl;}
-	|SUB L_PAREN expression R_PAREN {cout << "term -> SUB L_PAREN expression R_PAREN" << endl;}
-        |L_PAREN expression R_PAREN {cout << "term -> L_PAREN expression R_PAREN" << endl;}
+comp: EQ {$$ = "==";}
+	|NEQ {$$ = "<>";}
+	|LT {$$ = "<";}
+	|GT {$$ = ">";}
+	|LTE {$$ = "<=";}
 
 expression: mult_exp {cout << "expression -> mult_exp" << endl;}
 	|expression ADD mult_exp {cout << "expression -> expression ADD mult_exp" << endl;}

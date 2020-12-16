@@ -32,10 +32,10 @@
 
 
 // First part of user declarations.
-#line 1 "mini_ll.yy" // lalr1.cc:404
+#line 1 "mini_ll.y" // lalr1.cc:404
 
 
-#line 39 "y.tab.cc" // lalr1.cc:404
+#line 39 "y.tab.c" // lalr1.cc:404
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -45,13 +45,13 @@
 #  endif
 # endif
 
-#include "y.tab.hh"
+#include "y.tab.h"
 
 // User implementation prologue.
 
-#line 53 "y.tab.cc" // lalr1.cc:412
+#line 53 "y.tab.c" // lalr1.cc:412
 // Unqualified %code blocks.
-#line 104 "mini_ll.yy" // lalr1.cc:413
+#line 104 "mini_ll.y" // lalr1.cc:413
 
     #include "parser.tab.hh"
 
@@ -88,7 +88,7 @@
     
 	/* end of your code */
 
-#line 92 "y.tab.cc" // lalr1.cc:413
+#line 92 "y.tab.c" // lalr1.cc:413
 
 
 #ifndef YY_
@@ -174,7 +174,7 @@
 
 
 namespace yy {
-#line 178 "y.tab.cc" // lalr1.cc:479
+#line 178 "y.tab.c" // lalr1.cc:479
 
   /* Return YYSTR after stripping away unnecessary quotes and
      backslashes, so that it's suitable for yyerror.  The heuristic is
@@ -668,13 +668,13 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 186 "mini_ll.yy" // lalr1.cc:859
+#line 186 "mini_ll.y" // lalr1.cc:859
     { populateKeywords(); }
-#line 674 "y.tab.cc" // lalr1.cc:859
+#line 674 "y.tab.c" // lalr1.cc:859
     break;
 
   case 3:
-#line 186 "mini_ll.yy" // lalr1.cc:859
+#line 186 "mini_ll.y" // lalr1.cc:859
     {
 
         if (!errorOccurred)
@@ -686,31 +686,31 @@ namespace yy {
             yy::parser::error(yystack_[0].location, "No main function defined");
         }            
     }
-#line 690 "y.tab.cc" // lalr1.cc:859
+#line 690 "y.tab.c" // lalr1.cc:859
     break;
 
   case 4:
-#line 201 "mini_ll.yy" // lalr1.cc:859
+#line 201 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("program -> epsilon\n");
     }
-#line 699 "y.tab.cc" // lalr1.cc:859
+#line 699 "y.tab.c" // lalr1.cc:859
     break;
 
   case 5:
-#line 206 "mini_ll.yy" // lalr1.cc:859
+#line 206 "mini_ll.y" // lalr1.cc:859
     {
         debug_print("program -> program function\n");
 
         yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), yystack_[1].value.as< ExprStruct > ().code.begin(), yystack_[1].value.as< ExprStruct > ().code.end());
         yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), yystack_[0].value.as< StatementStruct > ().code.begin(), yystack_[0].value.as< StatementStruct > ().code.end());
     }
-#line 710 "y.tab.cc" // lalr1.cc:859
+#line 710 "y.tab.c" // lalr1.cc:859
     break;
 
   case 6:
-#line 215 "mini_ll.yy" // lalr1.cc:859
+#line 215 "mini_ll.y" // lalr1.cc:859
     { 
 
         std::string function_name = yystack_[0].value.as< std::string > ();
@@ -722,11 +722,11 @@ namespace yy {
         }
 
     }
-#line 726 "y.tab.cc" // lalr1.cc:859
+#line 726 "y.tab.c" // lalr1.cc:859
     break;
 
   case 7:
-#line 228 "mini_ll.yy" // lalr1.cc:859
+#line 228 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_char("function -> FUNCTION IDENTIFIER %s SEMICOLON ", yystack_[11].value.as< std::string > ());
@@ -765,21 +765,21 @@ namespace yy {
 
         yylhs.value.as< StatementStruct > ().code.push_back("endfunc");
     }
-#line 769 "y.tab.cc" // lalr1.cc:859
+#line 769 "y.tab.c" // lalr1.cc:859
     break;
 
   case 8:
-#line 270 "mini_ll.yy" // lalr1.cc:859
+#line 270 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("declaration_loop -> epsilon\n");
         // don't add anything to vector
     }
-#line 779 "y.tab.cc" // lalr1.cc:859
+#line 779 "y.tab.c" // lalr1.cc:859
     break;
 
   case 9:
-#line 276 "mini_ll.yy" // lalr1.cc:859
+#line 276 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("declaration_loop -> declaration_loop declaration SEMICOLON\n");
@@ -787,21 +787,21 @@ namespace yy {
         yylhs.value.as< std::vector<ExprStruct> > ().insert(yylhs.value.as< std::vector<ExprStruct> > ().end(), yystack_[2].value.as< std::vector<ExprStruct> > ().begin(), yystack_[2].value.as< std::vector<ExprStruct> > ().end());
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[1].value.as< ExprStruct > ());
     }
-#line 791 "y.tab.cc" // lalr1.cc:859
+#line 791 "y.tab.c" // lalr1.cc:859
     break;
 
   case 10:
-#line 287 "mini_ll.yy" // lalr1.cc:859
+#line 287 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement_loop -> statement SEMICOLON\n");
         yylhs.value.as< std::vector<StatementStruct> > ().push_back(yystack_[1].value.as< StatementStruct > ());
     }
-#line 801 "y.tab.cc" // lalr1.cc:859
+#line 801 "y.tab.c" // lalr1.cc:859
     break;
 
   case 11:
-#line 293 "mini_ll.yy" // lalr1.cc:859
+#line 293 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement_loop -> statement_loop statement SEMICOLON\n");
@@ -809,11 +809,11 @@ namespace yy {
         yylhs.value.as< std::vector<StatementStruct> > () = yystack_[2].value.as< std::vector<StatementStruct> > ();
         yylhs.value.as< std::vector<StatementStruct> > ().push_back(yystack_[1].value.as< StatementStruct > ());
     }
-#line 813 "y.tab.cc" // lalr1.cc:859
+#line 813 "y.tab.c" // lalr1.cc:859
     break;
 
   case 12:
-#line 304 "mini_ll.yy" // lalr1.cc:859
+#line 304 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("declaration -> id_loop COLON INTEGER\n");
@@ -841,11 +841,11 @@ namespace yy {
 
 
     }
-#line 845 "y.tab.cc" // lalr1.cc:859
+#line 845 "y.tab.c" // lalr1.cc:859
     break;
 
   case 13:
-#line 332 "mini_ll.yy" // lalr1.cc:859
+#line 332 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_int("declaration -> id_loop COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER\n", yystack_[3].value.as< int > ());
@@ -875,21 +875,21 @@ namespace yy {
             }
         }
     }
-#line 879 "y.tab.cc" // lalr1.cc:859
+#line 879 "y.tab.c" // lalr1.cc:859
     break;
 
   case 14:
-#line 365 "mini_ll.yy" // lalr1.cc:859
+#line 365 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("id_loop -> IDENTIFIER");
         yylhs.value.as< std::vector<std::string> > ().push_back(yystack_[0].value.as< std::string > ());
     }
-#line 889 "y.tab.cc" // lalr1.cc:859
+#line 889 "y.tab.c" // lalr1.cc:859
     break;
 
   case 15:
-#line 371 "mini_ll.yy" // lalr1.cc:859
+#line 371 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("id_loop -> id_loop COMMA IDENTIFIER");
@@ -901,11 +901,11 @@ namespace yy {
                         
         yylhs.value.as< std::vector<std::string> > ().push_back(yystack_[0].value.as< std::string > ());
     }
-#line 905 "y.tab.cc" // lalr1.cc:859
+#line 905 "y.tab.c" // lalr1.cc:859
     break;
 
   case 16:
-#line 386 "mini_ll.yy" // lalr1.cc:859
+#line 386 "mini_ll.y" // lalr1.cc:859
     {
         debug_print("statement -> var ASSIGN expression\n"); 
         // ExprStruct es;
@@ -915,11 +915,11 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back("= " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
         // $$ = es;
     }
-#line 919 "y.tab.cc" // lalr1.cc:859
+#line 919 "y.tab.c" // lalr1.cc:859
     break;
 
   case 17:
-#line 396 "mini_ll.yy" // lalr1.cc:859
+#line 396 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> IF bool_expr THEN statement_loop ENDIF\n");
@@ -956,11 +956,11 @@ namespace yy {
         
     
     }
-#line 960 "y.tab.cc" // lalr1.cc:859
+#line 960 "y.tab.c" // lalr1.cc:859
     break;
 
   case 18:
-#line 433 "mini_ll.yy" // lalr1.cc:859
+#line 433 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> IF bool_expr THEN statement_loop ELSE statement_loop ENDIF\n");
@@ -998,17 +998,17 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back(": " + yylhs.value.as< StatementStruct > ().end_label /*+ " ; endif label"*/);
 
     }
-#line 1002 "y.tab.cc" // lalr1.cc:859
+#line 1002 "y.tab.c" // lalr1.cc:859
     break;
 
   case 19:
-#line 471 "mini_ll.yy" // lalr1.cc:859
+#line 471 "mini_ll.y" // lalr1.cc:859
     {loop_scope.push(generateTempLabel());}
-#line 1008 "y.tab.cc" // lalr1.cc:859
+#line 1008 "y.tab.c" // lalr1.cc:859
     break;
 
   case 20:
-#line 471 "mini_ll.yy" // lalr1.cc:859
+#line 471 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> WHILE bool_expr BEGINLOOP statement_loop ENDLOOP\n");
@@ -1045,17 +1045,17 @@ namespace yy {
         loop_scope.pop();
 
     }
-#line 1049 "y.tab.cc" // lalr1.cc:859
+#line 1049 "y.tab.c" // lalr1.cc:859
     break;
 
   case 21:
-#line 508 "mini_ll.yy" // lalr1.cc:859
+#line 508 "mini_ll.y" // lalr1.cc:859
     { loop_scope.push(generateTempLabel()); }
-#line 1055 "y.tab.cc" // lalr1.cc:859
+#line 1055 "y.tab.c" // lalr1.cc:859
     break;
 
   case 22:
-#line 508 "mini_ll.yy" // lalr1.cc:859
+#line 508 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_expr\n");
@@ -1086,11 +1086,11 @@ namespace yy {
         loop_scope.pop();
 
     }
-#line 1090 "y.tab.cc" // lalr1.cc:859
+#line 1090 "y.tab.c" // lalr1.cc:859
     break;
 
   case 23:
-#line 539 "mini_ll.yy" // lalr1.cc:859
+#line 539 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> READ var_loop\n");
@@ -1107,11 +1107,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(".< " + this_expr_struct.reg_name);
         }
     }
-#line 1111 "y.tab.cc" // lalr1.cc:859
+#line 1111 "y.tab.c" // lalr1.cc:859
     break;
 
   case 24:
-#line 556 "mini_ll.yy" // lalr1.cc:859
+#line 556 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> WRITE var_loop\n");
@@ -1123,11 +1123,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(".> " + this_expr_struct.reg_name);
         }
     }
-#line 1127 "y.tab.cc" // lalr1.cc:859
+#line 1127 "y.tab.c" // lalr1.cc:859
     break;
 
   case 25:
-#line 568 "mini_ll.yy" // lalr1.cc:859
+#line 568 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> CONTINUE\n");
@@ -1145,11 +1145,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(":= " + jump_here);
         }
     }
-#line 1149 "y.tab.cc" // lalr1.cc:859
+#line 1149 "y.tab.c" // lalr1.cc:859
     break;
 
   case 26:
-#line 586 "mini_ll.yy" // lalr1.cc:859
+#line 586 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("statement -> RETURN expression\n");
@@ -1160,71 +1160,71 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back("ret " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1164 "y.tab.cc" // lalr1.cc:859
+#line 1164 "y.tab.c" // lalr1.cc:859
     break;
 
   case 27:
-#line 600 "mini_ll.yy" // lalr1.cc:859
+#line 600 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("var_loop -> var\n");
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
 
     }
-#line 1175 "y.tab.cc" // lalr1.cc:859
+#line 1175 "y.tab.c" // lalr1.cc:859
     break;
 
   case 28:
-#line 607 "mini_ll.yy" // lalr1.cc:859
+#line 607 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("var_loop -> var_loop COMMA var\n");
         yylhs.value.as< std::vector<ExprStruct> > ().insert(yylhs.value.as< std::vector<ExprStruct> > ().end(), yystack_[2].value.as< std::vector<ExprStruct> > ().begin(), yystack_[2].value.as< std::vector<ExprStruct> > ().end());
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
     }
-#line 1186 "y.tab.cc" // lalr1.cc:859
+#line 1186 "y.tab.c" // lalr1.cc:859
     break;
 
   case 29:
-#line 616 "mini_ll.yy" // lalr1.cc:859
+#line 616 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("bool_expr -> relation_and_expr\n");
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
 
     }
-#line 1196 "y.tab.cc" // lalr1.cc:859
+#line 1196 "y.tab.c" // lalr1.cc:859
     break;
 
   case 30:
-#line 621 "mini_ll.yy" // lalr1.cc:859
+#line 621 "mini_ll.y" // lalr1.cc:859
     {
         debug_print("bool_expr -> bool_expr OR relation_and_expr\n"); 
 
     }
-#line 1205 "y.tab.cc" // lalr1.cc:859
+#line 1205 "y.tab.c" // lalr1.cc:859
     break;
 
   case 31:
-#line 628 "mini_ll.yy" // lalr1.cc:859
+#line 628 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("relation_and_expr -> relation_expr\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
 
     }
-#line 1215 "y.tab.cc" // lalr1.cc:859
+#line 1215 "y.tab.c" // lalr1.cc:859
     break;
 
   case 32:
-#line 633 "mini_ll.yy" // lalr1.cc:859
+#line 633 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("relation_and_expr -> relation_and_expr AND relation_expr\n"); 
 
     }
-#line 1224 "y.tab.cc" // lalr1.cc:859
+#line 1224 "y.tab.c" // lalr1.cc:859
     break;
 
   case 33:
-#line 641 "mini_ll.yy" // lalr1.cc:859
+#line 641 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("relation_expr -> expression comp expression\n");
@@ -1238,11 +1238,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(yystack_[1].value.as< std::string > () + " " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1242 "y.tab.cc" // lalr1.cc:859
+#line 1242 "y.tab.c" // lalr1.cc:859
     break;
 
   case 34:
-#line 655 "mini_ll.yy" // lalr1.cc:859
+#line 655 "mini_ll.y" // lalr1.cc:859
     {
 
         std::cout << "In relation_expr -> NOT expression comp expression" << std::endl;
@@ -1259,11 +1259,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("! " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yylhs.value.as< ExprStruct > ().reg_name);
     }
-#line 1263 "y.tab.cc" // lalr1.cc:859
+#line 1263 "y.tab.c" // lalr1.cc:859
     break;
 
   case 35:
-#line 672 "mini_ll.yy" // lalr1.cc:859
+#line 672 "mini_ll.y" // lalr1.cc:859
     { 
 
         debug_print("relation_expr -> TRUE\n");
@@ -1273,11 +1273,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 1");
     }
-#line 1277 "y.tab.cc" // lalr1.cc:859
+#line 1277 "y.tab.c" // lalr1.cc:859
     break;
 
   case 36:
-#line 681 "mini_ll.yy" // lalr1.cc:859
+#line 681 "mini_ll.y" // lalr1.cc:859
     { debug_print("relation_expr -> NOT TRUE\n"); 
 
         yylhs.value.as< ExprStruct > ().reg_name = generateTempReg();
@@ -1285,11 +1285,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 0");
     }
-#line 1289 "y.tab.cc" // lalr1.cc:859
+#line 1289 "y.tab.c" // lalr1.cc:859
     break;
 
   case 37:
-#line 688 "mini_ll.yy" // lalr1.cc:859
+#line 688 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("relation_expr -> FALSE\n"); 
 
@@ -1298,11 +1298,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 0");
     }
-#line 1302 "y.tab.cc" // lalr1.cc:859
+#line 1302 "y.tab.c" // lalr1.cc:859
     break;
 
   case 38:
-#line 696 "mini_ll.yy" // lalr1.cc:859
+#line 696 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("relation_expr -> NOT FALSE\n"); 
 
@@ -1311,11 +1311,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 1");
     }
-#line 1315 "y.tab.cc" // lalr1.cc:859
+#line 1315 "y.tab.c" // lalr1.cc:859
     break;
 
   case 39:
-#line 704 "mini_ll.yy" // lalr1.cc:859
+#line 704 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print("relation_expr -> L_PAREN bool_expr R_PAREN\n"); 
 
@@ -1325,56 +1325,56 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[1].value.as< ExprStruct > ().reg_name);
     }
-#line 1329 "y.tab.cc" // lalr1.cc:859
+#line 1329 "y.tab.c" // lalr1.cc:859
     break;
 
   case 40:
-#line 716 "mini_ll.yy" // lalr1.cc:859
+#line 716 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = "=="; }
-#line 1335 "y.tab.cc" // lalr1.cc:859
+#line 1335 "y.tab.c" // lalr1.cc:859
     break;
 
   case 41:
-#line 717 "mini_ll.yy" // lalr1.cc:859
+#line 717 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = "!="; }
-#line 1341 "y.tab.cc" // lalr1.cc:859
+#line 1341 "y.tab.c" // lalr1.cc:859
     break;
 
   case 42:
-#line 718 "mini_ll.yy" // lalr1.cc:859
+#line 718 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = "<"; }
-#line 1347 "y.tab.cc" // lalr1.cc:859
+#line 1347 "y.tab.c" // lalr1.cc:859
     break;
 
   case 43:
-#line 719 "mini_ll.yy" // lalr1.cc:859
+#line 719 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = ">"; }
-#line 1353 "y.tab.cc" // lalr1.cc:859
+#line 1353 "y.tab.c" // lalr1.cc:859
     break;
 
   case 44:
-#line 720 "mini_ll.yy" // lalr1.cc:859
+#line 720 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = "<="; }
-#line 1359 "y.tab.cc" // lalr1.cc:859
+#line 1359 "y.tab.c" // lalr1.cc:859
     break;
 
   case 45:
-#line 721 "mini_ll.yy" // lalr1.cc:859
+#line 721 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > ()  = ">="; }
-#line 1365 "y.tab.cc" // lalr1.cc:859
+#line 1365 "y.tab.c" // lalr1.cc:859
     break;
 
   case 46:
-#line 725 "mini_ll.yy" // lalr1.cc:859
+#line 725 "mini_ll.y" // lalr1.cc:859
     { debug_print("expression -> mult_expr\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
         //$$.code.push_back("= " + $$.reg_name + ", " + $1.reg_name);
     }
-#line 1374 "y.tab.cc" // lalr1.cc:859
+#line 1374 "y.tab.c" // lalr1.cc:859
     break;
 
   case 47:
-#line 729 "mini_ll.yy" // lalr1.cc:859
+#line 729 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("expression -> expression ADD mult_expr\n"); 
@@ -1388,11 +1388,11 @@ namespace yy {
 
 
     }
-#line 1392 "y.tab.cc" // lalr1.cc:859
+#line 1392 "y.tab.c" // lalr1.cc:859
     break;
 
   case 48:
-#line 742 "mini_ll.yy" // lalr1.cc:859
+#line 742 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("expression -> expression SUB mult_expr\n");
@@ -1404,20 +1404,20 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
     }
-#line 1408 "y.tab.cc" // lalr1.cc:859
+#line 1408 "y.tab.c" // lalr1.cc:859
     break;
 
   case 49:
-#line 757 "mini_ll.yy" // lalr1.cc:859
+#line 757 "mini_ll.y" // lalr1.cc:859
     {
         debug_print("mult_expr -> term\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
     }
-#line 1417 "y.tab.cc" // lalr1.cc:859
+#line 1417 "y.tab.c" // lalr1.cc:859
     break;
 
   case 50:
-#line 762 "mini_ll.yy" // lalr1.cc:859
+#line 762 "mini_ll.y" // lalr1.cc:859
     {
         debug_print_char("mult_expr -> mult_expr %s term\n", yystack_[1].value.as< std::string > ()); 
         yylhs.value.as< ExprStruct > ().reg_name = generateTempReg();
@@ -1431,29 +1431,29 @@ namespace yy {
         //     << "term.code[0]: " << $3.code[0] << ", term.code[1]" << $3.code[1] << std::endl
         //     << std::endl;
     }
-#line 1435 "y.tab.cc" // lalr1.cc:859
+#line 1435 "y.tab.c" // lalr1.cc:859
     break;
 
   case 51:
-#line 778 "mini_ll.yy" // lalr1.cc:859
+#line 778 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > () = "*"; }
-#line 1441 "y.tab.cc" // lalr1.cc:859
+#line 1441 "y.tab.c" // lalr1.cc:859
     break;
 
   case 52:
-#line 779 "mini_ll.yy" // lalr1.cc:859
+#line 779 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > () = "/"; }
-#line 1447 "y.tab.cc" // lalr1.cc:859
+#line 1447 "y.tab.c" // lalr1.cc:859
     break;
 
   case 53:
-#line 780 "mini_ll.yy" // lalr1.cc:859
+#line 780 "mini_ll.y" // lalr1.cc:859
     { yylhs.value.as< std::string > () = "%"; }
-#line 1453 "y.tab.cc" // lalr1.cc:859
+#line 1453 "y.tab.c" // lalr1.cc:859
     break;
 
   case 54:
-#line 785 "mini_ll.yy" // lalr1.cc:859
+#line 785 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("term -> var\n"); 
@@ -1463,11 +1463,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1467 "y.tab.cc" // lalr1.cc:859
+#line 1467 "y.tab.c" // lalr1.cc:859
     break;
 
   case 55:
-#line 794 "mini_ll.yy" // lalr1.cc:859
+#line 794 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("term -> SUB var\n");
@@ -1496,11 +1496,11 @@ namespace yy {
         // Now, do $$ -= doubleTemp
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yylhs.value.as< ExprStruct > ().reg_name + ", " + doubleTemp);
     }
-#line 1500 "y.tab.cc" // lalr1.cc:859
+#line 1500 "y.tab.c" // lalr1.cc:859
     break;
 
   case 56:
-#line 822 "mini_ll.yy" // lalr1.cc:859
+#line 822 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_int("term -> NUMBER %d\n", yystack_[0].value.as< int > ());
@@ -1510,11 +1510,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + std::to_string(yystack_[0].value.as< int > ()));
     }
-#line 1514 "y.tab.cc" // lalr1.cc:859
+#line 1514 "y.tab.c" // lalr1.cc:859
     break;
 
   case 57:
-#line 832 "mini_ll.yy" // lalr1.cc:859
+#line 832 "mini_ll.y" // lalr1.cc:859
     { 
         debug_print_int("term -> SUB NUMBER %d\n", yystack_[0].value.as< int > ()); 
 
@@ -1531,11 +1531,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", 0, " + number_es.reg_name);
 
     }
-#line 1535 "y.tab.cc" // lalr1.cc:859
+#line 1535 "y.tab.c" // lalr1.cc:859
     break;
 
   case 58:
-#line 848 "mini_ll.yy" // lalr1.cc:859
+#line 848 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("term -> L_PAREN expression R_PAREN\n");
@@ -1547,11 +1547,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[1].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1551 "y.tab.cc" // lalr1.cc:859
+#line 1551 "y.tab.c" // lalr1.cc:859
     break;
 
   case 59:
-#line 860 "mini_ll.yy" // lalr1.cc:859
+#line 860 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("term -> SUB L_PAREN expression R_PAREN\n");
@@ -1564,11 +1564,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", 0, " + yylhs.value.as< ExprStruct > ().reg_name);
 
     }
-#line 1568 "y.tab.cc" // lalr1.cc:859
+#line 1568 "y.tab.c" // lalr1.cc:859
     break;
 
   case 60:
-#line 872 "mini_ll.yy" // lalr1.cc:859
+#line 872 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_char("term -> IDENTIFIER %s L_PAREN R_PAREN\n", yystack_[2].value.as< std::string > ());
@@ -1582,11 +1582,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("call " + yystack_[2].value.as< std::string > () + ", " + yylhs.value.as< ExprStruct > ().reg_name);
     }
-#line 1586 "y.tab.cc" // lalr1.cc:859
+#line 1586 "y.tab.c" // lalr1.cc:859
     break;
 
   case 61:
-#line 886 "mini_ll.yy" // lalr1.cc:859
+#line 886 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_char("term -> IDENTIFIER %s L_PAREN expression_loop R_PAREN\n", yystack_[3].value.as< std::string > ());
@@ -1613,11 +1613,11 @@ namespace yy {
         paramCount = 0;
 
     }
-#line 1617 "y.tab.cc" // lalr1.cc:859
+#line 1617 "y.tab.c" // lalr1.cc:859
     break;
 
   case 62:
-#line 916 "mini_ll.yy" // lalr1.cc:859
+#line 916 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("expression_loop -> expression");
@@ -1630,11 +1630,11 @@ namespace yy {
 
         paramCount++;
     }
-#line 1634 "y.tab.cc" // lalr1.cc:859
+#line 1634 "y.tab.c" // lalr1.cc:859
     break;
 
   case 63:
-#line 929 "mini_ll.yy" // lalr1.cc:859
+#line 929 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print("expression_loop -> expression_loop COMMA expression");
@@ -1643,11 +1643,11 @@ namespace yy {
 
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
     }
-#line 1647 "y.tab.cc" // lalr1.cc:859
+#line 1647 "y.tab.c" // lalr1.cc:859
     break;
 
   case 64:
-#line 941 "mini_ll.yy" // lalr1.cc:859
+#line 941 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_char("var -> IDENTIFIER %s\n", yystack_[0].value.as< std::string > ());
@@ -1668,11 +1668,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > () = es;
     }
-#line 1672 "y.tab.cc" // lalr1.cc:859
+#line 1672 "y.tab.c" // lalr1.cc:859
     break;
 
   case 65:
-#line 962 "mini_ll.yy" // lalr1.cc:859
+#line 962 "mini_ll.y" // lalr1.cc:859
     {
 
         debug_print_char("var -> IDENTIFIER %s L_SQUARE_BRACKET expression R_SQUARE_BRACKET\n", yystack_[3].value.as< std::string > ());
@@ -1685,11 +1685,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > () = es;
     }
-#line 1689 "y.tab.cc" // lalr1.cc:859
+#line 1689 "y.tab.c" // lalr1.cc:859
     break;
 
 
-#line 1693 "y.tab.cc" // lalr1.cc:859
+#line 1693 "y.tab.c" // lalr1.cc:859
             default:
               break;
             }
@@ -2167,8 +2167,8 @@ namespace yy {
 
 
 } // yy
-#line 2171 "y.tab.cc" // lalr1.cc:1167
-#line 980 "mini_ll.yy" // lalr1.cc:1168
+#line 2171 "y.tab.c" // lalr1.cc:1167
+#line 980 "mini_ll.y" // lalr1.cc:1168
 
 
 int main(int argc, char *argv[])
