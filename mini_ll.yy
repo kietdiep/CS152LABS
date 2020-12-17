@@ -269,9 +269,8 @@ identifier_loop: identifier
 	;
 
 
-statement:
-
-    var ASSIGN expression {
+statement: var ASSIGN expression
+	{
         debug_print("statement -> var ASSIGN expression\n"); 
         // ExprStruct es;
         // es.reg_name = generateTempReg();
@@ -279,10 +278,9 @@ statement:
         // $$.code.push_back(". " + $1.reg_name);
         $$.code.push_back("= " + $1.reg_name + ", " + $3.reg_name);
         // $$ = es;
-    }
-
-	| IF bool_expr THEN statement_loop ENDIF {
-
+    	}
+	| IF bool_expr THEN statement_loop ENDIF 
+	{
         debug_print("statement -> IF bool_expr THEN statement_loop ENDIF\n");
 
         // Before anything else, copy code from bool_expr,
@@ -314,12 +312,9 @@ statement:
 
         // After we're done with body code, append the endif label
         $$.code.push_back(": " + endif_label);
-        
-    
-    }
-
-	| IF bool_expr THEN statement_loop ELSE statement_loop ENDIF {
-
+        }
+	| IF bool_expr THEN statement_loop ELSE statement_loop ENDIF 
+	{
         debug_print("statement -> IF bool_expr THEN statement_loop ELSE statement_loop ENDIF\n");
 
         // Copy code for evaluating bool_expr
@@ -353,11 +348,9 @@ statement:
         }
 
         $$.code.push_back(": " + $$.end_label /*+ " ; endif label"*/);
-
-    }
-
-	| WHILE bool_expr BEGINLOOP {loop_scope.push(generateTempLabel());} statement_loop ENDLOOP {
-
+	}
+	| WHILE bool_expr BEGINLOOP {loop_scope.push(generateTempLabel());} statement_loop ENDLOOP /*werid push in loop grammar here*/ 
+	{
         debug_print("statement -> WHILE bool_expr BEGINLOOP statement_loop ENDLOOP\n");
 
         StatementStruct css;
@@ -390,11 +383,9 @@ statement:
         $$.end_label = css.end_label;
 
         loop_scope.pop();
-
-    }
-
-	| DO BEGINLOOP { loop_scope.push(generateTempLabel()); } statement_loop ENDLOOP WHILE bool_expr {
-
+	}
+	| DO BEGINLOOP { loop_scope.push(generateTempLabel()); } statement_loop ENDLOOP WHILE bool_expr 
+	{
         debug_print("statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_expr\n");
 
         StatementStruct ss;
@@ -421,11 +412,10 @@ statement:
         $$.code.push_back("?:= " + ss.begin_label + ", " + $7.reg_name);
 
         loop_scope.pop();
-
-    }
-
-	| READ var_loop {
-
+	}
+	| FOR var ASSIGN number SEMICOLON bool_exp SEMICOLON var ASSIGN expression BEGINLOOP statement_loop ENDLOOP /*gotta do this*/
+	| READ var_loop 
+	{
         debug_print("statement -> READ var_loop\n");
 
 
@@ -439,10 +429,9 @@ statement:
             // $$.code.push_back(".< " + this_expr_struct.original_name);
             $$.code.push_back(".< " + this_expr_struct.reg_name);
         }
-    }
-
-	| WRITE var_loop {
-
+    	}
+	| WRITE var_loop 
+	{
         debug_print("statement -> WRITE var_loop\n");
         // $$ = concat($2, ".> ", "\n");
 
@@ -451,10 +440,9 @@ statement:
             // $$.code.push_back(".> " + this_expr_struct.original_name);
             $$.code.push_back(".> " + this_expr_struct.reg_name);
         }
-    }
-
-    | CONTINUE {
-
+	}
+    	| CONTINUE 
+	{
         debug_print("statement -> CONTINUE\n");
 
         // std::cout << "loop_scope size: " << loop_scope.size() << std::endl;
@@ -469,10 +457,9 @@ statement:
             std::string jump_here = loop_scope.top();
             $$.code.push_back(":= " + jump_here);
         }
-    }
-
-    | RETURN expression {
-
+    	}
+    	| RETURN expression 
+	{
         debug_print("statement -> RETURN expression\n");
 
         $$.code.insert($$.code.end(), $2.code.begin(), $2.code.end());
@@ -480,54 +467,50 @@ statement:
         $$.begin_label = $2.reg_name;
         $$.code.push_back("ret " + $2.reg_name);
 
-    }
+    	}
 ;
 
 var_loop:
 
-    var {
-
-        debug_print("var_loop -> var\n");
+    	var 
+	{
         $$.push_back($1);
-
-    }
-
-	| var_loop COMMA var {
-
+    	}
+	| var_loop var COMMA 
+	{
         debug_print("var_loop -> var_loop COMMA var\n");
         $$.insert($$.end(), $1.begin(), $1.end());
-        $$.push_back($3);
-    }
+        $$.push_back($2);
+    	}
 ;
 
 bool_expr:	 
-    relation_and_expr { 
+    	relation_and_expr 
+	{ 
         debug_print("bool_expr -> relation_and_expr\n");
         $$ = $1;
-
-    }
-    | bool_expr OR relation_and_expr {
-        debug_print("bool_expr -> bool_expr OR relation_and_expr\n"); 
-
-    }
+	}
+    	| bool_expr OR relation_and_expr 
+	{
+        cout << ("bool_expr -> bool_expr OR relation_and_expr\n"); /*nothing here?*/	
+    	}
 ;
 
 relation_and_expr:
-    relation_expr { 
+    	relation_expr 
+	{ 
         debug_print("relation_and_expr -> relation_expr\n"); 
         $$ = $1;
-
-    }
-    | relation_and_expr AND relation_expr { 
+	}
+    	| relation_and_expr AND relation_expr 
+	{ 
         debug_print("relation_and_expr -> relation_and_expr AND relation_expr\n"); 
-
-    }
+    	}
 ;
 
 relation_expr:
-
-    expression comp expression {
-
+    	expression comp expression 
+	{
         debug_print("relation_expr -> expression comp expression\n");
 
         $$.code.insert($$.code.end(), $1.code.begin(), $1.code.end());
@@ -537,11 +520,9 @@ relation_expr:
         $$.code.push_back(". " + $$.reg_name);
 
         $$.code.push_back($2 + " " + $$.reg_name + ", " + $1.reg_name + ", " + $3.reg_name);
-
-    }
-
-	| NOT expression comp expression {
-
+    	}
+	| NOT expression comp expression 
+	{
         std::cout << "In relation_expr -> NOT expression comp expression" << std::endl;
 
         debug_print("relation_expr -> NOT expression comp expression\n");
@@ -555,41 +536,45 @@ relation_expr:
         $$.code.push_back($3 + " " + $$.reg_name + ", " + $2.reg_name + ", " + $4.reg_name);
 
         $$.code.push_back("! " + $$.reg_name + ", " + $$.reg_name);
-    }
-
-	| TRUE { 
-
+    	}
+	| TRUE 
+	{ 
         debug_print("relation_expr -> TRUE\n");
 
         $$.reg_name = generateTempReg();
         $$.code.push_back(". " + $$.reg_name);
 
         $$.code.push_back("= " + $$.reg_name + ", 1");
-    }
-	| NOT TRUE { debug_print("relation_expr -> NOT TRUE\n"); 
+    	}
+	| NOT TRUE 
+	{ 
+	debug_print("relation_expr -> NOT TRUE\n"); 
 
         $$.reg_name = generateTempReg();
         $$.code.push_back(". " + $$.reg_name);
 
         $$.code.push_back("= " + $$.reg_name + ", 0");
-    }
-	| FALSE { 
+    	}
+	| FALSE 
+	{ 
         debug_print("relation_expr -> FALSE\n"); 
 
         $$.reg_name = generateTempReg();
         $$.code.push_back(". " + $$.reg_name);
 
         $$.code.push_back("= " + $$.reg_name + ", 0");
-    }
-	| NOT FALSE { 
+    	}
+	| NOT FALSE 
+	{ 
         debug_print("relation_expr -> NOT FALSE\n"); 
 
         $$.reg_name = generateTempReg();
         $$.code.push_back(". " + $$.reg_name);
 
         $$.code.push_back("= " + $$.reg_name + ", 1");
-    }
-	| L_PAREN bool_expr R_PAREN { 
+    	}
+	| L_PAREN bool_expr R_PAREN 
+	{ 
         debug_print("relation_expr -> L_PAREN bool_expr R_PAREN\n"); 
 
         $$.code.insert($$.code.end(), $2.code.begin(), $2.code.end());
@@ -597,11 +582,12 @@ relation_expr:
         $$.reg_name = generateTempReg();
         $$.code.push_back(". " + $$.reg_name);
         $$.code.push_back("= " + $$.reg_name + ", " + $2.reg_name);
-    }
+    	}
+	|NOT L_PAREN bool_exp R_PAREN
 ;
 
 comp:
-    EQ { $$  = "=="; }
+    	EQ { $$  = "=="; }
 	| NEQ { $$  = "!="; }
 	| LT { $$  = "<"; }
 	| GT { $$  = ">"; }
@@ -610,25 +596,24 @@ comp:
 ;
 
 expression: 
-    mult_expr { debug_print("expression -> mult_expr\n"); 
+    	mult_expr 
+	{
+	debug_print("expression -> mult_expr\n"); 
         $$ = $1;
         //$$.code.push_back("= " + $$.reg_name + ", " + $1.reg_name);
-    }
-    | expression ADD mult_expr {
-
+    	}
+    	| expression ADD mult_expr 
+	{
         debug_print("expression -> expression ADD mult_expr\n"); 
-
         $$ = $1;
         $$.reg_name = generateTempReg();
         // $$.code.insert($$.code.end(), $1.code.begin(), $1.code.end());
         $$.code.insert($$.code.end(), $3.code.begin(), $3.code.end());
         $$.code.push_back(". " + $$.reg_name);
         $$.code.push_back("+ " + $$.reg_name + ", " + $1.reg_name + ", " + $3.reg_name);
-
-
-    }
-    | expression SUB mult_expr {
-
+    	}
+    	| expression SUB mult_expr 
+	{
         debug_print("expression -> expression SUB mult_expr\n");
 
         $$ = $1;
@@ -637,7 +622,7 @@ expression:
         $$.code.insert($$.code.end(), $3.code.begin(), $3.code.end());
         $$.code.push_back(". " + $$.reg_name);
         $$.code.push_back("- " + $$.reg_name + ", " + $1.reg_name + ", " + $3.reg_name);
-    }
+    	}
 ;
 
 mult_expr:
