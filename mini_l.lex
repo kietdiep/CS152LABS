@@ -1,87 +1,71 @@
+%option noyywrap
 %{
-   #include <stdio.h>
-   #define YY_DECL yy::parser::symbol_type yylex()
-   #include "y.tab.hh"
-   using namespace std;
-   static yy::location loc;
+    #include "y.tab.h"
+    int line = 1, position = 0;
+    char* progStart;
 %}
-
-%option
-
-%{
-   #define YY_USER_ACTION loc.columns(yyleng);
-%}
-
-
 
 
 %%
 
-%{
-loc.step();
-%}
+"function"      {position += yyleng; return FUNCTION;}
+"beginparams"   {position += yyleng; return BEGIN_PARAMS;}
+"endparams"     {position += yyleng; return END_PARAMS;}
+"beginlocals"   {position += yyleng; return BEGIN_LOCALS;}
+"endlocals"     {position += yyleng; return END_LOCALS;}
+"beginbody"     {position += yyleng; return BEGIN_BODY;}
+"endbody"       {position += yyleng; return END_BODY;}
+"integer"       {position += yyleng; return INTEGER;}
+"array"         {position += yyleng; return ARRAY;}
+"of"            {position += yyleng; return OF;}
+"if"            {position += yyleng; return IF;}
+"then"          {position += yyleng; return THEN;}
+"endif"         {position += yyleng; return ENDIF;}
+"else"          {position += yyleng; return ELSE;}
+"while"         {position += yyleng; return WHILE;}
+"do"            {position += yyleng; return DO;}
+"beginloop"     {position += yyleng; return BEGINLOOP;}
+"endloop"       {position += yyleng; return ENDLOOP;}
+"continue"      {position += yyleng; return CONTINUE;}
+"read"          {position += yyleng; return READ;}
+"write"         {position += yyleng; return WRITE;}
+"and"           {position += yyleng; return AND;}
+"or"            {position += yyleng; return OR;}
+"not"           {position += yyleng; return NOT;}
+"true"          {position += yyleng; return TRUE;}
+"false"         {position += yyleng; return FALSE;}
+"return"        {position += yyleng; return RETURN;}
+"+"             {position += yyleng; return ADD;}
+"-"             {position += yyleng; return SUB;}
+"*"             {position += yyleng; return MULT;}
+"/"             {position += yyleng; return DIV;}
+"%"             {position += yyleng; return MOD;}
+"=="            {position += yyleng; return EQ;}
+"<>"            {position += yyleng; return NEQ;}
+"<"             {position += yyleng; return LT;}
+">"             {position += yyleng; return GT;}
+"<="            {position += yyleng; return LTE;}
+">="            {position += yyleng; return GTE;}
+";"             {position += yyleng; return SEMICOLON;}
+":"             {position += yyleng; return COLON;}
+","             {position += yyleng; return COMMA;}
+"("             {position += yyleng; return L_PAREN;}
+")"             {position += yyleng; return R_PAREN;}
+"["             {position += yyleng; return L_SQUARE_BRACKET;}
+"]"             {position += yyleng; return R_SQUARE_BRACKET;}
+":="            {position += yyleng; return ASSIGN;}
 
+"##".*		{}
+"\n"            {position = 0; line++;}
+[ \t]+          {position += yyleng;}
 
-"function"     {return yy::parser::make_FUNCTION(loc);}
-"beginparams"  {return yy::parser::make_BEGIN_PARAMS(loc);}
-"endparams"    {return yy::parser::make_END_PARAMS(loc);}
-"integer"      {return yy::parser::make_INTEGER(loc);}
-"array"        {return yy::parser::make_ARRAY(loc);}
-"of"           {return yy::parser::make_OF(loc);}
-"if"           {return yy::parser::make_IF(loc);}
-"then"         {return yy::parser::make_THEN(loc);}
-"endif"        {return yy::parser::make_ENDIF(loc);}
-"else"         {return yy::parser::make_ELSE(loc);}
-"elseif"       {return yy::parser::make_ELSEIF(loc);}
-"while"        {return yy::parser::make_WHILE(loc);}
-"do"           {return yy::parser::make_DO(loc);}
-"for"          {return yy::parser::make_FOR(loc);}
-"beginlocals"  {return yy::parser::make_BEGIN_LOCALS(loc);}
-"endlocals"    {return yy::parser::make_END_LOCALS(loc);}
-"beginbody"    {return yy::parser::make_BEGIN_BODY(loc);}
-"endbody"      {return yy::parser::make_END_BODY(loc);}
-"return"       {return yy::parser::make_RETURN(loc);}
-"beginloop"    {return yy::parser::make_BEGINLOOP(loc);}
-"endloop"      {return yy::parser::make_ENDLOOP(loc);}
-"continue"     {return yy::parser::make_CONTINUE(loc);}
-"exit"         {return yy::parser::make_EXIT(loc);}
-"read"         {return yy::parser::make_READ(loc);}
-"write"        {return yy::parser::make_WRITE(loc);}
-"and"          {return yy::parser::make_AND(loc);}
-"or"           {return yy::parser::make_OR(loc);}
-"not"          {return yy::parser::make_NOT(loc);}
-"true"         {return yy::parser::make_TRUE(loc);}
-"false"        {return yy::parser::make_FALSE(loc);}
-"-"            {return yy::parser::make_SUB(loc);}
-"+"            {return yy::parser::make_ADD(loc);}
-"*"            {return yy::parser::make_MULT(loc);}
-"/"            {return yy::parser::make_DIV(loc);}
-"%"            {return yy::parser::make_MOD(loc);}
-"=="           {return yy::parser::make_EQ(loc);}
-"<>"           {return yy::parser::make_NEQ(loc);}
-"<"            {return yy::parser::make_LT(loc);}
-">"            {return yy::parser::make_GT(loc);}
-"<="           {return yy::parser::make_LTE(loc);}
-">="           {return yy::parser::make_GTE(loc);}
-"("            {return yy::parser::make_L_PAREN(loc);}
-")"            {return yy::parser::make_R_PAREN(loc);}
-";"            {return yy::parser::make_SEMICOLON(loc);}
-":"            {return yy::parser::make_COLON(loc);}
-","            {return yy::parser::make_COMMA(loc);}
-"["            {return yy::parser::make_L_SQUARE_BRACKET(loc);}
-"]"            {return yy::parser::make_R_SQUARE_BRACKET(loc);}
-":="           {return yy::parser::make_ASSIGN(loc);}
+[0-9]+									  {yylval.intVal = atoi(yytext); position += yyleng; return NUMBER;}
+[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]		  {yylval.charVal = yytext; position += yyleng; return IDENT;} 
+[a-zA-Z][a-zA-Z0-9]*					  {yylval.charVal = yytext; position += yyleng; return IDENT;}
+[0-9_][a-zA-Z0-9_]*[a-zA-Z0-9_]           {printf("Error at line %d, position %d: Identifier \"%s\" must begin with a letter\n",line,position,yytext);position += yyleng; exit(0);} 
+[a-zA-Z][a-zA-Z0-9_]*[_]                  {printf("Error at line %d, position %d: Identifier \"%s\" cannot end with an underscore\n",line,position,yytext); position += yyleng; exit(0);} 
 
-[0-9]+ {return yy::parser::make_NUMBER(atoi(yytext), loc);}
-[a-zA-Z]([a-zA-Z0-9]|([_]*[a-zA-Z0-9]+))* {return yy::parser::make_IDENT(yytext, loc);}
-[a-zA-Z]+[a-zA-Z0-9_]*[_] {cout <<"Error at " << loc << ": Identifier cannot start with an underscore";}
-[0-9_][A-Za-z0-9_]* {cout <<"Error at" << loc << ": identifier must begin with a letter" << yytext;}
+.										  {printf("Error at line %d, column %d: Unrecognized symbol \"%s\"\n",line,position,yytext); exit(0);}
 
-"##".*         {}
-[ \t]+         {}
-"\n"           {}
-.              {cout << "Error at " << loc << " unrecognized symbol " << yytext;}
-
-<<EOF>>        {return yy::parser::make_END(loc);}
-
+ <<EOF>>	{exit(0);}
 %%
