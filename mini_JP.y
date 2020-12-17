@@ -117,14 +117,15 @@ using namespace std;
 %start Program
 
 %token <charVal> IDENT
-%token <intVal> NUMBER
+%token <intVal> number
 
 %type <expr> identifier identifier_variable function_identifier
-%type <expr> declarations declaration identifiers Var Vars
-%type <stat> statements statement else_statement
-%type <expr> expression expressions mult_exp term bool_exp relation_and_exp relation_exp relation_exp_not comp
+%type <expr> declaration_loop declaration identifier_loop var var_loop
+%type <stat> statement_loop statement else_statement
+%type <expr> expression exp_loop mult_exp term bool_exp relation_and_exp relation_exp relation_exp_not comp
 
 %token FUNCTION
+%token IDENTIFIER
 %token BEGIN_PARAMS
 %token END_PARAMS
 %token BEGIN_LOCALS
@@ -147,8 +148,9 @@ using namespace std;
 %token CONTINUE
 %token READ
 %token WRITE
+%token EXIT
 %left AND
-%left OR
+%left OR 
 %right NOT
 
 %token TRUE
@@ -185,10 +187,10 @@ Program:         %empty
     char temp[128];
     yyerror(temp);
   }
-  // Check if user declared variable the same as program name
+  // Check if user declared vartemp the same as program name
   if (variables.find(string(progStart)) != variables.end()) {
     char temp[128];
-    snprintf(temp, 128, "Declared program name as variable.");
+    snprintf(temp, 128, "Declared program name as vartemp.");
     yyerror(temp);
   }
 }
@@ -196,10 +198,10 @@ Program:         %empty
 {
     // Nothing needed he
 };
-
-Function:        FUNCTION function_identifier SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY
+   
+Function:        FUNCTION function_identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY
 {
-  string temp = "func ";
+  string temp = "func ";            // Need to fix function_identifier
   temp.append($2.place);
   temp.append("\n");
   temp.append($2.code);
@@ -217,27 +219,27 @@ Function:        FUNCTION function_identifier SEMICOLON BEGIN_PARAMS declaration
   }
   temp.append(init_params);
   temp.append($8.code);
-  string statements($11.code);
+  string statement_loop($11.code);
   // Check if there are any leftover continues (test 09)
-  if (statements.find("continue") != string::npos) {
+  if (statement_loop.find("continue") != string::npos) {
     printf("ERROR: Continue outside loop in function %s\n", $2.place);
   }
-  temp.append(statements);
+  temp.append(statement_loop);
   temp.append("endfunc\n");
   
   printf("%s", temp.c_str());
 };
 
 
-declaration:     identifiers COLON INTEGER
+declaration:     identifier_loop COLON INTEGER
 {
   string vars($1.place);
   string temp;
-  string variable;
+  string vartemp;
   bool cont = true;
 
-  // Build list of declarations base on list of identifiers
-  // identifiers use "|" as delimeter
+  // Build list of declaration_loop base on list of identifier_loop
+  // identifier_loop use "|" as delimeter
   size_t oldpos = 0;
   size_t pos = 0;
   bool isReserved = false;
@@ -245,37 +247,37 @@ declaration:     identifiers COLON INTEGER
     pos = vars.find("|", oldpos);
     if (pos == string::npos) {
       temp.append(". ");
-      variable = vars.substr(oldpos,pos);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos,pos);
+      temp.append(vartemp);
       temp.append("\n");
       cont = false;
     }
     else {
       size_t len = pos - oldpos;
       temp.append(". ");
-      variable = vars.substr(oldpos, len);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos, len);
+      temp.append(vartemp);
       temp.append("\n");
     }
     //check for reserved keywords (test 05)
     for (unsigned int i = 0; i < reservedWords.size(); ++i) {
-      if (reservedWords.at(i) == variable) {
+      if (reservedWords.at(i) == vartemp) {
         isReserved = true;
       }
     } 
     // Check for redeclaration (test 04) TODO same name as program
-    if (variables.find(variable) != variables.end()) {
+    if (variables.find(vartemp) != variables.end()) {
       char temp[128];
-      snprintf(temp, 128, "Redeclaration of variable %s", variable.c_str());
+      snprintf(temp, 128, "Redeclaration of vartemp %s", vartemp.c_str());
       yyerror(temp);
     }
     else if (isReserved){
       char temp[128];
-      snprintf(temp, 128, "Invalid declaration of reserved words %s", variable.c_str());
+      snprintf(temp, 128, "Invalid declaration of reserved words %s", vartemp.c_str());
       yyerror(temp);
     }
     else {
-      variables.insert(pair<string,int>(variable,0));
+      variables.insert(pair<string,int>(vartemp,0));
     }
     
     oldpos = pos + 1;
@@ -284,7 +286,7 @@ declaration:     identifiers COLON INTEGER
   $$.code = strdup(temp.c_str());
   $$.place = strdup(empty);	      
 }
-| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER
+| identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER
 {
   // Check if declaring arrays of size <= 0 (test 08)
   if ($5 <= 0) {
@@ -295,19 +297,19 @@ declaration:     identifiers COLON INTEGER
   
   string vars($1.place);
   string temp;
-  string variable;
+  string vartemp;
   bool cont = true;
 
-  // Build list of declarations base on list of identifiers
-  // identifiers use "|" as delimeter
+  // Build list of declaration_loop base on list of identifier_loop
+  // identifier_loop use "|" as delimeter
   size_t oldpos = 0;
   size_t pos = 0;
   while (cont) {
     pos = vars.find("|", oldpos);
     if (pos == string::npos) {
       temp.append(".[] ");
-      variable = vars.substr(oldpos, pos);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos, pos);
+      temp.append(vartemp);
       temp.append(", ");
       temp.append(to_string($5));
       temp.append("\n");
@@ -316,20 +318,20 @@ declaration:     identifiers COLON INTEGER
     else {
       size_t len = pos - oldpos;
       temp.append(".[] ");
-      variable = vars.substr(oldpos, len);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos, len);
+      temp.append(vartemp);
       temp.append(", ");
       temp.append(to_string($5));
       temp.append("\n");
     }
     // Check for redeclaraion (test 04)
-    if (variables.find(variable) != variables.end()) {
+    if (variables.find(vartemp) != variables.end()) {
       char temp[128];
-      snprintf(temp, 128, "Redeclaration of variable %s", variable.c_str());
+      snprintf(temp, 128, "Redeclaration of vartemp %s", vartemp.c_str());
       yyerror(temp);
     }
     else {
-      variables.insert(pair<string,int>(variable,$5));
+      variables.insert(pair<string,int>(vartemp,$5));
     }
       
     oldpos = pos + 1;
@@ -338,7 +340,7 @@ declaration:     identifiers COLON INTEGER
   $$.code = strdup(temp.c_str());
   $$.place = strdup(empty);	      
 }
-| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER 
+| identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
 {
     // Check if declaring arrays of size <= 0 (test 08)
   if ($5 <= 0) {
@@ -349,19 +351,19 @@ declaration:     identifiers COLON INTEGER
   
   string vars($1.place);
   string temp;
-  string variable;
+  string vartemp;
   bool cont = true;
 
-  // Build list of declarations base on list of identifiers
-  // identifiers use "|" as delimeter
+  // Build list of declaration_loop base on list of identifier_loop
+  // identifier_loop use "|" as delimeter
   size_t oldpos = 0;
   size_t pos = 0;
   while (cont) {
     pos = vars.find("|", oldpos);
     if (pos == string::npos) {
       temp.append(".[] ");
-      variable = vars.substr(oldpos, pos);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos, pos);
+      temp.append(vartemp);
       temp.append(", ");
       temp.append(to_string($5));
       temp.append("\n");
@@ -370,20 +372,20 @@ declaration:     identifiers COLON INTEGER
     else {
       size_t len = pos - oldpos;
       temp.append(".[] ");
-      variable = vars.substr(oldpos, len);
-      temp.append(variable);
+      vartemp = vars.substr(oldpos, len);
+      temp.append(vartemp);
       temp.append(", ");
       temp.append(to_string($5));
       temp.append("\n");
     }
     // Check for redeclaraion (test 04)
-    if (variables.find(variable) != variables.end()) {
+    if (variables.find(vartemp) != variables.end()) {
       char temp[128];
-      snprintf(temp, 128, "Redeclaration of variable %s", variable.c_str());
+      snprintf(temp, 128, "Redeclaration of vartemp %s", vartemp.c_str());
       yyerror(temp);
     }
     else {
-      variables.insert(pair<string,int>(variable,$5));
+      variables.insert(pair<string,int>(vartemp,$5));
     }
       
     oldpos = pos + 1;
@@ -394,43 +396,47 @@ declaration:     identifiers COLON INTEGER
 
 };
 
-declarations:    %empty
+declaration_loop:    %empty
 {
   $$.code = strdup(empty);
   $$.place = strdup(empty);
 }
-| declaration SEMICOLON declarations
-{
+| declaration_loop declaration SEMICOLON
+
+{ 
+  // declaration SEMICOLON declaration_loop <- original, take out later
   string temp;
   temp.append($1.code);
-  temp.append($3.code);
+  temp.append($2.code);
   
   $$.code = strdup(temp.c_str());
   $$.place = strdup(empty);
 };
 
-identifiers:     identifier
+identifier_loop:     identifier
 {
   $$.place = strdup($1.place);
   $$.code = strdup(empty);
 }
-| identifier COMMA identifiers
+| identifier_loop identifier COMMA
 {
+  // identifier COMMA identifier_loop <- original, take out later
   // use "|" as delimeter
   string temp;
   temp.append($1.place);
+  temp.append($2.place);
   temp.append("|");
-  temp.append($3.place);
   
   $$.place = strdup(temp.c_str());
   $$.code = strdup(empty);
 }
 
-statements:      statement SEMICOLON statements
+statement_loop:     statement_loop statement SEMICOLON
 {
+                    // statement SEMICOLON statement_loop <- original, take out later
   string temp;
   temp.append($1.code);
-  temp.append($3.code);
+  temp.append($2.code);
 
   $$.code = strdup(temp.c_str());
 }
@@ -442,7 +448,7 @@ statements:      statement SEMICOLON statements
   $$.code = strdup(temp.c_str());
 };
 
-statement:      Var ASSIGN expression
+statement:      var ASSIGN expression
 {
   string temp;
   temp.append($1.code);
@@ -476,7 +482,7 @@ statement:      Var ASSIGN expression
 
   $$.code = strdup(temp.c_str());
 }
-| IF bool_exp THEN statements else_statement ENDIF
+| IF bool_exp THEN statement_loop else_statement ENDIF
 {
   string then_begin = newLabel();
   string after = newLabel();
@@ -509,7 +515,7 @@ statement:      Var ASSIGN expression
   
   $$.code = strdup(temp.c_str());
 }		 
-| WHILE bool_exp BEGINLOOP statements ENDLOOP
+| WHILE bool_exp BEGINLOOP statement_loop ENDLOOP
 {
   string temp;
   string beginWhile = newLabel();
@@ -549,7 +555,7 @@ statement:      Var ASSIGN expression
 
   $$.code = strdup(temp.c_str());
 }
-| DO BEGINLOOP statements ENDLOOP WHILE bool_exp
+| DO BEGINLOOP statement_loop ENDLOOP WHILE bool_exp
 {
   string temp;
   string beginLoop = newLabel();
@@ -579,7 +585,7 @@ statement:      Var ASSIGN expression
   
   $$.code = strdup(temp.c_str());
 }
-| FOR identifier_variable IN identifier BEGINLOOP statements ENDLOOP
+| FOR identifier_variable IN identifier BEGINLOOP statement_loop ENDLOOP
 {
   string temp;
   string count = newTemp();
@@ -599,13 +605,13 @@ statement:      Var ASSIGN expression
   // Checks for second ident
   if (variables.find(string($4.place)) == variables.end()) {
     char temp[128];
-    snprintf(temp, 128, "Use of undeclared variable %s", $4.place);
+    snprintf(temp, 128, "Use of undeclared vartemp %s", $4.place);
     yyerror(temp);
   }
   // Check if second ident is scalar
   else if (variables.find(string($4.place))->second == 0) {
     char temp[128];
-    snprintf(temp, 128, "Use of scalar variable %s in for", $4.place);
+    snprintf(temp, 128, "Use of scalar vartemp %s in for", $4.place);
     yyerror(temp);
   }
   // checks for identifier_variable happen in identifier_variable (redeclaration test)
@@ -679,7 +685,7 @@ statement:      Var ASSIGN expression
   
   $$.code = strdup(temp.c_str());
 }
-| READ Vars
+| READ var_loop
 {
   string temp = $2.code;
   size_t pos = 0;
@@ -692,7 +698,7 @@ statement:      Var ASSIGN expression
 
   $$.code = strdup(temp.c_str());
 }
-| WRITE Vars
+| WRITE var_loop
 {
   string temp = $2.code;
   size_t pos = 0;
@@ -728,23 +734,23 @@ else_statement:   %empty
 {
   $$.code = strdup(empty);
 }
-| ELSE statements
+| ELSE statement_loop
 {
   $$.code = strdup($2.code);
 };
 
-Var:             identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET
+var:             identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET
 {
-  // Check for use of undeclared variable (test 01)
+  // Check for use of undeclared vartemp (test 01)
   if (variables.find(string($1.place)) == variables.end()) {
     char temp[128];
-    snprintf(temp, 128, "Use of undeclared variable %s", $1.place);
+    snprintf(temp, 128, "Use of undeclared vartemp %s", $1.place);
     yyerror(temp);
   }
   // Check for use of single value as array (test 07)
   else if (variables.find(string($1.place))->second == 0) {
     char temp[128];
-    snprintf(temp, 128, "Indexing a non-array variable %s", $1.place);
+    snprintf(temp, 128, "Indexing a non-array vartemp %s", $1.place);
     yyerror(temp);
   }
 
@@ -759,16 +765,16 @@ Var:             identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET
 }
 | identifier
 {
-  // Check for use of undeclared variable (test 01)
+  // Check for use of undeclared vartemp (test 01)
   if (variables.find(string($1.place)) == variables.end()) {
     char temp[128];
-    snprintf(temp, 128, "Use of undeclared variable %s", $1.place);
+    snprintf(temp, 128, "Use of undeclared vartemp %s", $1.place);
     yyerror(temp);
   }
   // Check for use of array as single value (test 06)
   else if (variables.find(string($1.place))->second > 0) {
     char temp[128];
-    snprintf(temp, 128, "Failed to provide index for array variable %s", $1.place);
+    snprintf(temp, 128, "Failed to provide index for array vartemp %s", $1.place);
     yyerror(temp);
   }
 
@@ -777,12 +783,12 @@ Var:             identifier L_SQUARE_BRACKET expression R_SQUARE_BRACKET
   $$.array = false;
 };
 
-/* Vars is only used by read and write
+/* var_loop is only used by read and write
  * pass back the code ".[]| dst/src"
  * replace "|" with correct < or > depending on read/write
  * in read and write production
  */
-Vars:            Var
+var_loop:            var
 {
   string temp;
   temp.append($1.code);
@@ -797,18 +803,20 @@ Vars:            Var
   $$.code = strdup(temp.c_str());
   $$.place = strdup(empty);
 }
-| Var COMMA Vars
+| var_loop var COMMA
 {
+  // var COMMA var_loop
+  // switched the $1 and $2 to match alignment but not sure if order mattered ... pretty sure it does
   string temp;
-  temp.append($1.code);
-  if ($1.array)
+  temp.append($2.code);
+  if ($2.array)
     temp.append(".[]| ");
   else
     temp.append(".| ");
   
   temp.append($1.place);
   temp.append("\n");
-  temp.append($3.code);
+  temp.append($1.code);
   
   $$.code = strdup(temp.c_str());
   $$.place = strdup(empty);
@@ -819,8 +827,9 @@ expression:      mult_exp
   $$.code = strdup($1.code);
   $$.place = strdup($1.place);
 }
-| mult_exp ADD expression
+| expression ADD mult_exp
 {
+  // mult_exp ADD expression ... current code has not changed  $ values yet, will check with tagsoccer
   $$.place = strdup(newTemp().c_str());
   
   string temp;
@@ -839,8 +848,9 @@ expression:      mult_exp
 
   $$.code = strdup(temp.c_str());
 }
-| mult_exp SUB expression
+| expression SUB mult_exp
 {
+  // mult_exp SUB expression ... current code has not changed $ values; check with tagsoccer
   $$.place = strdup(newTemp().c_str());
   
   string temp;
@@ -861,13 +871,14 @@ expression:      mult_exp
 };
 
 // used only for function calls
-expressions:     %empty
+exp_loop:     %empty
 {
   $$.code = strdup(empty);
   $$.place = strdup(empty);
 }
-| expression COMMA expressions
+| exp_loop expression COMMA 
 {
+  // expression COMMA exp_loop
   string temp;
   temp.append($1.code);
   temp.append("param ");
@@ -896,8 +907,9 @@ mult_exp:         term
   $$.code = strdup($1.code);
   $$.place = strdup($1.place);
 }
-| term MULT mult_exp
+| mult_exp MULT term
 {
+  //term MULT mult_exp <- og code has not changed
   $$.place = strdup(newTemp().c_str());
   
   string temp;
@@ -916,8 +928,9 @@ mult_exp:         term
 
   $$.code = strdup(temp.c_str());
 }
-| term DIV mult_exp
+| mult_exp DIV term
 {
+  // term DIV mult_exp <- og code has not changed
   $$.place = strdup(newTemp().c_str());
   
   string temp;
@@ -936,8 +949,9 @@ mult_exp:         term
 
   $$.code = strdup(temp.c_str());
 }
-| term MOD mult_exp
+| mult_exp MOD term
 {
+  // term MOD mult_exp <- og code has not changed
   $$.place = strdup(newTemp().c_str());
   
   string temp;
@@ -958,7 +972,7 @@ mult_exp:         term
 };
 
 
-term:            Var
+term:            var
 {
   // var can be an array or not
   if ($$.array == true) {
@@ -982,9 +996,9 @@ term:            Var
     $$.place = strdup($1.place);
   }
 }
-| SUB Var
+| SUB var
 {
-  // Var can either be an array or not an array
+  // var can either be an array or not an array
   $$.place = strdup(newTemp().c_str());
   string temp;
   temp.append($2.code);
@@ -1014,12 +1028,12 @@ term:            Var
   $$.code = strdup(temp.c_str());
   $$.array = false;
 }
-| NUMBER
+| number
 {
   $$.code = strdup(empty);
   $$.place = strdup(to_string($1).c_str());
 }
-| SUB NUMBER
+| SUB number
 {
   string temp;
   temp.append("-");
@@ -1044,7 +1058,7 @@ term:            Var
   temp.append(", -1\n");
   $$.code = strdup(temp.c_str());
 }
-| identifier L_PAREN expressions R_PAREN
+| identifier L_PAREN exp_loop R_PAREN
 {
    // Check for use of undeclared function (test 2)
   if (functions.find(string($1.place)) == functions.end()) {
@@ -1234,14 +1248,14 @@ identifier:      IDENT
 identifier_variable:      IDENT
 {
   // Check for redeclaration (test 04) TODO same name as program
-  string variable($1);
-  if (variables.find(variable) != variables.end()) {
+  string vartemp($1);
+  if (variables.find(vartemp) != variables.end()) {
     char temp[128];
-    snprintf(temp, 128, "Redeclaration of variable %s", variable.c_str());
+    snprintf(temp, 128, "Redeclaration of vartemp %s", vartemp.c_str());
     yyerror(temp);
   }
   else {
-    variables.insert(pair<string,int>(variable,0));
+    variables.insert(pair<string,int>(vartemp,0));
   }
   $$.place = strdup($1);
   $$.code = strdup(empty);;
