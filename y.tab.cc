@@ -284,20 +284,22 @@ namespace yy {
   {
       switch (that.type_get ())
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.move< ExprStruct > (that.value);
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.move< StatementStruct > (that.value);
         break;
 
@@ -306,23 +308,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.move< std::string > (that.value);
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.move< std::vector<ExprStruct> > (that.value);
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.move< std::vector<StatementStruct> > (that.value);
-        break;
-
-      case 60: // id_loop
-        value.move< std::vector<std::string> > (that.value);
         break;
 
       default:
@@ -340,20 +338,22 @@ namespace yy {
     state = that.state;
       switch (that.type_get ())
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.copy< ExprStruct > (that.value);
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.copy< StatementStruct > (that.value);
         break;
 
@@ -362,23 +362,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.copy< std::string > (that.value);
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.copy< std::vector<ExprStruct> > (that.value);
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.copy< std::vector<StatementStruct> > (that.value);
-        break;
-
-      case 60: // id_loop
-        value.copy< std::vector<std::string> > (that.value);
         break;
 
       default:
@@ -609,20 +605,22 @@ namespace yy {
          when using variants.  */
         switch (yyr1_[yyn])
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         yylhs.value.build< ExprStruct > ();
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         yylhs.value.build< StatementStruct > ();
         break;
 
@@ -631,23 +629,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         yylhs.value.build< std::string > ();
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         yylhs.value.build< std::vector<ExprStruct> > ();
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         yylhs.value.build< std::vector<StatementStruct> > ();
-        break;
-
-      case 60: // id_loop
-        yylhs.value.build< std::vector<std::string> > ();
         break;
 
       default:
@@ -668,244 +662,132 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 186 "mini_ll.yy" // lalr1.cc:859
-    { populateKeywords(); }
-#line 674 "y.tab.cc" // lalr1.cc:859
+#line 182 "mini_ll.yy" // lalr1.cc:859
+    {yylhs.value.as< ExprStruct > () = "";}
+#line 668 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 3:
-#line 186 "mini_ll.yy" // lalr1.cc:859
-    {
-
-        if (!errorOccurred)
-            std::cout << yystack_[0].value.as< ExprStruct > ();
-
-        // Print error if there isn't a main function
-        if (!checkIdType("main", IdentType::FUNCTION)) {
-
-            yy::parser::error(yystack_[0].location, "No main function defined");
-        }            
-    }
-#line 690 "y.tab.cc" // lalr1.cc:859
+#line 183 "mini_ll.yy" // lalr1.cc:859
+    {yylhs.value.as< ExprStruct > () = yystack_[1].value.as< ExprStruct > () + "\n" + yystack_[0].value.as< StatementStruct > ();}
+#line 674 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 4:
-#line 201 "mini_ll.yy" // lalr1.cc:859
+#line 187 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("program -> epsilon\n");
-    }
-#line 699 "y.tab.cc" // lalr1.cc:859
+	yylhs.value.as< StatementStruct > () = "func " + yystack_[10].value.as< StatementStruct > () + "\n";
+	yylhs.value.as< StatementStruct > () += yystack_[7].value.as< std::vector<ExprStruct> > ().code;
+	int i = 0;
+	for(list<string>::iterator it = yystack_[7].value.as< std::vector<ExprStruct> > ().ids.begin(); it != yystack_[7].value.as< std::vector<ExprStruct> > ().ids.end(); it++){
+		yylhs.value.as< StatementStruct > () += "= " + *it + ", $" + to_string(i) + "\n";
+		i++;
+	}
+	yylhs.value.as< StatementStruct > () += yystack_[4].value.as< std::vector<ExprStruct> > ().code;
+	yylhs.value.as< StatementStruct > () += yystack_[1].value.as< std::vector<StatementStruct> > ();
+	yylhs.value.as< StatementStruct > () += "endfunc";
+	}
+#line 691 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 5:
-#line 206 "mini_ll.yy" // lalr1.cc:859
-    {
-        debug_print("program -> program function\n");
-
-        yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), yystack_[1].value.as< ExprStruct > ().code.begin(), yystack_[1].value.as< ExprStruct > ().code.end());
-        yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), yystack_[0].value.as< StatementStruct > ().code.begin(), yystack_[0].value.as< StatementStruct > ().code.end());
-    }
-#line 710 "y.tab.cc" // lalr1.cc:859
+#line 202 "mini_ll.yy" // lalr1.cc:859
+    {yylhs.value.as< StatementStruct > () = yystack_[0].value.as< std::string > ();}
+#line 697 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 6:
-#line 215 "mini_ll.yy" // lalr1.cc:859
-    { 
-
-        std::string function_name = yystack_[0].value.as< std::string > ();
-        symbol_table.insert( std::pair<std::string, IdentType>(function_name, IdentType::FUNCTION) );
-
-        if (isKeyword(function_name)) { 
-
-            yy::parser::error(yystack_[0].location, "Function name \"" + function_name + "\" cannot be named the same as a keyword.");
-        }
-
-    }
-#line 726 "y.tab.cc" // lalr1.cc:859
+#line 209 "mini_ll.yy" // lalr1.cc:859
+    {
+	yylhs.value.as< std::vector<ExprStruct> > ().code = "";
+	yylhs.value.as< std::vector<ExprStruct> > ().ids = list<string>();
+	}
+#line 706 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 7:
-#line 228 "mini_ll.yy" // lalr1.cc:859
+#line 214 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print_char("function -> FUNCTION IDENTIFIER %s SEMICOLON ", yystack_[11].value.as< std::string > ());
-        debug_print("BEGINPARAMS declaration_loop ENDPARAMS ");
-        debug_print("BEGINLOCALS declaration_loop ENDLOCALS ");
-        debug_print("BEGINBODY statement_loop ENDBODY\n");
-
-        std::string function_name = yystack_[11].value.as< std::string > ();
-        std::vector< ExprStruct > params = yystack_[7].value.as< std::vector<ExprStruct> > ();
-        std::vector< ExprStruct > locals = yystack_[4].value.as< std::vector<ExprStruct> > ();
-        std::vector< StatementStruct > body   = yystack_[1].value.as< std::vector<StatementStruct> > ();
-
-        //$$ = "func " + function_name + "\n";
-        yylhs.value.as< StatementStruct > ().code.push_back("func " + function_name);
-
-        // params declaration loop
-        // $$.code.insert($$.code.end(), params.begin(), params.end());
-        for (ExprStruct this_expr_struct : params) {
-
-            yylhs.value.as< StatementStruct > ().code.insert(yylhs.value.as< StatementStruct > ().code.end(), this_expr_struct.code.begin(), this_expr_struct.code.end());
-        }
-
-        // locals declaration loop
-        // $$.code.insert($$.code.end(), locals.begin(), locals.end());
-        for (ExprStruct this_expr_struct : locals) {
-
-            yylhs.value.as< StatementStruct > ().code.insert(yylhs.value.as< StatementStruct > ().code.end(), this_expr_struct.code.begin(), this_expr_struct.code.end());
-        }
-
-        // body statement loop
-        // $$.code.insert($$.code.end(), body.begin(), body.end());
-        for (StatementStruct this_expr_struct : body) {
-
-            yylhs.value.as< StatementStruct > ().code.insert(yylhs.value.as< StatementStruct > ().code.end(), this_expr_struct.code.begin(), this_expr_struct.code.end());
-        }
-
-        yylhs.value.as< StatementStruct > ().code.push_back("endfunc");
-    }
-#line 769 "y.tab.cc" // lalr1.cc:859
+	/* Note: Since our code is different from TA's changed $3 to $2 because of the order of declaration_loop and declaration. Not sure if we should change or not */
+	yylhs.value.as< std::vector<ExprStruct> > ().code = yystack_[2].value.as< std::vector<ExprStruct> > ().code + "\n" + yystack_[1].value.as< ExprStruct > ().code;
+	yylhs.value.as< std::vector<ExprStruct> > ().ids = yystack_[2].value.as< std::vector<ExprStruct> > ().ids;
+	for(list<string>::iterator it = yystack_[1].value.as< ExprStruct > ().ids.begin(); it != yystack_[1].value.as< ExprStruct > ().ids.end(); i++) {
+		yylhs.value.as< std::vector<ExprStruct> > ().ids.push_back(*it);
+	} 	
+	}
+#line 719 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 8:
-#line 270 "mini_ll.yy" // lalr1.cc:859
+#line 225 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("declaration_loop -> epsilon\n");
-        // don't add anything to vector
-    }
-#line 779 "y.tab.cc" // lalr1.cc:859
+	yylhs.value.as< std::vector<StatementStruct> > () = yystack_[1].value.as< StatementStruct > (); 
+	}
+#line 727 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 9:
-#line 276 "mini_ll.yy" // lalr1.cc:859
+#line 229 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("declaration_loop -> declaration_loop declaration SEMICOLON\n");
-
-        yylhs.value.as< std::vector<ExprStruct> > ().insert(yylhs.value.as< std::vector<ExprStruct> > ().end(), yystack_[2].value.as< std::vector<ExprStruct> > ().begin(), yystack_[2].value.as< std::vector<ExprStruct> > ().end());
-        yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[1].value.as< ExprStruct > ());
-    }
-#line 791 "y.tab.cc" // lalr1.cc:859
+	yylhs.value.as< std::vector<StatementStruct> > () = yystack_[2].value.as< std::vector<StatementStruct> > () + "\n" + yystack_[1].value.as< StatementStruct > ();
+	}
+#line 735 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 10:
-#line 287 "mini_ll.yy" // lalr1.cc:859
+#line 236 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("statement_loop -> statement SEMICOLON\n");
-        yylhs.value.as< std::vector<StatementStruct> > ().push_back(yystack_[1].value.as< StatementStruct > ());
-    }
-#line 801 "y.tab.cc" // lalr1.cc:859
+        for(list<string>::iterator it = yystack_[2].value.as< StatementStruct > ().begin(); it != yystack_[2].value.as< StatementStruct > ().end(); i++) {
+                yylhs.value.as< ExprStruct > ().code += ". " + *it + "\n";
+                yylhs.value.as< ExprStruct > ().ids.push_back(*it);
+        }
+        }
+#line 746 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 11:
-#line 293 "mini_ll.yy" // lalr1.cc:859
+#line 243 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("statement_loop -> statement_loop statement SEMICOLON\n");
-
-        yylhs.value.as< std::vector<StatementStruct> > () = yystack_[2].value.as< std::vector<StatementStruct> > ();
-        yylhs.value.as< std::vector<StatementStruct> > ().push_back(yystack_[1].value.as< StatementStruct > ());
-    }
-#line 813 "y.tab.cc" // lalr1.cc:859
+	for(list<string>::iterator it = yystack_[7].value.as< StatementStruct > ().begin(); it != yystack_[7].value.as< StatementStruct > ().end(); i++) {
+		yylhs.value.as< ExprStruct > ().code += ".[] " + *it + ", " + to_string(yystack_[3].value.as< int > ()) + "\n";
+		yylhs.value.as< ExprStruct > ().ids.push_back(*it);
+	}
+	}
+#line 757 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 12:
-#line 304 "mini_ll.yy" // lalr1.cc:859
+#line 250 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("declaration -> id_loop COLON INTEGER\n");
-
-        for (std::string thisId : yystack_[2].value.as< std::vector<std::string> > ()) {
-
-            // Ident id(thisName, INT_MAX, false);
-
-
-            // Check if is repeat identifier
-            if (isInSymbolTable(thisId)) {
-                yy::parser::error(yystack_[2].location, "Multiple definitions of variable \"" + thisId + "\"");
-            }
-            else {
-                symbol_table.insert( std::pair<std::string, IdentType>(thisId, IdentType::INTEGER));
-
-                ExprStruct expr_struct;
-                expr_struct.code.push_back(". " + thisId);
-                expr_struct.reg_name = thisId;
-             
-                // $$.code.push_back(expr_struct);
-                yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), expr_struct.code.begin(), expr_struct.code.end());
-            }
+	for(list<string>::iterator it = yystack_[10].value.as< StatementStruct > ().begin(); it != yystack_[10].value.as< StatementStruct > ().end(); i++) {
+                yylhs.value.as< ExprStruct > ().code += ".[] " + *it + ", " + to_string(yystack_[6].value.as< int > ()*yystack_[3].value.as< int > ()) + "\n";
+                yylhs.value.as< ExprStruct > ().ids.push_back(*it);
         }
-
-
-    }
-#line 845 "y.tab.cc" // lalr1.cc:859
+	/*confused why u multiplied $5 and $8 */
+	}
+#line 769 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 13:
-#line 332 "mini_ll.yy" // lalr1.cc:859
+#line 260 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print_int("declaration -> id_loop COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER\n", yystack_[3].value.as< int > ());
-
-        // NEW
-        for (std::string thisId : yystack_[7].value.as< std::vector<std::string> > ()) {
-
-            // Check if is repeat identifier
-            if (isInSymbolTable(thisId)) {
-                yy::parser::error(yystack_[7].location, "Multiple definitions of variable \"" + thisId + "\"");
-            }
-            else {
-                symbol_table.insert( std::pair<std::string, IdentType>(thisId, IdentType::INTEGER));
-
-                // Generate code for declaring id's in a loop
-                ExprStruct expr_struct;
-                expr_struct.code.push_back(".[] " + thisId + ", " + std::to_string(yystack_[3].value.as< int > ()));
-                expr_struct.reg_name = thisId;
-
-                // $$.code.push_back(expr_struct);
-                yylhs.value.as< ExprStruct > ().code.insert(yylhs.value.as< ExprStruct > ().code.end(), expr_struct.code.begin(), expr_struct.code.end());
-            }
-
-            if (yystack_[3].value.as< int > () <= 0) {
-
-                yy::parser::error(yystack_[3].location, "Array \"" + thisId + "\" must be declared with size greater than zero");
-            }
-        }
-    }
-#line 879 "y.tab.cc" // lalr1.cc:859
+	yylhs.value.as< StatementStruct > ().push_back(yystack_[0].value.as< StatementStruct > ());
+	}
+#line 777 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 14:
-#line 365 "mini_ll.yy" // lalr1.cc:859
+#line 264 "mini_ll.yy" // lalr1.cc:859
     {
-
-        debug_print("id_loop -> IDENTIFIER");
-        yylhs.value.as< std::vector<std::string> > ().push_back(yystack_[0].value.as< std::string > ());
-    }
-#line 889 "y.tab.cc" // lalr1.cc:859
+	/* Note: Ta's code is identifier_loop COMMA identifier, but ours is id_loop id COMMA, so changed $$ = $2, $$.push_front($1) */
+	yylhs.value.as< StatementStruct > () = yystack_[1].value.as< StatementStruct > ();
+	yylhs.value.as< StatementStruct > ().push_front(yystack_[2].value.as< StatementStruct > ());
+	}
+#line 787 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 15:
-#line 371 "mini_ll.yy" // lalr1.cc:859
-    {
-
-        debug_print("id_loop -> id_loop COMMA IDENTIFIER");
-               
-        // Maintain id_loop's vector         
-        for (std::string s : yystack_[2].value.as< std::vector<std::string> > ()) {
-            yylhs.value.as< std::vector<std::string> > ().push_back(s);
-        }
-                        
-        yylhs.value.as< std::vector<std::string> > ().push_back(yystack_[0].value.as< std::string > ());
-    }
-#line 905 "y.tab.cc" // lalr1.cc:859
-    break;
-
-  case 16:
-#line 386 "mini_ll.yy" // lalr1.cc:859
+#line 274 "mini_ll.yy" // lalr1.cc:859
     {
         debug_print("statement -> var ASSIGN expression\n"); 
         // ExprStruct es;
@@ -915,11 +797,11 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back("= " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
         // $$ = es;
     }
-#line 919 "y.tab.cc" // lalr1.cc:859
+#line 801 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 17:
-#line 396 "mini_ll.yy" // lalr1.cc:859
+  case 16:
+#line 284 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> IF bool_expr THEN statement_loop ENDIF\n");
@@ -956,11 +838,11 @@ namespace yy {
         
     
     }
-#line 960 "y.tab.cc" // lalr1.cc:859
+#line 842 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 18:
-#line 433 "mini_ll.yy" // lalr1.cc:859
+  case 17:
+#line 321 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> IF bool_expr THEN statement_loop ELSE statement_loop ENDIF\n");
@@ -998,17 +880,17 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back(": " + yylhs.value.as< StatementStruct > ().end_label /*+ " ; endif label"*/);
 
     }
-#line 1002 "y.tab.cc" // lalr1.cc:859
+#line 884 "y.tab.cc" // lalr1.cc:859
+    break;
+
+  case 18:
+#line 359 "mini_ll.yy" // lalr1.cc:859
+    {loop_scope.push(generateTempLabel());}
+#line 890 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 19:
-#line 471 "mini_ll.yy" // lalr1.cc:859
-    {loop_scope.push(generateTempLabel());}
-#line 1008 "y.tab.cc" // lalr1.cc:859
-    break;
-
-  case 20:
-#line 471 "mini_ll.yy" // lalr1.cc:859
+#line 359 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> WHILE bool_expr BEGINLOOP statement_loop ENDLOOP\n");
@@ -1045,17 +927,17 @@ namespace yy {
         loop_scope.pop();
 
     }
-#line 1049 "y.tab.cc" // lalr1.cc:859
+#line 931 "y.tab.cc" // lalr1.cc:859
+    break;
+
+  case 20:
+#line 396 "mini_ll.yy" // lalr1.cc:859
+    { loop_scope.push(generateTempLabel()); }
+#line 937 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 21:
-#line 508 "mini_ll.yy" // lalr1.cc:859
-    { loop_scope.push(generateTempLabel()); }
-#line 1055 "y.tab.cc" // lalr1.cc:859
-    break;
-
-  case 22:
-#line 508 "mini_ll.yy" // lalr1.cc:859
+#line 396 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_expr\n");
@@ -1086,11 +968,11 @@ namespace yy {
         loop_scope.pop();
 
     }
-#line 1090 "y.tab.cc" // lalr1.cc:859
+#line 972 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 23:
-#line 539 "mini_ll.yy" // lalr1.cc:859
+  case 22:
+#line 427 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> READ var_loop\n");
@@ -1107,11 +989,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(".< " + this_expr_struct.reg_name);
         }
     }
-#line 1111 "y.tab.cc" // lalr1.cc:859
+#line 993 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 24:
-#line 556 "mini_ll.yy" // lalr1.cc:859
+  case 23:
+#line 444 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> WRITE var_loop\n");
@@ -1123,11 +1005,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(".> " + this_expr_struct.reg_name);
         }
     }
-#line 1127 "y.tab.cc" // lalr1.cc:859
+#line 1009 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 25:
-#line 568 "mini_ll.yy" // lalr1.cc:859
+  case 24:
+#line 456 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> CONTINUE\n");
@@ -1145,11 +1027,11 @@ namespace yy {
             yylhs.value.as< StatementStruct > ().code.push_back(":= " + jump_here);
         }
     }
-#line 1149 "y.tab.cc" // lalr1.cc:859
+#line 1031 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 26:
-#line 586 "mini_ll.yy" // lalr1.cc:859
+  case 25:
+#line 474 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("statement -> RETURN expression\n");
@@ -1160,71 +1042,71 @@ namespace yy {
         yylhs.value.as< StatementStruct > ().code.push_back("ret " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1164 "y.tab.cc" // lalr1.cc:859
+#line 1046 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 27:
-#line 600 "mini_ll.yy" // lalr1.cc:859
+  case 26:
+#line 488 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("var_loop -> var\n");
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
 
     }
-#line 1175 "y.tab.cc" // lalr1.cc:859
+#line 1057 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 28:
-#line 607 "mini_ll.yy" // lalr1.cc:859
+  case 27:
+#line 495 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("var_loop -> var_loop COMMA var\n");
         yylhs.value.as< std::vector<ExprStruct> > ().insert(yylhs.value.as< std::vector<ExprStruct> > ().end(), yystack_[2].value.as< std::vector<ExprStruct> > ().begin(), yystack_[2].value.as< std::vector<ExprStruct> > ().end());
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
     }
-#line 1186 "y.tab.cc" // lalr1.cc:859
+#line 1068 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 29:
-#line 616 "mini_ll.yy" // lalr1.cc:859
+  case 28:
+#line 504 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("bool_expr -> relation_and_expr\n");
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
 
     }
-#line 1196 "y.tab.cc" // lalr1.cc:859
+#line 1078 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 30:
-#line 621 "mini_ll.yy" // lalr1.cc:859
+  case 29:
+#line 509 "mini_ll.yy" // lalr1.cc:859
     {
         debug_print("bool_expr -> bool_expr OR relation_and_expr\n"); 
 
     }
-#line 1205 "y.tab.cc" // lalr1.cc:859
+#line 1087 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 31:
-#line 628 "mini_ll.yy" // lalr1.cc:859
+  case 30:
+#line 516 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("relation_and_expr -> relation_expr\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
 
     }
-#line 1215 "y.tab.cc" // lalr1.cc:859
+#line 1097 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 32:
-#line 633 "mini_ll.yy" // lalr1.cc:859
+  case 31:
+#line 521 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("relation_and_expr -> relation_and_expr AND relation_expr\n"); 
 
     }
-#line 1224 "y.tab.cc" // lalr1.cc:859
+#line 1106 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 33:
-#line 641 "mini_ll.yy" // lalr1.cc:859
+  case 32:
+#line 529 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("relation_expr -> expression comp expression\n");
@@ -1238,11 +1120,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(yystack_[1].value.as< std::string > () + " " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1242 "y.tab.cc" // lalr1.cc:859
+#line 1124 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 34:
-#line 655 "mini_ll.yy" // lalr1.cc:859
+  case 33:
+#line 543 "mini_ll.yy" // lalr1.cc:859
     {
 
         std::cout << "In relation_expr -> NOT expression comp expression" << std::endl;
@@ -1259,11 +1141,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("! " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yylhs.value.as< ExprStruct > ().reg_name);
     }
-#line 1263 "y.tab.cc" // lalr1.cc:859
+#line 1145 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 35:
-#line 672 "mini_ll.yy" // lalr1.cc:859
+  case 34:
+#line 560 "mini_ll.yy" // lalr1.cc:859
     { 
 
         debug_print("relation_expr -> TRUE\n");
@@ -1273,11 +1155,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 1");
     }
-#line 1277 "y.tab.cc" // lalr1.cc:859
+#line 1159 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 36:
-#line 681 "mini_ll.yy" // lalr1.cc:859
+  case 35:
+#line 569 "mini_ll.yy" // lalr1.cc:859
     { debug_print("relation_expr -> NOT TRUE\n"); 
 
         yylhs.value.as< ExprStruct > ().reg_name = generateTempReg();
@@ -1285,11 +1167,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 0");
     }
-#line 1289 "y.tab.cc" // lalr1.cc:859
+#line 1171 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 37:
-#line 688 "mini_ll.yy" // lalr1.cc:859
+  case 36:
+#line 576 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("relation_expr -> FALSE\n"); 
 
@@ -1298,11 +1180,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 0");
     }
-#line 1302 "y.tab.cc" // lalr1.cc:859
+#line 1184 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 38:
-#line 696 "mini_ll.yy" // lalr1.cc:859
+  case 37:
+#line 584 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("relation_expr -> NOT FALSE\n"); 
 
@@ -1311,11 +1193,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", 1");
     }
-#line 1315 "y.tab.cc" // lalr1.cc:859
+#line 1197 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 39:
-#line 704 "mini_ll.yy" // lalr1.cc:859
+  case 38:
+#line 592 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print("relation_expr -> L_PAREN bool_expr R_PAREN\n"); 
 
@@ -1325,56 +1207,56 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[1].value.as< ExprStruct > ().reg_name);
     }
-#line 1329 "y.tab.cc" // lalr1.cc:859
+#line 1211 "y.tab.cc" // lalr1.cc:859
+    break;
+
+  case 39:
+#line 604 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = "=="; }
+#line 1217 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 40:
-#line 716 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = "=="; }
-#line 1335 "y.tab.cc" // lalr1.cc:859
+#line 605 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = "!="; }
+#line 1223 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 41:
-#line 717 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = "!="; }
-#line 1341 "y.tab.cc" // lalr1.cc:859
+#line 606 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = "<"; }
+#line 1229 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 42:
-#line 718 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = "<"; }
-#line 1347 "y.tab.cc" // lalr1.cc:859
+#line 607 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = ">"; }
+#line 1235 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 43:
-#line 719 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = ">"; }
-#line 1353 "y.tab.cc" // lalr1.cc:859
+#line 608 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = "<="; }
+#line 1241 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 44:
-#line 720 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = "<="; }
-#line 1359 "y.tab.cc" // lalr1.cc:859
+#line 609 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > ()  = ">="; }
+#line 1247 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 45:
-#line 721 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > ()  = ">="; }
-#line 1365 "y.tab.cc" // lalr1.cc:859
-    break;
-
-  case 46:
-#line 725 "mini_ll.yy" // lalr1.cc:859
+#line 613 "mini_ll.yy" // lalr1.cc:859
     { debug_print("expression -> mult_expr\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
         //$$.code.push_back("= " + $$.reg_name + ", " + $1.reg_name);
     }
-#line 1374 "y.tab.cc" // lalr1.cc:859
+#line 1256 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 47:
-#line 729 "mini_ll.yy" // lalr1.cc:859
+  case 46:
+#line 617 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("expression -> expression ADD mult_expr\n"); 
@@ -1388,11 +1270,11 @@ namespace yy {
 
 
     }
-#line 1392 "y.tab.cc" // lalr1.cc:859
+#line 1274 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 48:
-#line 742 "mini_ll.yy" // lalr1.cc:859
+  case 47:
+#line 630 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("expression -> expression SUB mult_expr\n");
@@ -1404,20 +1286,20 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[2].value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
     }
-#line 1408 "y.tab.cc" // lalr1.cc:859
+#line 1290 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 49:
-#line 757 "mini_ll.yy" // lalr1.cc:859
+  case 48:
+#line 645 "mini_ll.yy" // lalr1.cc:859
     {
         debug_print("mult_expr -> term\n"); 
         yylhs.value.as< ExprStruct > () = yystack_[0].value.as< ExprStruct > ();
     }
-#line 1417 "y.tab.cc" // lalr1.cc:859
+#line 1299 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 50:
-#line 762 "mini_ll.yy" // lalr1.cc:859
+  case 49:
+#line 650 "mini_ll.yy" // lalr1.cc:859
     {
         debug_print_char("mult_expr -> mult_expr %s term\n", yystack_[1].value.as< std::string > ()); 
         yylhs.value.as< ExprStruct > ().reg_name = generateTempReg();
@@ -1431,29 +1313,29 @@ namespace yy {
         //     << "term.code[0]: " << $3.code[0] << ", term.code[1]" << $3.code[1] << std::endl
         //     << std::endl;
     }
-#line 1435 "y.tab.cc" // lalr1.cc:859
+#line 1317 "y.tab.cc" // lalr1.cc:859
+    break;
+
+  case 50:
+#line 666 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > () = "*"; }
+#line 1323 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 51:
-#line 778 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > () = "*"; }
-#line 1441 "y.tab.cc" // lalr1.cc:859
+#line 667 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > () = "/"; }
+#line 1329 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 52:
-#line 779 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > () = "/"; }
-#line 1447 "y.tab.cc" // lalr1.cc:859
+#line 668 "mini_ll.yy" // lalr1.cc:859
+    { yylhs.value.as< std::string > () = "%"; }
+#line 1335 "y.tab.cc" // lalr1.cc:859
     break;
 
   case 53:
-#line 780 "mini_ll.yy" // lalr1.cc:859
-    { yylhs.value.as< std::string > () = "%"; }
-#line 1453 "y.tab.cc" // lalr1.cc:859
-    break;
-
-  case 54:
-#line 785 "mini_ll.yy" // lalr1.cc:859
+#line 673 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("term -> var\n"); 
@@ -1463,11 +1345,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[0].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1467 "y.tab.cc" // lalr1.cc:859
+#line 1349 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 55:
-#line 794 "mini_ll.yy" // lalr1.cc:859
+  case 54:
+#line 682 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("term -> SUB var\n");
@@ -1496,11 +1378,11 @@ namespace yy {
         // Now, do $$ -= doubleTemp
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yylhs.value.as< ExprStruct > ().reg_name + ", " + doubleTemp);
     }
-#line 1500 "y.tab.cc" // lalr1.cc:859
+#line 1382 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 56:
-#line 822 "mini_ll.yy" // lalr1.cc:859
+  case 55:
+#line 710 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print_int("term -> NUMBER %d\n", yystack_[0].value.as< int > ());
@@ -1510,11 +1392,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + std::to_string(yystack_[0].value.as< int > ()));
     }
-#line 1514 "y.tab.cc" // lalr1.cc:859
+#line 1396 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 57:
-#line 832 "mini_ll.yy" // lalr1.cc:859
+  case 56:
+#line 720 "mini_ll.yy" // lalr1.cc:859
     { 
         debug_print_int("term -> SUB NUMBER %d\n", yystack_[0].value.as< int > ()); 
 
@@ -1531,11 +1413,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", 0, " + number_es.reg_name);
 
     }
-#line 1535 "y.tab.cc" // lalr1.cc:859
+#line 1417 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 58:
-#line 848 "mini_ll.yy" // lalr1.cc:859
+  case 57:
+#line 736 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("term -> L_PAREN expression R_PAREN\n");
@@ -1547,11 +1429,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("= " + yylhs.value.as< ExprStruct > ().reg_name + ", " + yystack_[1].value.as< ExprStruct > ().reg_name);
 
     }
-#line 1551 "y.tab.cc" // lalr1.cc:859
+#line 1433 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 59:
-#line 860 "mini_ll.yy" // lalr1.cc:859
+  case 58:
+#line 748 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("term -> SUB L_PAREN expression R_PAREN\n");
@@ -1564,11 +1446,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back("- " + yylhs.value.as< ExprStruct > ().reg_name + ", 0, " + yylhs.value.as< ExprStruct > ().reg_name);
 
     }
-#line 1568 "y.tab.cc" // lalr1.cc:859
+#line 1450 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 60:
-#line 872 "mini_ll.yy" // lalr1.cc:859
+  case 59:
+#line 760 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print_char("term -> IDENTIFIER %s L_PAREN R_PAREN\n", yystack_[2].value.as< std::string > ());
@@ -1582,11 +1464,11 @@ namespace yy {
         yylhs.value.as< ExprStruct > ().code.push_back(". " + yylhs.value.as< ExprStruct > ().reg_name);
         yylhs.value.as< ExprStruct > ().code.push_back("call " + yystack_[2].value.as< std::string > () + ", " + yylhs.value.as< ExprStruct > ().reg_name);
     }
-#line 1586 "y.tab.cc" // lalr1.cc:859
+#line 1468 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 61:
-#line 886 "mini_ll.yy" // lalr1.cc:859
+  case 60:
+#line 774 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print_char("term -> IDENTIFIER %s L_PAREN expression_loop R_PAREN\n", yystack_[3].value.as< std::string > ());
@@ -1613,11 +1495,11 @@ namespace yy {
         paramCount = 0;
 
     }
-#line 1617 "y.tab.cc" // lalr1.cc:859
+#line 1499 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 62:
-#line 916 "mini_ll.yy" // lalr1.cc:859
+  case 61:
+#line 804 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("expression_loop -> expression");
@@ -1630,11 +1512,11 @@ namespace yy {
 
         paramCount++;
     }
-#line 1634 "y.tab.cc" // lalr1.cc:859
+#line 1516 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 63:
-#line 929 "mini_ll.yy" // lalr1.cc:859
+  case 62:
+#line 817 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print("expression_loop -> expression_loop COMMA expression");
@@ -1643,11 +1525,11 @@ namespace yy {
 
         yylhs.value.as< std::vector<ExprStruct> > ().push_back(yystack_[0].value.as< ExprStruct > ());
     }
-#line 1647 "y.tab.cc" // lalr1.cc:859
+#line 1529 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 64:
-#line 941 "mini_ll.yy" // lalr1.cc:859
+  case 63:
+#line 829 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print_char("var -> IDENTIFIER %s\n", yystack_[0].value.as< std::string > ());
@@ -1668,11 +1550,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > () = es;
     }
-#line 1672 "y.tab.cc" // lalr1.cc:859
+#line 1554 "y.tab.cc" // lalr1.cc:859
     break;
 
-  case 65:
-#line 962 "mini_ll.yy" // lalr1.cc:859
+  case 64:
+#line 850 "mini_ll.yy" // lalr1.cc:859
     {
 
         debug_print_char("var -> IDENTIFIER %s L_SQUARE_BRACKET expression R_SQUARE_BRACKET\n", yystack_[3].value.as< std::string > ());
@@ -1685,11 +1567,11 @@ namespace yy {
 
         yylhs.value.as< ExprStruct > () = es;
     }
-#line 1689 "y.tab.cc" // lalr1.cc:859
+#line 1571 "y.tab.cc" // lalr1.cc:859
     break;
 
 
-#line 1693 "y.tab.cc" // lalr1.cc:859
+#line 1575 "y.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -1944,161 +1826,157 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -76;
+  const signed char parser::yypact_ninf_ = -67;
 
   const signed char parser::yytable_ninf_ = -1;
 
   const short int
   parser::yypact_[] =
   {
-     -76,     9,   -76,   -76,    41,   -37,   -76,   -76,    11,    12,
-     -76,    -3,    43,   -76,    25,    37,   -76,   -76,    82,    23,
-       4,   -76,    29,   -76,    77,    40,   152,    52,   159,   159,
-      68,   -76,    51,    51,    34,    70,    14,    78,    76,   108,
-      27,   -76,   -76,    20,   159,    13,   -76,    -1,   106,   -76,
-     158,     8,   -76,   -76,   -11,   -76,    86,   -76,    86,    34,
-      65,    34,   -76,    95,   -76,    34,   123,   -76,   -76,   158,
-      34,   -76,   -76,   -20,   175,   -16,   152,   159,   159,    34,
-      34,   -76,   -76,   -76,   -76,   -76,   -76,    34,   -76,   -76,
-     -76,    34,   -76,   152,    51,    72,    -9,   -76,    65,   -76,
-      34,   101,   -76,   -76,   -76,    65,    17,    92,   106,   -76,
-       8,     8,    65,   -76,   152,   105,   -76,   -76,    65,   -76,
-      34,   -76,   -76,   152,   122,   120,    65,   135,   -76,   159,
-     -76,   113
+     -67,    49,   -67,   -35,   -67,   -67,     0,    14,   -67,    -3,
+      47,   -67,    16,   -15,   -67,   -67,    78,    23,    -4,   -67,
+      57,   -67,   102,    43,   156,    69,    -6,    -6,   105,   -67,
+      79,    79,   122,    89,    58,    99,   111,     4,    71,   -67,
+     -67,    28,    -6,    51,   -67,    10,   143,   -67,   159,    52,
+     -67,   -67,    12,   -67,   127,   -67,   127,   122,   103,   122,
+     -67,   135,   -67,   122,   170,   131,   -67,   -67,   159,   122,
+     -67,   -67,   -17,    25,    92,   156,    -6,    -6,   122,   122,
+     -67,   -67,   -67,   -67,   -67,   -67,   122,   -67,   -67,   -67,
+     122,   -67,   156,    79,     9,   -18,   -67,   103,   -67,   136,
+     122,   120,   -67,   -67,   -67,   103,    61,    96,   143,   -67,
+      52,    52,   103,   -67,   156,   109,   -67,   -67,   172,   103,
+     -67,   122,   -67,   -67,   156,   126,   165,   176,   103,   139,
+     -67,    -6,   -67,   -67,   162
   };
 
   const unsigned char
   parser::yydefact_[] =
   {
-       2,     0,     4,     1,     3,     0,     5,     6,     0,     0,
-       8,     0,     0,    14,     0,     0,     8,     9,     0,     0,
-       0,    12,     0,    15,     0,     0,     0,     0,     0,     0,
-       0,    25,     0,     0,     0,    64,     0,     0,     0,     0,
-       0,    35,    37,     0,     0,    64,    56,     0,    29,    31,
-       0,    46,    49,    54,     0,    21,    23,    27,    24,     0,
-      26,     0,     7,     0,    10,     0,     0,    36,    38,     0,
-       0,    57,    55,     0,     0,     0,     0,     0,     0,     0,
-       0,    40,    41,    42,    43,    44,    45,     0,    51,    52,
-      53,     0,    19,     0,     0,     0,     0,    11,    16,    13,
-       0,     0,    39,    58,    60,    62,     0,     0,    30,    32,
-      47,    48,    33,    50,     0,     0,    28,    65,    34,    59,
-       0,    61,    17,     0,     0,     0,    63,     0,    20,     0,
-      18,    22
+       2,     0,     1,     0,     3,     5,     0,     0,     6,     0,
+       0,    13,     0,     0,     6,     7,     0,     0,     0,    10,
+       0,    14,     0,     0,     0,     0,     0,     0,     0,    24,
+       0,     0,     0,    63,     0,     0,     0,     0,     0,    34,
+      36,     0,     0,    63,    55,     0,    28,    30,     0,    45,
+      48,    53,     0,    20,    22,    26,    23,     0,    25,     0,
+       4,     0,     8,     0,     0,     0,    35,    37,     0,     0,
+      56,    54,     0,     0,     0,     0,     0,     0,     0,     0,
+      39,    40,    41,    42,    43,    44,     0,    50,    51,    52,
+       0,    18,     0,     0,     0,     0,     9,    15,    11,     0,
+       0,     0,    38,    57,    59,    61,     0,     0,    29,    31,
+      46,    47,    32,    49,     0,     0,    27,    64,     0,    33,
+      58,     0,    60,    16,     0,     0,     0,     0,    62,     0,
+      19,     0,    12,    17,    21
   };
 
   const short int
   parser::yypgoto_[] =
   {
-     -76,   -76,   -76,   -76,   -76,   -76,   131,   -75,   -76,   -76,
-     -33,   -76,   -76,   116,   -25,    83,    81,    93,   -14,    32,
-     -76,    64,   -76,   -26
+     -67,   -67,   -67,    20,   177,   -66,   -67,   -67,   -33,   -67,
+     -67,   161,   -23,   117,   123,   133,   -27,    85,   -67,   112,
+     -67,   -24
   };
 
   const signed char
   parser::yydefgoto_[] =
   {
-      -1,     1,     2,     4,     6,     8,    11,    36,    14,    15,
-      37,   114,    93,    56,    47,    48,    49,    87,    50,    51,
-      91,    52,   106,    53
+      -1,     1,     4,    11,     9,    34,    12,    13,    35,   114,
+      92,    54,    45,    46,    47,    86,    48,    49,    90,    50,
+     106,    51
   };
 
   const unsigned char
   parser::yytable_[] =
   {
-      38,   107,    12,    63,    54,    77,    57,    57,    92,     3,
-      38,    24,     7,    76,    77,    43,    10,    72,   115,    73,
-      60,    79,    80,    62,    77,   102,    69,    28,    59,   104,
-      74,    29,    30,    45,    46,    31,    32,    33,   117,   124,
-      88,    89,    90,    34,     5,    95,    13,    96,   127,    16,
-      38,    98,     9,    13,    67,    68,   101,    75,    43,    61,
-     120,   105,   121,    35,    70,    43,    17,    38,   116,    35,
-      71,    59,    23,   112,    63,    25,    45,    46,    59,    18,
-      19,    38,    63,    45,    46,    26,   118,    55,    38,    38,
-      27,    63,    21,    22,    63,    79,    80,    38,    38,    39,
-      35,    38,    79,    80,   131,    28,   126,   122,   123,    29,
-      30,   110,   111,    31,    32,    33,    61,   103,    28,    64,
-      66,    34,    29,    30,    65,   125,    31,    32,    33,    94,
-      78,    79,    80,    99,    34,    28,    97,   129,    77,    29,
-      30,    35,   128,    31,    32,    33,   119,    20,    28,    58,
-     130,    34,    29,    30,    35,   113,    31,    32,    33,   109,
-     108,     0,   100,     0,    34,    28,     0,     0,     0,    29,
-      30,    35,     0,    31,    32,    33,     0,     0,     0,     0,
-       0,    34,     0,     0,    35,    40,    41,    42,    79,    80,
-      43,     0,     0,    81,    82,    83,    84,    85,    86,     0,
-       0,    35,     0,    44,     0,    79,    80,     0,    45,    46,
-      81,    82,    83,    84,    85,    86,     0,     0,     0,     0,
-     103
+      36,    61,    10,    22,    52,    58,    55,    55,    76,   107,
+      36,    68,    78,    79,     5,    73,    64,    71,     8,    72,
+      38,    39,    40,     6,    75,    41,   115,    16,   102,   117,
+      94,    91,    95,    17,     5,    76,    97,    76,    42,    78,
+      79,     7,   101,    43,    44,     5,     5,   105,   125,     2,
+      65,    36,     3,    14,   103,    78,    79,    15,   129,   112,
+      80,    81,    82,    83,    84,    85,    21,    60,    36,   116,
+     103,    26,    69,   119,    61,    27,    28,    33,    70,    29,
+      30,    31,    61,    36,    87,    88,    89,    32,    19,    20,
+      36,    36,    61,    25,   128,    74,    61,    59,    66,    67,
+      36,    36,    41,    23,   121,    36,   122,    33,   134,    26,
+      24,   123,   124,    27,    28,    57,    37,    29,    30,    31,
+      43,    44,    26,    41,    53,    32,    27,    28,    33,   126,
+      29,    30,    31,    78,    79,    59,    57,   104,    32,    26,
+      62,    43,    44,    27,    28,    33,   130,    29,    30,    31,
+      78,    79,    26,    41,   133,    32,    27,    28,    33,    63,
+      29,    30,    31,   110,   111,   120,    57,    77,    32,    26,
+      93,    43,    44,    27,    28,    33,    96,    29,    30,    31,
+      98,    99,   131,   118,   127,    32,   132,    76,    33,    78,
+      79,    18,    56,   108,    80,    81,    82,    83,    84,    85,
+     109,   100,   113,     0,     0,    33
   };
 
   const short int
   parser::yycheck_[] =
   {
-      26,    76,     5,    36,    29,    25,    32,    33,    19,     0,
-      36,     7,    49,    14,    25,    31,     4,    43,    93,    44,
-      34,    30,    31,     9,    25,    45,    40,    13,    44,    45,
-      44,    17,    18,    49,    50,    21,    22,    23,    47,   114,
-      32,    33,    34,    29,     3,    59,    49,    61,   123,     6,
-      76,    65,    41,    49,    27,    28,    70,    44,    31,    46,
-      43,    75,    45,    49,    44,    31,    41,    93,    94,    49,
-      50,    44,    49,    87,   107,    46,    49,    50,    44,    42,
-      43,   107,   115,    49,    50,     8,   100,    19,   114,   115,
-      50,   124,    10,    11,   127,    30,    31,   123,   124,    47,
-      49,   127,    30,    31,   129,    13,   120,    15,    16,    17,
-      18,    79,    80,    21,    22,    23,    46,    45,    13,    41,
-      12,    29,    17,    18,    48,    20,    21,    22,    23,    43,
-      24,    30,    31,    10,    29,    13,    41,    17,    25,    17,
-      18,    49,    20,    21,    22,    23,    45,    16,    13,    33,
-      15,    29,    17,    18,    49,    91,    21,    22,    23,    78,
-      77,    -1,    69,    -1,    29,    13,    -1,    -1,    -1,    17,
-      18,    49,    -1,    21,    22,    23,    -1,    -1,    -1,    -1,
-      -1,    29,    -1,    -1,    49,    26,    27,    28,    30,    31,
-      31,    -1,    -1,    35,    36,    37,    38,    39,    40,    -1,
-      -1,    49,    -1,    44,    -1,    30,    31,    -1,    49,    50,
-      35,    36,    37,    38,    39,    40,    -1,    -1,    -1,    -1,
-      45
+      24,    34,     5,     7,    27,    32,    30,    31,    25,    75,
+      34,    38,    30,    31,    49,    42,    12,    41,     4,    42,
+      26,    27,    28,     3,    14,    31,    92,    42,    45,    47,
+      57,    19,    59,    13,    49,    25,    63,    25,    44,    30,
+      31,    41,    69,    49,    50,    49,    49,    74,   114,     0,
+      46,    75,     3,     6,    45,    30,    31,    41,   124,    86,
+      35,    36,    37,    38,    39,    40,    43,     9,    92,    93,
+      45,    13,    44,   100,   107,    17,    18,    49,    50,    21,
+      22,    23,   115,   107,    32,    33,    34,    29,    10,    11,
+     114,   115,   125,    50,   121,    44,   129,    46,    27,    28,
+     124,   125,    31,    46,    43,   129,    45,    49,   131,    13,
+       8,    15,    16,    17,    18,    44,    47,    21,    22,    23,
+      49,    50,    13,    31,    19,    29,    17,    18,    49,    20,
+      21,    22,    23,    30,    31,    46,    44,    45,    29,    13,
+      41,    49,    50,    17,    18,    49,    20,    21,    22,    23,
+      30,    31,    13,    31,    15,    29,    17,    18,    49,    48,
+      21,    22,    23,    78,    79,    45,    44,    24,    29,    13,
+      43,    49,    50,    17,    18,    49,    41,    21,    22,    23,
+      10,    50,    17,    47,    12,    29,    10,    25,    49,    30,
+      31,    14,    31,    76,    35,    36,    37,    38,    39,    40,
+      77,    68,    90,    -1,    -1,    49
   };
 
   const unsigned char
   parser::yystos_[] =
   {
-       0,    52,    53,     0,    54,     3,    55,    49,    56,    41,
-       4,    57,     5,    49,    59,    60,     6,    41,    42,    43,
-      57,    10,    11,    49,     7,    46,     8,    50,    13,    17,
-      18,    21,    22,    23,    29,    49,    58,    61,    74,    47,
-      26,    27,    28,    31,    44,    49,    50,    65,    66,    67,
-      69,    70,    72,    74,    65,    19,    64,    74,    64,    44,
-      69,    46,     9,    61,    41,    48,    12,    27,    28,    69,
-      44,    50,    74,    65,    69,    44,    14,    25,    24,    30,
-      31,    35,    36,    37,    38,    39,    40,    68,    32,    33,
-      34,    71,    19,    63,    43,    69,    69,    41,    69,    10,
-      68,    69,    45,    45,    45,    69,    73,    58,    66,    67,
-      70,    70,    69,    72,    62,    58,    74,    47,    69,    45,
-      43,    45,    15,    16,    58,    20,    69,    58,    20,    17,
-      15,    65
+       0,    53,     0,     3,    54,    49,    55,    41,     4,    56,
+       5,    55,    58,    59,     6,    41,    42,    55,    56,    10,
+      11,    43,     7,    46,     8,    50,    13,    17,    18,    21,
+      22,    23,    29,    49,    57,    60,    73,    47,    26,    27,
+      28,    31,    44,    49,    50,    64,    65,    66,    68,    69,
+      71,    73,    64,    19,    63,    73,    63,    44,    68,    46,
+       9,    60,    41,    48,    12,    46,    27,    28,    68,    44,
+      50,    73,    64,    68,    44,    14,    25,    24,    30,    31,
+      35,    36,    37,    38,    39,    40,    67,    32,    33,    34,
+      70,    19,    62,    43,    68,    68,    41,    68,    10,    50,
+      67,    68,    45,    45,    45,    68,    72,    57,    65,    66,
+      69,    69,    68,    71,    61,    57,    73,    47,    47,    68,
+      45,    43,    45,    15,    16,    57,    20,    12,    68,    57,
+      20,    17,    10,    15,    64
   };
 
   const unsigned char
   parser::yyr1_[] =
   {
-       0,    51,    53,    52,    54,    54,    56,    55,    57,    57,
-      58,    58,    59,    59,    60,    60,    61,    61,    61,    62,
-      61,    63,    61,    61,    61,    61,    61,    64,    64,    65,
-      65,    66,    66,    67,    67,    67,    67,    67,    67,    67,
-      68,    68,    68,    68,    68,    68,    69,    69,    69,    70,
-      70,    71,    71,    71,    72,    72,    72,    72,    72,    72,
-      72,    72,    73,    73,    74,    74
+       0,    52,    53,    53,    54,    55,    56,    56,    57,    57,
+      58,    58,    58,    59,    59,    60,    60,    60,    61,    60,
+      62,    60,    60,    60,    60,    60,    63,    63,    64,    64,
+      65,    65,    66,    66,    66,    66,    66,    66,    66,    67,
+      67,    67,    67,    67,    67,    68,    68,    68,    69,    69,
+      70,    70,    70,    71,    71,    71,    71,    71,    71,    71,
+      71,    72,    72,    73,    73
   };
 
   const unsigned char
   parser::yyr2_[] =
   {
-       0,     2,     0,     2,     0,     2,     0,    13,     0,     3,
-       2,     3,     3,     8,     1,     3,     3,     5,     7,     0,
-       6,     0,     7,     2,     2,     1,     2,     1,     3,     1,
-       3,     1,     3,     3,     4,     1,     2,     1,     2,     3,
-       1,     1,     1,     1,     1,     1,     1,     3,     3,     1,
-       3,     1,     1,     1,     1,     2,     1,     2,     3,     4,
-       3,     4,     1,     3,     1,     4
+       0,     2,     0,     2,    12,     1,     0,     3,     2,     3,
+       3,     8,    11,     1,     3,     3,     5,     7,     0,     6,
+       0,     7,     2,     2,     1,     2,     1,     3,     1,     3,
+       1,     3,     3,     4,     1,     2,     1,     2,     3,     1,
+       1,     1,     1,     1,     1,     1,     3,     3,     1,     3,
+       1,     1,     1,     1,     2,     1,     2,     3,     4,     3,
+       4,     1,     3,     1,     4
   };
 
 
@@ -2108,16 +1986,16 @@ namespace yy {
   const char*
   const parser::yytname_[] =
   {
-  "\"end of file\"", "error", "$undefined", "FUNCTION", "BEGINPARAMS",
-  "ENDPARAMS", "BEGINLOCALS", "ENDLOCALS", "BEGINBODY", "ENDBODY",
+  "\"end of file\"", "error", "$undefined", "FUNCTION", "BEGIN_PARAMS",
+  "END_PARAMS", "BEGIN_LOCALS", "END_LOCALS", "BEGIN_BODY", "END_BODY",
   "INTEGER", "ARRAY", "OF", "IF", "THEN", "ENDIF", "ELSE", "WHILE", "DO",
   "BEGINLOOP", "ENDLOOP", "CONTINUE", "READ", "WRITE", "AND", "OR", "NOT",
   "TRUE", "FALSE", "RETURN", "ADD", "SUB", "MULT", "DIV", "MOD", "EQ",
   "NEQ", "LT", "GT", "LTE", "GTE", "SEMICOLON", "COLON", "COMMA",
   "L_PAREN", "R_PAREN", "L_SQUARE_BRACKET", "R_SQUARE_BRACKET", "ASSIGN",
-  "IDENTIFIER", "NUMBER", "$accept", "prog_start", "$@1", "program",
-  "function", "$@2", "declaration_loop", "statement_loop", "declaration",
-  "id_loop", "statement", "$@3", "$@4", "var_loop", "bool_expr",
+  "IDENTIFIER", "NUMBER", "UMINUS", "$accept", "program", "function",
+  "identifier", "declaration_loop", "statement_loop", "declaration",
+  "identifier_loop", "statement", "$@1", "$@2", "var_loop", "bool_expr",
   "relation_and_expr", "relation_expr", "comp", "expression", "mult_expr",
   "mulop", "term", "expression_loop", "var", YY_NULLPTR
   };
@@ -2126,13 +2004,13 @@ namespace yy {
   const unsigned short int
   parser::yyrline_[] =
   {
-       0,   186,   186,   186,   201,   206,   215,   215,   270,   276,
-     287,   293,   304,   332,   365,   371,   386,   396,   433,   471,
-     471,   508,   508,   539,   556,   568,   586,   600,   607,   616,
-     621,   628,   633,   641,   655,   672,   681,   688,   696,   704,
-     716,   717,   718,   719,   720,   721,   725,   729,   742,   757,
-     762,   778,   779,   780,   785,   794,   822,   832,   848,   860,
-     872,   886,   916,   929,   941,   962
+       0,   182,   182,   183,   186,   202,   209,   213,   224,   228,
+     235,   242,   249,   259,   263,   274,   284,   321,   359,   359,
+     396,   396,   427,   444,   456,   474,   488,   495,   504,   509,
+     516,   521,   529,   543,   560,   569,   576,   584,   592,   604,
+     605,   606,   607,   608,   609,   613,   617,   630,   645,   650,
+     666,   667,   668,   673,   682,   710,   720,   736,   748,   760,
+     774,   804,   817,   829,   850
   };
 
   // Print the state stack on the debug stream.
@@ -2167,8 +2045,8 @@ namespace yy {
 
 
 } // yy
-#line 2171 "y.tab.cc" // lalr1.cc:1167
-#line 980 "mini_ll.yy" // lalr1.cc:1168
+#line 2049 "y.tab.cc" // lalr1.cc:1167
+#line 868 "mini_ll.yy" // lalr1.cc:1168
 
 
 int main(int argc, char *argv[])

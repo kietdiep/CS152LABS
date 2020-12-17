@@ -363,6 +363,8 @@ namespace yy {
       char dummy1[sizeof(ExprStruct)];
 
       // function
+      // identifier
+      // identifier_loop
       // statement
       char dummy2[sizeof(StatementStruct)];
 
@@ -381,9 +383,6 @@ namespace yy {
 
       // statement_loop
       char dummy6[sizeof(std::vector<StatementStruct>)];
-
-      // id_loop
-      char dummy7[sizeof(std::vector<std::string>)];
 };
 
     /// Symbol semantic values.
@@ -408,12 +407,12 @@ namespace yy {
       {
         END = 0,
         FUNCTION = 258,
-        BEGINPARAMS = 259,
-        ENDPARAMS = 260,
-        BEGINLOCALS = 261,
-        ENDLOCALS = 262,
-        BEGINBODY = 263,
-        ENDBODY = 264,
+        BEGIN_PARAMS = 259,
+        END_PARAMS = 260,
+        BEGIN_LOCALS = 261,
+        END_LOCALS = 262,
+        BEGIN_BODY = 263,
+        END_BODY = 264,
         INTEGER = 265,
         ARRAY = 266,
         OF = 267,
@@ -454,7 +453,8 @@ namespace yy {
         R_SQUARE_BRACKET = 302,
         ASSIGN = 303,
         IDENTIFIER = 304,
-        NUMBER = 305
+        NUMBER = 305,
+        UMINUS = 306
       };
     };
 
@@ -503,8 +503,6 @@ namespace yy {
   basic_symbol (typename Base::kind_type t, const std::vector<ExprStruct> v, const location_type& l);
 
   basic_symbol (typename Base::kind_type t, const std::vector<StatementStruct> v, const location_type& l);
-
-  basic_symbol (typename Base::kind_type t, const std::vector<std::string> v, const location_type& l);
 
 
       /// Constructor for symbols with semantic value.
@@ -583,27 +581,27 @@ namespace yy {
 
     static inline
     symbol_type
-    make_BEGINPARAMS (const location_type& l);
+    make_BEGIN_PARAMS (const location_type& l);
 
     static inline
     symbol_type
-    make_ENDPARAMS (const location_type& l);
+    make_END_PARAMS (const location_type& l);
 
     static inline
     symbol_type
-    make_BEGINLOCALS (const location_type& l);
+    make_BEGIN_LOCALS (const location_type& l);
 
     static inline
     symbol_type
-    make_ENDLOCALS (const location_type& l);
+    make_END_LOCALS (const location_type& l);
 
     static inline
     symbol_type
-    make_BEGINBODY (const location_type& l);
+    make_BEGIN_BODY (const location_type& l);
 
     static inline
     symbol_type
-    make_ENDBODY (const location_type& l);
+    make_END_BODY (const location_type& l);
 
     static inline
     symbol_type
@@ -768,6 +766,10 @@ namespace yy {
     static inline
     symbol_type
     make_NUMBER (const int& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_UMINUS (const location_type& l);
 
 
     /// Build a parser object.
@@ -974,12 +976,12 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 220,     ///< Last index in yytable_.
-      yynnts_ = 24,  ///< Number of nonterminal symbols.
-      yyfinal_ = 3, ///< Termination state number.
+      yylast_ = 205,     ///< Last index in yytable_.
+      yynnts_ = 22,  ///< Number of nonterminal symbols.
+      yyfinal_ = 2, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 51  ///< Number of tokens.
+      yyntokens_ = 52  ///< Number of tokens.
     };
 
 
@@ -1024,9 +1026,9 @@ namespace yy {
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50
+      45,    46,    47,    48,    49,    50,    51
     };
-    const unsigned int user_token_number_max_ = 305;
+    const unsigned int user_token_number_max_ = 306;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -1059,20 +1061,22 @@ namespace yy {
   {
       switch (other.type_get ())
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.copy< ExprStruct > (other.value);
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.copy< StatementStruct > (other.value);
         break;
 
@@ -1081,23 +1085,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.copy< std::string > (other.value);
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.copy< std::vector<ExprStruct> > (other.value);
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.copy< std::vector<StatementStruct> > (other.value);
-        break;
-
-      case 60: // id_loop
-        value.copy< std::vector<std::string> > (other.value);
         break;
 
       default:
@@ -1117,20 +1117,22 @@ namespace yy {
     (void) v;
       switch (this->type_get ())
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.copy< ExprStruct > (v);
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.copy< StatementStruct > (v);
         break;
 
@@ -1139,23 +1141,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.copy< std::string > (v);
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.copy< std::vector<ExprStruct> > (v);
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.copy< std::vector<StatementStruct> > (v);
-        break;
-
-      case 60: // id_loop
-        value.copy< std::vector<std::string> > (v);
         break;
 
       default:
@@ -1215,13 +1213,6 @@ namespace yy {
     , location (l)
   {}
 
-  template <typename Base>
-  parser::basic_symbol<Base>::basic_symbol (typename Base::kind_type t, const std::vector<std::string> v, const location_type& l)
-    : Base (t)
-    , value (v)
-    , location (l)
-  {}
-
 
   template <typename Base>
   inline
@@ -1248,20 +1239,22 @@ namespace yy {
     // Type destructor.
     switch (yytype)
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.template destroy< ExprStruct > ();
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.template destroy< StatementStruct > ();
         break;
 
@@ -1270,23 +1263,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.template destroy< std::string > ();
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.template destroy< std::vector<ExprStruct> > ();
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.template destroy< std::vector<StatementStruct> > ();
-        break;
-
-      case 60: // id_loop
-        value.template destroy< std::vector<std::string> > ();
         break;
 
       default:
@@ -1312,20 +1301,22 @@ namespace yy {
     super_type::move(s);
       switch (this->type_get ())
     {
-      case 54: // program
-      case 59: // declaration
-      case 65: // bool_expr
-      case 66: // relation_and_expr
-      case 67: // relation_expr
-      case 69: // expression
-      case 70: // mult_expr
-      case 72: // term
-      case 74: // var
+      case 53: // program
+      case 58: // declaration
+      case 64: // bool_expr
+      case 65: // relation_and_expr
+      case 66: // relation_expr
+      case 68: // expression
+      case 69: // mult_expr
+      case 71: // term
+      case 73: // var
         value.move< ExprStruct > (s.value);
         break;
 
-      case 55: // function
-      case 61: // statement
+      case 54: // function
+      case 55: // identifier
+      case 59: // identifier_loop
+      case 60: // statement
         value.move< StatementStruct > (s.value);
         break;
 
@@ -1334,23 +1325,19 @@ namespace yy {
         break;
 
       case 49: // IDENTIFIER
-      case 68: // comp
-      case 71: // mulop
+      case 67: // comp
+      case 70: // mulop
         value.move< std::string > (s.value);
         break;
 
-      case 57: // declaration_loop
-      case 64: // var_loop
-      case 73: // expression_loop
+      case 56: // declaration_loop
+      case 63: // var_loop
+      case 72: // expression_loop
         value.move< std::vector<ExprStruct> > (s.value);
         break;
 
-      case 58: // statement_loop
+      case 57: // statement_loop
         value.move< std::vector<StatementStruct> > (s.value);
-        break;
-
-      case 60: // id_loop
-        value.move< std::vector<std::string> > (s.value);
         break;
 
       default:
@@ -1413,7 +1400,7 @@ namespace yy {
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
      295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305
+     305,   306
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1431,39 +1418,39 @@ namespace yy {
   }
 
   parser::symbol_type
-  parser::make_BEGINPARAMS (const location_type& l)
+  parser::make_BEGIN_PARAMS (const location_type& l)
   {
-    return symbol_type (token::BEGINPARAMS, l);
+    return symbol_type (token::BEGIN_PARAMS, l);
   }
 
   parser::symbol_type
-  parser::make_ENDPARAMS (const location_type& l)
+  parser::make_END_PARAMS (const location_type& l)
   {
-    return symbol_type (token::ENDPARAMS, l);
+    return symbol_type (token::END_PARAMS, l);
   }
 
   parser::symbol_type
-  parser::make_BEGINLOCALS (const location_type& l)
+  parser::make_BEGIN_LOCALS (const location_type& l)
   {
-    return symbol_type (token::BEGINLOCALS, l);
+    return symbol_type (token::BEGIN_LOCALS, l);
   }
 
   parser::symbol_type
-  parser::make_ENDLOCALS (const location_type& l)
+  parser::make_END_LOCALS (const location_type& l)
   {
-    return symbol_type (token::ENDLOCALS, l);
+    return symbol_type (token::END_LOCALS, l);
   }
 
   parser::symbol_type
-  parser::make_BEGINBODY (const location_type& l)
+  parser::make_BEGIN_BODY (const location_type& l)
   {
-    return symbol_type (token::BEGINBODY, l);
+    return symbol_type (token::BEGIN_BODY, l);
   }
 
   parser::symbol_type
-  parser::make_ENDBODY (const location_type& l)
+  parser::make_END_BODY (const location_type& l)
   {
-    return symbol_type (token::ENDBODY, l);
+    return symbol_type (token::END_BODY, l);
   }
 
   parser::symbol_type
@@ -1712,10 +1699,16 @@ namespace yy {
     return symbol_type (token::NUMBER, v, l);
   }
 
+  parser::symbol_type
+  parser::make_UMINUS (const location_type& l)
+  {
+    return symbol_type (token::UMINUS, l);
+  }
+
 
 
 } // yy
-#line 1719 "y.tab.hh" // lalr1.cc:377
+#line 1712 "y.tab.hh" // lalr1.cc:377
 
 
 

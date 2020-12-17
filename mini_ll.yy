@@ -155,9 +155,9 @@
 %type  <ExprStruct> program declaration var expression term mult_expr bool_expr relation_and_expr relation_expr
 
 %type  <std::vector<StatementStruct>> statement_loop
-%type  <StatementStruct> statement function
+%type  <StatementStruct> statement function identifier identifier_loop
 
-%type  <std::vector<std::string>> id_loop
+
 %type  <std::string> mulop comp
 
 
@@ -168,6 +168,7 @@
 %left  LT GT LTE GTE EQ NEQ
 %left  ADD SUB
 %left  MULT DIV MOD
+%right UMINUS
 %left  L_SQUARE_BRACKET R_SQUARE_BRACKET
 %left  L_PAREN R_PAREN
 	/* end of token specifications */
@@ -198,14 +199,12 @@ function: FUNCTION identifier SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS
 	;
 
 identifier: 
-	IDENT {$$ = $1;}
+	IDENTIFIER {$$ = $1;}
 	;
 
-number:
-	NUMBER {cout << "number -> NUMBER " << $1 << endl;} /*make sure this is right and/or neccesary*/
-	;
 
-declaration_loop: 
+
+declaration_loop: /*deleted a number grammar right above this*/
 	/*for epsilon*/ 
 	{
 	$$.code = "";
@@ -240,14 +239,14 @@ declaration: identifier_loop COLON INTEGER
                 $$.ids.push_back(*it);
         }
         }
-	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER 
 	{
 	for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
 		$$.code += ".[] " + *it + ", " + to_string($5) + "\n";
 		$$.ids.push_back(*it);
 	}
 	}
-	|identifier_loop COLON ARRAY L_SQUARE_BRACKET number R_SQUARE_BRACKET L_SQUARE_BRACKET number R_SQUARE_BRACKET OF INTEGER 
+	|identifier_loop COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER 
 	{
 	for(list<string>::iterator it = $1.begin(); it != $1.end(); i++) {
                 $$.code += ".[] " + *it + ", " + to_string($5*$8) + "\n";
@@ -269,27 +268,6 @@ identifier_loop: identifier
 	}
 	;
 
-
-id_loop:
-
-    IDENTIFIER {
-
-        debug_print("id_loop -> IDENTIFIER");
-        $$.push_back($1);
-    }
-
-    | id_loop COMMA IDENTIFIER {
-
-        debug_print("id_loop -> id_loop COMMA IDENTIFIER");
-               
-        // Maintain id_loop's vector         
-        for (std::string s : $1) {
-            $$.push_back(s);
-        }
-                        
-        $$.push_back($3);
-    }
-;
 
 statement:
 
