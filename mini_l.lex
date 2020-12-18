@@ -59,7 +59,7 @@
 "\n"            {position = 0; line++;}
 [ \t]+          {position += yyleng;}
 
-[0-9]+									  {yylval.intVal = atoi(yytext); position += yyleng; return NUMBER;}
+[0-9]+									  {yylval.intVal = atoi(yytext); position += yyleng; return number;}
 [a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]		  {yylval.charVal = yytext; position += yyleng; return IDENT;} 
 [a-zA-Z][a-zA-Z0-9]*					  {yylval.charVal = yytext; position += yyleng; return IDENT;}
 [0-9_][a-zA-Z0-9_]*[a-zA-Z0-9_]           {printf("Error at line %d, position %d: Identifier \"%s\" must begin with a letter\n",line,position,yytext);position += yyleng; exit(0);} 

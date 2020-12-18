@@ -378,6 +378,15 @@ var: identifier {cout << "var -> identifier" << endl;}
 
 %%
 
+string generateReg() {
+	static int i = 0;
+	return "tempR" + to_string(i++);
+}
+string generateLabel() {
+	static int i = 0;
+	return "tempL" + to_string(i++);
+}
+
 int main(int argc, char *argv[])
 {
 	yy::parser p;
